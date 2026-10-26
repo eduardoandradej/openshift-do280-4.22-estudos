@@ -149,8 +149,8 @@ sobre a limpeza de Users/Identities no GE 3.2.
 | p. 173 | "Namespaces não recebem labels automaticamente" | Todo namespace tem `kubernetes.io/metadata.name` (a própria saída do GE mostra) |
 | p. 149 × p. 178 | Passthrough "mais seguro" × re-encrypt "o mais seguro" | Lição explica que ambos cifram ponta a ponta |
 | p. 178 | "Edge é o tipo padrão" | Nota: em manifestos de Route com `spec.tls`, `termination` é obrigatório |
-| p. 151–152 | `lab start` cria o projeto e o passo 1 manda criá-lo | Prática oficial: usar `oc project` |
-| p. 158 | Prompt em outro diretório ao criar o Secret TLS | Prática oficial: criar a partir do diretório dos certificados |
+| p. 151–152 | Texto diz que o `lab start` cria o projeto e o passo 1 manda criá-lo | Inconsistência só do texto: seguindo o PDF, o passo funciona (confirmado pelo usuário); prática oficial explica o que fazer se repetir a atividade |
+| p. 158 | Prompt impresso em outro diretório ao criar o Secret TLS | Inconsistência só do texto: na sequência do PDF o comando funciona |
 | p. 152 | `oc status` mostra tag de imagem diferente da citada | Inconsistência de saída sem impacto |
 | p. 149, 154–156 | Route edge sem `--key/--cert` usaria certificado "da CA interna do Ingress Operator" | É o certificado padrão do ingress controller; no laboratório ele foi substituído e o `issuer` é a CA da sala de aula (revisão pós-entrega) |
 
@@ -168,6 +168,11 @@ substitui as CAs do sistema no container; reinício após rotação de certifica
 `termination` obrigatório em `spec.tls`.
 
 ## Regra nova (decisão do usuário)
+
+Ajuste posterior: o usuário confirmou que os exercícios guiados rodam sem erro quando
+os comandos do PDF são copiados na ordem. As armadilhas passaram a distinguir
+inconsistência do texto × erro fora da sequência (Cap. 4 revisado).
+
 
 Cada atividade oficial agora tem a seção **Armadilhas do ambiente** no
 `PRATICA-OFICIAL.md` (registrada no `CLAUDE.md` e no modelo). Aplicada retroativamente:

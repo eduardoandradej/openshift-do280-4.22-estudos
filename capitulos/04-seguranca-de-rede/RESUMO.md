@@ -84,8 +84,8 @@ mindmap
 | Exemplo de ANP (p. 167) | `matchLabels: {sensitive: true}` | Booleano é recusado; use `"true"` (verificado com os tipos da API) |
 | Labels de namespace (p. 173) | "Namespaces não recebem labels automaticamente" | Todo namespace tem `kubernetes.io/metadata.name` (a própria saída do exercício mostra) |
 | "Mais seguro" (p. 149 × p. 178) | Passthrough "mais seguro" em 4.1; re-encrypt "o mais seguro" em 4.5 | Ambos cifram ponta a ponta; escolha pelo requisito |
-| GE 4.2 (p. 151–152) | O `lab start` cria o projeto, e o passo 1 manda criá-lo | Basta `oc project`; ver armadilhas na prática oficial |
-| GE 4.2 (p. 158) | Prompt mostra outro diretório ao criar o Secret TLS | Criar a partir do diretório dos certificados |
+| GE 4.2 (p. 151–152) | O texto diz que o `lab start` cria o projeto, e o passo 1 manda criá-lo | Só do texto: seguindo o PDF, funciona; ver a prática oficial se repetir a atividade |
+| GE 4.2 (p. 158) | Prompt impresso em outro diretório ao criar o Secret TLS | Só do texto: na sequência do PDF, o comando funciona |
 | GE 4.2 (p. 154–156) | Certificado da Route edge "criado pela CA do Ingress Operator" | A saída mostra a CA da sala de aula: é o certificado padrão do ingress controller, substituído no laboratório |
 
 ## Ligação com o próximo capítulo

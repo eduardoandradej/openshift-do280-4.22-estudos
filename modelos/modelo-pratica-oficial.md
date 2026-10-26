@@ -36,9 +36,9 @@ lab finish <identificador>
 
 **Armadilhas do ambiente:**
 
-| Ponto | O que acontece | Como seguir sem erro |
-|-------|----------------|----------------------|
-| <inconsistência do PDF ou descuido comum> | <erro que aparece no ambiente> | <forma de seguir o enunciado sem erro> |
+| Ponto | Quando vira problema | Como agir |
+|-------|----------------------|-----------|
+| <inconsistência do texto ou desvio da sequência> | <em que situação o erro aparece; seguindo o PDF na ordem não há erro> | <como seguir sem erro> |
 
 **Verificação conceitual:** <como saber, por conta própria, que o estado final está correto>
 

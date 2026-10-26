@@ -52,10 +52,13 @@ oficiais, que são executados **somente** no ambiente da Red Hat.
 - Regra central: **simplificar a explicação, nunca simplificar incorretamente a tecnologia.**
 - **Atividades oficiais sem erro no ambiente (decisão do usuário, 2026-10-26):** cada
   `PRATICA-OFICIAL.md` precisa refletir exatamente o enunciado do PDF e não pode sugerir
-  nada que cause erro no ambiente de laboratório. Para cada atividade, registrar em
-  **Armadilhas do ambiente** as inconsistências do PDF (ex.: projeto já criado pelo
-  `lab start`, prompt em diretório errado, passos que exigem outro usuário) e a forma
-  de seguir o material sem erro. Comandos de lições que afetam o cluster inteiro ou o
+  nada que cause erro no ambiente de laboratório. O usuário confirmou que, seguindo os
+  passos do PDF **na ordem** (copiando os comandos), os exercícios rodam sem erro. Por
+  isso, **Armadilhas do ambiente** registra só: (a) inconsistências do **texto impresso**
+  que confundem a leitura (sem afirmar que causam erro quando não causam); e (b) erros
+  que aparecem **fora da sequência** (repetir atividade, pular/inverter passos, outro
+  usuário ou diretório), dizendo quando ocorrem e como agir. Nunca afirmar um erro que
+  não foi confirmado. Comandos de lições que afetam o cluster inteiro ou o
   ambiente do curso (ex.: rotacionar a CA do service-ca, apagar `kubeadmin`) recebem
   aviso ⛔ explícito de "não executar no ambiente do curso".
 

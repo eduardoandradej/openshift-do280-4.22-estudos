@@ -5,9 +5,12 @@
 > **seguindo o enunciado do PDF**. As credenciais, nomes, hostnames e arquivos estão no
 > enunciado de cada atividade. Nenhum comando `lab` é executado por este repositório.
 >
-> Cada atividade traz uma seção **Armadilhas do ambiente**: pontos em que o texto do
-> PDF tem uma inconsistência ou em que um descuido gera erro no ambiente, com a forma de
-> seguir o material **sem quebrar nada**. Nada aqui substitui ou altera os passos oficiais.
+> **Seguindo os passos do PDF na ordem, copiando os comandos, as atividades rodam sem
+> erro** (confirmado no ambiente pelo usuário deste repositório). A seção **Armadilhas do
+> ambiente** de cada atividade registra apenas: (a) trechos em que o **texto impresso** do
+> PDF é inconsistente e pode confundir quem lê sem executar; e (b) situações em que o erro
+> aparece **se você sair da sequência** (repetir uma atividade, pular ou inverter passos,
+> usar outro usuário ou outro diretório). Nada aqui substitui ou altera os passos oficiais.
 
 ## Visão geral
 
@@ -64,13 +67,13 @@ lab finish network-ingress
 
 **Armadilhas do ambiente:**
 
-| Ponto | O que acontece | Como seguir sem erro |
+| Ponto | Quando vira problema | Como agir |
 |-------|----------------|----------------------|
-| Criação do projeto (passo 1) | O próprio `lab start` **já cria** o projeto da atividade e dá `edit` ao `developer` (dito no PDF, p. 151); o passo seguinte manda criá-lo de novo. Se o `oc new-project` responder que o projeto já existe | Não é falha. Entre no projeto com `oc project <projeto>` e siga. Se ele for criado normalmente, siga também |
+| Criação do projeto (passo 1) | Texto: a introdução diz que o `lab start` cria o projeto, e o passo 1 manda criá-lo; seguindo o PDF, o passo 1 funciona. O `already exists` só apareceria se o projeto sobrasse de uma execução anterior (ex.: repetir sem `lab finish` concluído) | Se aparecer, `oc project <projeto>` e siga; para repetir do zero, `lab finish` e depois `lab start` |
 | Captura com `tcpdump` | Exige `sudo`; o nome da interface pode diferir do mostrado | Confirme a interface do IP do `workstation` com `ip addr` antes; encerre com Ctrl+C |
 | Assunto do CSR (`-subj`) | Quebrar a linha dentro das aspas gera um assunto errado | Digite o `-subj` em **uma** linha (aviso do próprio PDF) ou responda ao prompt interativo |
-| Diretório ao criar o Secret TLS | Os arquivos `.crt` e `.key` foram gerados no subdiretório de certificados; o prompt do PDF no passo de criação do Secret mostra outro diretório | Crie o Secret **antes** de sair do diretório dos certificados, ou informe o caminho relativo correto. `error: open ...: no such file or directory` indica diretório errado |
-| Nome da Route passthrough | Ela usa o mesmo nome da Route edge criada antes | Apague a Route edge no passo indicado antes de criar a passthrough (senão: `AlreadyExists`) |
+| Diretório ao criar o Secret TLS | Texto: o prompt impresso nesse passo mostra outro diretório, mas, na sequência do PDF, você ainda está no diretório dos certificados e o comando funciona. Só falha se você mudar de diretório antes | Execute na ordem; se mudou de diretório, use o caminho relativo dos certificados |
+| Nome da Route passthrough | Usa o mesmo nome da Route edge; o PDF manda apagar a edge antes. Só falha (`AlreadyExists`) se esse passo for pulado | Siga a ordem do PDF |
 | Saída de `oc status` | A tag de imagem exibida no PDF difere da tag citada no texto | Diferença do material; confie no arquivo da atividade |
 | Aviso do Firefox e emissor da Route edge | "Emissor não reconhecido pela Mozilla"; o texto do PDF atribui o certificado à CA do Ingress Operator, mas o `issuer` mostrado é a CA da sala de aula | Esperado: o certificado padrão do ingress do laboratório foi substituído pela CA da sala de aula (ver 4.1) |
 | Curl dentro do Pod de debug | O Pod não tem a CA de treinamento | O `-k` usado ali é intencional; fora do cluster use `--cacert` |
@@ -111,7 +114,7 @@ lab finish network-policy
 
 **Armadilhas do ambiente:**
 
-| Ponto | O que acontece | Como seguir sem erro |
+| Ponto | Quando vira problema | Como agir |
 |-------|----------------|----------------------|
 | Nomes e IPs dos Pods | Diferem dos do PDF | Use a saída do script de informações fornecido pela atividade (segundo terminal) |
 | Projeto atual ao criar políticas | No meio do exercício o projeto atual passa a ser o **outro** namespace | Crie as políticas com `-n <projeto-de-destino>`, como o PDF faz; sem `-n`, a política vai para o projeto errado e os testes não batem |
@@ -152,9 +155,9 @@ lab finish network-svccerts
 
 **Armadilhas do ambiente:**
 
-| Ponto | O que acontece | Como seguir sem erro |
+| Ponto | Quando vira problema | Como agir |
 |-------|----------------|----------------------|
-| Projeto e recursos iniciais | O `lab start` já cria o projeto, o Deployment do servidor e um Pod de teste sem CA | Não crie o projeto; apenas entre nele |
+| Projeto e recursos iniciais | O `lab start` já cria o projeto, o Deployment do servidor e um Pod de teste sem CA; o PDF apenas entra no projeto | Não é preciso criar nada além do que os passos pedem |
 | Patch do servidor | O arquivo fornecido tem placeholders; o nome do container precisa ser o real | Preencha conforme o enunciado; um nome de container errado faz o patch tentar **adicionar** um container sem imagem (recusado) |
 | Ordem anotação → montagem | Montar um Secret que ainda não existe deixa o Pod pendente | Anote o Service e confirme o Secret antes de aplicar o patch |
 | ConfigMap do bundle | O service-ca **substitui todo** o conteúdo do ConfigMap anotado | Use o ConfigMap vazio e dedicado que o enunciado pede |
@@ -197,7 +200,7 @@ lab finish network-review
 
 **Armadilhas do ambiente:**
 
-| Ponto | O que acontece | Como seguir sem erro |
+| Ponto | Quando vira problema | Como agir |
 |-------|----------------|----------------------|
 | Projeto | O `lab start` já cria o projeto e implanta os dois microsserviços | Só entre no projeto e no diretório da atividade |
 | Estado intermediário | Depois de habilitar TLS no microsserviço interno e **antes** de o outro passar a usar HTTPS, a API devolve o valor de falha descrito no enunciado | Esperado durante a transição; siga a ordem dos passos |
