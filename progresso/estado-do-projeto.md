@@ -91,13 +91,13 @@ Comportamentos testados localmente (kustomize v5.7.1): `labels` × `commonLabels
 | Desenvolver o Capítulo 2 | Ao receber o PDF do Capítulo 2 |
 | Ampliar `consulta-rapida` e `exemplos-originais` | A cada capítulo |
 | Assuntos herdados do DO180: SCC, RBAC, LimitRange/ResourceQuota, TLS em Routes, criptografia do etcd | Caps. 3, 4, 6 e 8 |
-| Tornar o repositório **privado** (hoje está **público** no GitHub) | Ação do usuário: Settings › General › Danger Zone › Change visibility |
+| Tornar o repositório **privado** (hoje está **público** no GitHub) | O usuário fará depois: Settings › General › Danger Zone › Change visibility |
 
 ## Publicação
 
 - Repositório: `eduardoandradej/openshift-do280-4.22-estudos` (já existia com `LICENSE` Apache-2.0; nada foi sobrescrito).
 - Visibilidade verificada em 2026-10-26: **pública** (criado assim pelo usuário). A regra do projeto pede **privado**; a alteração depende do usuário, pois as ferramentas da sessão não mudam visibilidade.
-- Branch de trabalho desta sessão: `claude/gallant-shannon-b4zr78` (push direto nesse branch; sem PR, salvo pedido).
+- Fluxo de publicação: por decisão do usuário (2026-10-26), o conteúdo validado vai direto para o branch `main`, sem PR. O primeiro commit foi feito em `claude/gallant-shannon-b4zr78` e integrado à `main` por fast-forward.
 - Último commit relevante: ver `git log` do branch acima (commit do Capítulo 1).
 
 ## Próximo passo

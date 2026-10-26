@@ -73,9 +73,9 @@ Cada capítulo em `capitulos/NN-nome/` contém:
 - Não executar comandos `lab` nem exercícios oficiais; não criar simuladores,
   ambientes paralelos, scripts de infraestrutura nem avaliadores próprios.
 - Exemplos de Secret ficam com valores fictícios e evidentes (`troque-me`).
-- **Visibilidade:** o repositório deve ser **privado** até decisão explícita do
-  usuário. A visibilidade pública do DO180 **não** autoriza tornar este público.
-  Mesmo assim, todo conteúdo deve ser seguro para leitura pública.
+- **Visibilidade:** o repositório deve ser **privado**. Em 2026-10-26 ele estava
+  público; o usuário decidiu publicar primeiro e torná-lo privado depois. Por isso
+  todo conteúdo deve ser seguro para leitura pública.
 - Não publicar material restrito da assinatura Red Hat.
 
 ## 6. Fluxo de trabalho por capítulo (metodologia incremental)
@@ -90,7 +90,8 @@ Cada capítulo em `capitulos/NN-nome/` contém:
    varredura de senhas/e-mail/marca d'água, português revisado, sem transcrição.
 6. Atualizar `progresso/estado-do-projeto.md`, `progresso/checklist-geral.md`,
    `progresso/objetivos-de-aprendizagem.md`, `certificacao/` e o `README.md`.
-7. Commit organizado por capítulo e push no branch de trabalho indicado na sessão.
+7. Commit organizado por capítulo e push direto no branch `main` (decisão do
+   usuário em 2026-10-26: material de estudo, sem PR).
 8. Relatar o resultado e **parar**. Não avançar para o capítulo seguinte sem o PDF.
 
 Capítulos sem PDF ficam com README mínimo marcado `⏳ Aguardando PDF do capítulo`.
