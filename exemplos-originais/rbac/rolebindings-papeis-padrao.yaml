@@ -1,0 +1,42 @@
+# ClusterRoles padrão concedidas em UM projeto por RoleBindings (exemplo autoral)
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: desenvolvedores-edit
+  namespace: loja
+subjects:
+  - kind: Group
+    apiGroup: rbac.authorization.k8s.io
+    name: desenvolvedores
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: edit
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: qa-view
+  namespace: loja
+subjects:
+  - kind: Group
+    apiGroup: rbac.authorization.k8s.io
+    name: qa
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: view
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: pipeline-edit
+  namespace: loja
+subjects:
+  - kind: ServiceAccount
+    name: pipeline
+    namespace: loja
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: edit

@@ -1,6 +1,6 @@
 # Troubleshooting: sintoma → causa → verificação
 
-> Cobertura: **Capítulos 1–2**. Para Pods, Services, Routes, storage e recursos, veja o
+> Cobertura: **Capítulos 1–3**. Para Pods, Services, Routes, storage e recursos, veja o
 > [troubleshooting do DO180](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/consulta-rapida/troubleshooting.md).
 
 ## Roteiro geral para mudanças declarativas
@@ -66,6 +66,28 @@ flowchart TD
 | Valor anterior "sumiu" após upgrade | Valores novos não reaproveitam os antigos | `helm get values <r>`; arquivo de valores completo |
 | `another operation ... is in progress` | Release em `pending-*` | `helm history`; rollback para a última `deployed` |
 | Repositório não aparece na console | `helm repo add` é local | `HelmChartRepository` / `ProjectHelmChartRepository` |
+
+## Autenticação (Cap. 3)
+
+| Sintoma | Causa provável | Como verificar / resolver |
+|---------|----------------|---------------------------|
+| `401 Unauthorized` logo após mudar Secret/OAuth | Pods `oauth-openshift` reimplantando | `oc get pods -n openshift-authentication`; aguardar |
+| `401` persistente para usuário novo | Usuário fora do Secret, chave ≠ `htpasswd`, Secret fora de `openshift-config` | `oc extract secret/<s> -n openshift-config --to -` |
+| IdP antigo (LDAP) sumiu | Lista `identityProviders` substituída | `oc get oauth cluster -o yaml`; restaurar o item |
+| Usuários antigos perderam acesso | `htpasswd -c` em arquivo existente ou cópia desatualizada | Extrair sempre antes de editar |
+| Erro de mapeamento ao logar | `mappingMethod: claim` e User ligado a outro IdP | `oc get user <u> -o yaml`; limpar User/Identity |
+| Usuário removido ainda listado | User/Identity não apagados | `oc delete user`, `oc delete identity` |
+
+## Autorização / RBAC (Cap. 3)
+
+| Sintoma | Causa provável | Como verificar / resolver |
+|---------|----------------|---------------------------|
+| `cannot <verbo> resource "<r>" ... at the cluster scope` | Falta ClusterRoleBinding | `oc auth can-i <verbo> <r> --as <u>`; papel de cluster mínimo |
+| `cannot <verbo> resource "<r>" ... in the namespace "<p>"` | Falta RoleBinding no projeto | `oc get rolebindings -o wide -n <p>` |
+| `cannot list resource "rolebindings"` ao conceder acesso | Quem concede não é `admin` do projeto | `oc auth can-i create rolebindings -n <p>` |
+| Acesso concedido não funciona | Projeto, nome de usuário/grupo errado ou usuário fora do grupo | `oc describe rolebinding`; `oc get groups` |
+| Admin "de projeto" não vê nós | `cluster-admin` concedido como RoleBinding | `add-cluster-role-to-user` |
+| Acesso indevido | Vínculo herdado por grupo (inclusive LDAP/virtual) | `oc adm policy who-can <verbo> <r>` |
 
 ---
 [Início](../README.md)

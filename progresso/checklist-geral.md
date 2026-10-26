@@ -31,12 +31,12 @@ que você já executou seus laboratórios.
 - [ ] REVISAO.md
 - [ ] RESUMO.md
 
-## Capítulo 3 — Authentication and Authorization (⏳ documentação aguardando PDF)
+## Capítulo 3 — Authentication and Authorization
 - [ ] 3.1 Configuring the HTPasswd Identity Provider
-- [ ] 3.2 GE Configure Identity Providers
+- [ ] 3.2 GE `auth-providers`
 - [ ] 3.3 Defining and Applying Permissions with RBAC
-- [ ] 3.4 GE Define and Apply Permissions with RBAC
-- [ ] 3.5 Lab Configure Authentication and Authorization
+- [ ] 3.4 GE `auth-rbac`
+- [ ] 3.5 Lab `auth-review` (`lab grade`)
 - [ ] REVISAO.md
 - [ ] RESUMO.md
 

@@ -45,7 +45,7 @@ flowchart LR
 | [00 — Comece aqui](00-comecar-aqui/README.md) | Sobre o curso, ambiente oficial, comando `lab`, ponte com o DO180 | ✅ |
 | [Capítulo 1](capitulos/01-gerenciamento-declarativo/README.md) | Declarative Resource Management | ✅ |
 | [Capítulo 2](capitulos/02-aplicacoes-empacotadas/README.md) | Deploying Packaged Applications | ✅ |
-| [Capítulo 3](capitulos/03-autenticacao-autorizacao/README.md) | Authentication and Authorization | ⏳ Aguardando PDF |
+| [Capítulo 3](capitulos/03-autenticacao-autorizacao/README.md) | Authentication and Authorization | ✅ |
 | [Capítulo 4](capitulos/04-seguranca-de-rede/README.md) | Network Security | ⏳ Aguardando PDF |
 | [Capítulo 5](capitulos/05-redes-nao-http/README.md) | Exposing Non-HTTP/SNI Applications | ⏳ Aguardando PDF |
 | [Capítulo 6](capitulos/06-autosservico/README.md) | Enabling Developer Self-service | ⏳ Aguardando PDF |
@@ -66,14 +66,14 @@ O status refere-se à **documentação**, não ao seu estudo.
 | [troubleshooting.md](consulta-rapida/troubleshooting.md) | Sintoma → causa provável → como verificar |
 | [glossario.md](consulta-rapida/glossario.md) | Termos em ordem alfabética |
 
-Cobertura atual: Capítulos 1 e 2. Cada arquivo remete à consulta rápida do DO180 para os
+Cobertura atual: Capítulos 1 a 3. Cada arquivo remete à consulta rápida do DO180 para os
 assuntos anteriores.
 
 ## Outros diretórios
 
 | Diretório | Conteúdo |
 |-----------|----------|
-| [exemplos-originais/](exemplos-originais/README.md) | Manifestos, kustomizations, template e chart Helm autorais, validados |
+| [exemplos-originais/](exemplos-originais/README.md) | Manifestos, kustomizations, template, chart Helm, OAuth e RBAC autorais, validados |
 | [certificacao/](certificacao/README.md) | Matriz de competências EX280 |
 | [progresso/](progresso/estado-do-projeto.md) | Estado da documentação, checklist, diário, objetivos, dificuldades |
 | [modelos/](modelos/modelo-licao.md) | Modelos de lição, capítulo e prática oficial |

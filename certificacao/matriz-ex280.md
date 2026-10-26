@@ -15,7 +15,7 @@
 | Gerenciar o OpenShift: console, CLI, consultar/formatar/filtrar atributos, logs, eventos, diagnóstico de containers, Pods e cluster | [2.1](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/02-cli-e-apis/2.1-interfaces-de-linha-de-comando.md) · [2.3](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/02-cli-e-apis/2.3-inspecionar-recursos-kubernetes.md) · [2.5](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/02-cli-e-apis/2.5-avaliar-a-saude-do-cluster.md) · [3.5](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/03-containers-e-pods/3.5-diagnosticar-containers-e-pods.md) | Reforço em todos os capítulos (diagnóstico) |
 | Implantar aplicações a partir de manifestos e gerenciá-las de forma declarativa (incluindo Kustomize) | [4.1](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/04-deploy-e-redes/4.1-implantar-a-partir-de-imagem-e-template.md) | ✅ [1.1](../capitulos/01-gerenciamento-declarativo/1.1-manifestos-de-recursos.md) · ✅ [1.3](../capitulos/01-gerenciamento-declarativo/1.3-overlays-do-kustomize.md) |
 | Implantar aplicações empacotadas (templates, Helm) | [4.1](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/04-deploy-e-redes/4.1-implantar-a-partir-de-imagem-e-template.md) | ✅ [2.1](../capitulos/02-aplicacoes-empacotadas/2.1-templates-do-openshift.md) · ✅ [2.3](../capitulos/02-aplicacoes-empacotadas/2.3-charts-do-helm.md) |
-| Gerenciar autenticação (provedor HTPasswd, usuários, grupos) e autorização (RBAC) | — | ⏳ Cap. 3 |
+| Gerenciar autenticação (provedor HTPasswd, usuários, grupos) e autorização (RBAC) | — | ✅ [3.1](../capitulos/03-autenticacao-autorizacao/3.1-provedor-de-identidade-htpasswd.md) · ✅ [3.3](../capitulos/03-autenticacao-autorizacao/3.3-permissoes-com-rbac.md) |
 | Proteger o tráfego de rede (TLS em Routes, NetworkPolicies, TLS interno) | [4.7](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/04-deploy-e-redes/4.7-escalar-e-expor-aplicacoes.md) | ⏳ Cap. 4 |
 | Expor aplicações não HTTP (LoadBalancer) e redes adicionais de Pods | [4.5](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/04-deploy-e-redes/4.5-redes-de-pods-e-services.md) | ⏳ Cap. 5 |
 | Habilitar autosserviço (quotas, limit ranges, template de projeto, self-provisioner) | [6.5](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/06-confiabilidade/6.5-reservar-capacidade-de-computacao.md) · [6.7](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/06-confiabilidade/6.7-limitar-capacidade-de-computacao.md) | ⏳ Cap. 6 |
@@ -47,6 +47,17 @@
 | Configurar repositórios e inspecionar charts | [2.3](../capitulos/02-aplicacoes-empacotadas/2.3-charts-do-helm.md) | Implantar aplicações empacotadas |
 | Instalar, atualizar, reverter e remover releases com valores por ambiente | 2.3 | Implantar e atualizar aplicações |
 | Gerenciar releases pela console (Ecosystem › Helm) | 2.3 | ➕ Uso da console |
+
+## Competências do Capítulo 3
+
+| Competência | Lição | Relação com o EX280 |
+|-------------|-------|---------------------|
+| Configurar o IdP HTPasswd (arquivo, Secret, recurso OAuth) | [3.1](../capitulos/03-autenticacao-autorizacao/3.1-provedor-de-identidade-htpasswd.md) | Gerenciar autenticação |
+| Incluir, alterar senha e remover usuários (User e Identity) | 3.1 | Gerenciar autenticação |
+| Usar kubeconfig de administrador; remover o `kubeadmin` com segurança | 3.1 | Gerenciar autenticação |
+| Conceder `cluster-admin` e outros papéis de cluster | [3.3](../capitulos/03-autenticacao-autorizacao/3.3-permissoes-com-rbac.md) | Gerenciar autorização |
+| Criar grupos e conceder papéis de projeto a usuários e grupos | 3.3 | Gerenciar autorização |
+| Verificar permissões (`who-can`, `oc auth can-i`) | 3.3 | Diagnóstico (➕ `can-i --as`) |
 
 ## Estratégia de treino
 

@@ -11,6 +11,8 @@ laboratório durante uma atividade.
 | [patches/patch-limites.yaml](patches/patch-limites.yaml) | Strategic merge patch para `oc patch --patch-file` | 1.1 |
 | [kustomize-catalogo/](kustomize-catalogo/) | Base + overlays `desenvolvimento` e `producao` (labels, generator com `behavior: merge`, patch em arquivo e JSON Patch inline) | [1.3](../capitulos/01-gerenciamento-declarativo/1.3-overlays-do-kustomize.md) |
 | [template-catalogo/](template-catalogo/) | Template OpenShift com parâmetros (padrão, gerado, `${{...}}`) e arquivo de parâmetros | [2.1](../capitulos/02-aplicacoes-empacotadas/2.1-templates-do-openshift.md) |
+| [oauth/oauth-htpasswd-trecho.yaml](oauth/oauth-htpasswd-trecho.yaml) | Trecho do recurso OAuth com IdP HTPasswd (referência; não aplicar como está) | [3.1](../capitulos/03-autenticacao-autorizacao/3.1-provedor-de-identidade-htpasswd.md) |
+| [rbac/](rbac/) | Role local + RoleBinding; RoleBindings com ClusterRoles padrão para grupo e service account | [3.3](../capitulos/03-autenticacao-autorizacao/3.3-permissoes-com-rbac.md) |
 | [helm-catalogo/](helm-catalogo/) | Chart Helm mínimo (Deployment, Service, Route opcional, `resources` por valores) + `values-producao.yaml` | [2.3](../capitulos/02-aplicacoes-empacotadas/2.3-charts-do-helm.md) |
 
 O patch fica **fora** de `manifestos-catalogo/` de propósito: `oc apply -f <dir>`
@@ -43,6 +45,9 @@ helm template prod exemplos-originais/helm-catalogo -f exemplos-originais/helm-c
 helm install prod exemplos-originais/helm-catalogo -f exemplos-originais/helm-catalogo/values-producao.yaml -n catalogo-prod
 helm uninstall prod -n catalogo-prod
 
+# RBAC (3.3) — exige o projeto loja e os grupos citados
+oc apply -f exemplos-originais/rbac/ --dry-run=server
+
 oc delete project catalogo-dev catalogo-prod
 ```
 
@@ -50,7 +55,7 @@ O arquivo de parâmetros do template usa extensão `.txt` porque o `.gitignore` 
 repositório bloqueia arquivos `.env`.
 
 Regras: nenhum Secret real, nenhuma credencial e nenhum host do ambiente oficial.
-Todos os arquivos são validados antes do commit: parser YAML, `kustomize build` e `helm lint`/`helm template`.
+Todos os arquivos são validados antes do commit: parser YAML, `kustomize build`, `helm lint`/`helm template` e decodificação estrita dos tipos RBAC.
 
 ---
 [Início](../README.md)

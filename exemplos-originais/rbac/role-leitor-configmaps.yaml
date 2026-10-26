@@ -1,0 +1,24 @@
+# Role local: só leitura de ConfigMaps no projeto loja (exemplo autoral)
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: leitor-configmaps
+  namespace: loja
+rules:
+  - apiGroups: [""]          # "" = grupo core (configmaps, pods, services...)
+    resources: ["configmaps"]
+    verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: suporte-leitor-configmaps
+  namespace: loja
+subjects:
+  - kind: Group
+    apiGroup: rbac.authorization.k8s.io
+    name: suporte
+roleRef:                     # imutável: para trocar o papel, recrie o binding
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: leitor-configmaps

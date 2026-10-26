@@ -29,6 +29,9 @@ cada nova entrada. **Não** cole senhas, tokens nem saídas que contenham creden
 | 2.2 | GE `packaged-templates` | | | |
 | 2.4 | GE `packaged-charts` | | | |
 | 2.5 | Lab `packaged-review` (grade) | | | |
+| 3.2 | GE `auth-providers` | | | |
+| 3.4 | GE `auth-rbac` | | | |
+| 3.5 | Lab `auth-review` (grade) | | | |
 
 > Linhas dos próximos capítulos serão acrescentadas quando os identificadores `lab`
 > forem verificados nos respectivos PDFs.

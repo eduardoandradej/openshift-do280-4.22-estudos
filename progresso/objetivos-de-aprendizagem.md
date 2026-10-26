@@ -38,7 +38,17 @@ para compartilhamento e distribuição.
 | Implantar e atualizar aplicações a partir de manifestos empacotados como templates do OpenShift | [2.1](../capitulos/02-aplicacoes-empacotadas/2.1-templates-do-openshift.md) | [ ] |
 | Implantar e atualizar aplicações a partir de manifestos empacotados como charts do Helm | [2.3](../capitulos/02-aplicacoes-empacotadas/2.3-charts-do-helm.md) | [ ] |
 
-## 4. Capítulos 3 a 10
+## 4. Capítulo 3 — Authentication and Authorization (✅ PDF p. 110–145)
+
+Meta do capítulo: configurar a autenticação com o provedor HTPasswd e atribuir papéis
+a usuários e grupos.
+
+| Objetivo da seção | Lição | Estudado? |
+|-------------------|-------|-----------|
+| Explicar provedores de identidade e configurar o provedor HTPasswd | [3.1](../capitulos/03-autenticacao-autorizacao/3.1-provedor-de-identidade-htpasswd.md) | [ ] |
+| Definir controles de acesso baseados em papéis e aplicar permissões a usuários | [3.3](../capitulos/03-autenticacao-autorizacao/3.3-permissoes-com-rbac.md) | [ ] |
+
+## 5. Capítulos 4 a 10
 
 ⏳ Os objetivos de cada seção serão registrados aqui quando os PDFs forem recebidos.
 

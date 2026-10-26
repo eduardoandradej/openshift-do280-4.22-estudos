@@ -1,8 +1,8 @@
 # Exemplos YAML comentados
 
-Todos autorais e validados (`yaml.safe_load`, `kustomize build` v5.7.1 e `helm lint`/`helm template` v3.17). Arquivos
+Todos autorais e validados (`yaml.safe_load`, `kustomize build` v5.7.1, `helm lint`/`helm template` v3.17 e decodificação estrita dos tipos RBAC do Kubernetes). Arquivos
 aplicáveis em [exemplos-originais/](../exemplos-originais/README.md).
-Cobertura: **Capítulos 1–2**.
+Cobertura: **Capítulos 1–3**.
 
 ## Vários manifestos em um arquivo
 
@@ -174,6 +174,54 @@ resources:                    # siga o formato comentado no values.yaml do chart
 ```
 
 Chart completo em [helm-catalogo/](../exemplos-originais/helm-catalogo/).
+
+## IdP HTPasswd no recurso OAuth (trecho)
+
+```yaml
+apiVersion: config.openshift.io/v1
+kind: OAuth
+metadata:
+  name: cluster
+spec:
+  identityProviders:
+    # ... preserve os IdPs existentes ...
+    - name: usuarios-locais        # Identities: usuarios-locais:<usuario>
+      mappingMethod: claim
+      type: HTPasswd
+      htpasswd:
+        fileData:
+          name: htpasswd-usuarios  # Secret em openshift-config, chave "htpasswd"
+```
+
+## Role local + RoleBinding
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: leitor-configmaps
+  namespace: loja
+rules:
+  - apiGroups: [""]                 # grupo core
+    resources: ["configmaps"]
+    verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: suporte-leitor-configmaps
+  namespace: loja
+subjects:
+  - kind: Group                      # também: User, ServiceAccount (com namespace)
+    apiGroup: rbac.authorization.k8s.io
+    name: suporte
+roleRef:                             # imutável
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role                         # ou ClusterRole (ex.: edit, view)
+  name: leitor-configmaps
+```
+
+Mais em [exemplos-originais/rbac/](../exemplos-originais/rbac/).
 
 ---
 [Início](../README.md)
