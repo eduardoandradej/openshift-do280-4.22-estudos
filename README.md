@@ -112,7 +112,7 @@ assuntos anteriores.
 
 ## Aviso
 
-Repositório de estudo pessoal, mantido **privado** até decisão explícita do autor. Ele
+Repositório de estudo pessoal. Ele
 não contém o PDF do curso, extrações de texto, soluções de laboratório nem
 credenciais. Red Hat, OpenShift e nomes relacionados são marcas da Red Hat, Inc. O
 conteúdo oficial do curso pertence à Red Hat e não está incluído aqui.

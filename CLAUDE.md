@@ -73,9 +73,8 @@ Cada capítulo em `capitulos/NN-nome/` contém:
 - Não executar comandos `lab` nem exercícios oficiais; não criar simuladores,
   ambientes paralelos, scripts de infraestrutura nem avaliadores próprios.
 - Exemplos de Secret ficam com valores fictícios e evidentes (`troque-me`).
-- **Visibilidade:** o repositório deve ser **privado**. Em 2026-10-26 ele estava
-  público; o usuário decidiu publicar primeiro e torná-lo privado depois. Por isso
-  todo conteúdo deve ser seguro para leitura pública.
+- **Visibilidade:** decidida pelo usuário. Todo conteúdo deve ser seguro para
+  leitura pública.
 - Não publicar material restrito da assinatura Red Hat.
 
 ## 6. Fluxo de trabalho por capítulo (metodologia incremental)
