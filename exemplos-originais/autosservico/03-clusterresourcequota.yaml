@@ -1,0 +1,17 @@
+# Quota para a soma de todos os projetos com o label equipe=pagamentos (lição 6.1).
+# Recurso de cluster: exige administrador do cluster.
+#   oc label namespace pagamentos-dev equipe=pagamentos
+apiVersion: quota.openshift.io/v1
+kind: ClusterResourceQuota
+metadata:
+  name: equipe-pagamentos
+spec:
+  quota:
+    hard:
+      requests.cpu: "10"
+      requests.memory: 20Gi
+      count/pods: "60"
+  selector:
+    labels:
+      matchLabels:
+        equipe: pagamentos

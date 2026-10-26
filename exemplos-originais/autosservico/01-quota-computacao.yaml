@@ -1,0 +1,15 @@
+# Quota de computação do projeto loja (lição 6.1).
+# Com ela, todo container precisa declarar requests e limits de CPU e memória
+# (ou recebê-los de um LimitRange, como 04-limitrange-padroes.yaml).
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: computacao
+  namespace: loja
+spec:
+  hard:
+    requests.cpu: "4"
+    requests.memory: 8Gi
+    limits.cpu: "8"
+    limits.memory: 16Gi
+    pods: "20"

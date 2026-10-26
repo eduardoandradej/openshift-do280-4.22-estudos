@@ -60,14 +60,14 @@ que você já executou seus laboratórios.
 - [ ] REVISAO.md
 - [ ] RESUMO.md
 
-## Capítulo 6 — Enabling Developer Self-service (⏳ documentação aguardando PDF)
+## Capítulo 6 — Enabling Developer Self-service
 - [ ] 6.1 Project and Cluster Quotas
-- [ ] 6.2 GE Project and Cluster Quotas
+- [ ] 6.2 GE `selfservice-quotas`
 - [ ] 6.3 Per-project Resource Constraints: Limit Ranges
-- [ ] 6.4 GE Limit Ranges
+- [ ] 6.4 GE `selfservice-ranges`
 - [ ] 6.5 The Project Template and the Self-provisioner Role
-- [ ] 6.6 GE Project Template and Self-provisioner
-- [ ] 6.7 Lab Enable Developer Self-service
+- [ ] 6.6 GE `selfservice-projtemplate`
+- [ ] 6.7 Lab `selfservice-review` (`lab grade`)
 - [ ] REVISAO.md
 - [ ] RESUMO.md
 

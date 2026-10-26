@@ -1,0 +1,13 @@
+# Configuração global de projetos (lição 6.5). Recurso de cluster.
+# Aplicar provoca rollout do apiserver em openshift-apiserver.
+# Prefira editar o objeto existente:
+#   oc patch projects.config.openshift.io cluster --type merge -p '{"spec":{...}}'
+# Para voltar ao padrão: spec: {}
+apiVersion: config.openshift.io/v1
+kind: Project
+metadata:
+  name: cluster
+spec:
+  projectRequestTemplate:
+    name: project-request
+  projectRequestMessage: "Peça projetos pelo chamado na fila Plataforma."

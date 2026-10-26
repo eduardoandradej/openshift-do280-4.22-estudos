@@ -1,8 +1,8 @@
 # Exemplos YAML comentados
 
-Todos autorais e validados (`yaml.safe_load`, `kustomize build` v5.7.1, `helm lint`/`helm template` v3.17 e decodificação estrita contra os tipos das APIs: Kubernetes, `route.openshift.io/v1`, `policy.networking.k8s.io/v1alpha1`, `k8s.ovn.org/v1`, `k8s.cni.cncf.io/v1` e `metallb.io/v1beta1`). Arquivos
+Todos autorais e validados (`yaml.safe_load`, `kustomize build` v5.7.1, `helm lint`/`helm template` v3.17 e decodificação estrita contra os tipos das APIs: Kubernetes, `route.openshift.io/v1`, `policy.networking.k8s.io/v1alpha1`, `k8s.ovn.org/v1`, `k8s.cni.cncf.io/v1`, `metallb.io/v1beta1`, `quota.openshift.io/v1`, `template.openshift.io/v1` e `config.openshift.io/v1`). Arquivos
 aplicáveis em [exemplos-originais/](../exemplos-originais/README.md).
-Cobertura: **Capítulos 1–5**.
+Cobertura: **Capítulos 1–6**.
 
 ## Vários manifestos em um arquivo
 
@@ -358,6 +358,76 @@ spec:
 No Deployment: `spec.template.metadata.annotations: {k8s.v1.cni.cncf.io/networks: rede-armazenamento}`.
 Mais em [exemplos-originais/redes-adicionais/](../exemplos-originais/redes-adicionais/) e
 [exemplos-originais/load-balancer/](../exemplos-originais/load-balancer/).
+
+## ResourceQuota (computação e contagem)
+
+```yaml
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: computacao
+  namespace: loja
+spec:
+  hard:
+    requests.cpu: "4"
+    requests.memory: 8Gi
+    limits.cpu: "8"
+    limits.memory: 16Gi
+    count/deployments.apps: "10"    # outros grupos: count/<recurso>.<grupo>
+    count/persistentvolumeclaims: "5"  # grupo core: count/<recurso>
+```
+
+## ClusterResourceQuota
+
+```yaml
+apiVersion: quota.openshift.io/v1
+kind: ClusterResourceQuota
+metadata:
+  name: equipe-pagamentos
+spec:
+  quota:            # hard fica dentro de spec.quota
+    hard:
+      requests.cpu: "10"
+  selector:
+    labels:
+      matchLabels:
+        equipe: pagamentos
+```
+
+## LimitRange com padrões
+
+```yaml
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: padroes
+  namespace: loja
+spec:
+  limits:
+  - type: Container
+    default: {cpu: 500m, memory: 512Mi}         # limit injetado
+    defaultRequest: {cpu: 250m, memory: 256Mi}  # request injetado
+    max: {cpu: "1", memory: 1Gi}
+    min: {cpu: 100m, memory: 128Mi}
+```
+
+## Template de projeto e configuração global
+
+Template em `openshift-config` (parta de `oc adm create-bootstrap-project-template -o yaml`
+e acrescente itens a `objects:` com `namespace: ${PROJECT_NAME}`). Ativação:
+
+```yaml
+apiVersion: config.openshift.io/v1
+kind: Project
+metadata:
+  name: cluster
+spec:
+  projectRequestTemplate:
+    name: project-request
+  projectRequestMessage: "Peça projetos pelo chamado na fila Plataforma."
+```
+
+Exemplo completo em [exemplos-originais/autosservico/](../exemplos-originais/autosservico/).
 
 ---
 [Início](../README.md)

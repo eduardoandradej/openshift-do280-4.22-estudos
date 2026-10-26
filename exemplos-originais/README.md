@@ -18,6 +18,7 @@ laboratório durante uma atividade.
 | [service-ca/](service-ca/) | Service anotado, ConfigMap de CA, patch de montagem do certificado e Deployment cliente | [4.5](../capitulos/04-seguranca-de-rede/4.5-tls-no-trafego-interno.md) |
 | [load-balancer/](load-balancer/) | Service LoadBalancer (RTSP) e referência de pool/anúncio do MetalLB (administrador) | [5.1](../capitulos/05-redes-nao-http/5.1-servicos-load-balancer.md) |
 | [redes-adicionais/](redes-adicionais/) | Namespace para UDN primária, UDN, CUDN, NAD host-device e Deployment com anotação | [5.3](../capitulos/05-redes-nao-http/5.3-redes-adicionais-de-pods.md) |
+| [autosservico/](autosservico/) | Quotas de computação e de objetos, ClusterResourceQuota, LimitRange com padrões, template de projeto (RoleBinding, LimitRange, ResourceQuota, NetworkPolicy) e configuração global de projetos | [6.1](../capitulos/06-autosservico/6.1-quotas-de-projeto-e-cluster.md) · [6.3](../capitulos/06-autosservico/6.3-limit-ranges.md) · [6.5](../capitulos/06-autosservico/6.5-template-de-projeto-e-self-provisioner.md) |
 | [helm-catalogo/](helm-catalogo/) | Chart Helm mínimo (Deployment, Service, Route opcional, `resources` por valores) + `values-producao.yaml` | [2.3](../capitulos/02-aplicacoes-empacotadas/2.3-charts-do-helm.md) |
 
 O patch fica **fora** de `manifestos-catalogo/` de propósito: `oc apply -f <dir>`
@@ -60,6 +61,12 @@ oc apply -f exemplos-originais/routes/route-edge.yaml --dry-run=server
 oc apply -f exemplos-originais/service-ca/01-service-com-certificado.yaml
 oc get secret api-cert -n loja                     # criado pelo service-ca
 
+# Autosserviço (6.x) — quotas e limit range no projeto loja (exige administrador)
+oc apply -f exemplos-originais/autosservico/01-quota-computacao.yaml -f exemplos-originais/autosservico/04-limitrange-padroes.yaml
+oc describe quota,limitrange -n loja
+oc process -f exemplos-originais/autosservico/05-template-projeto.yaml --local -p PROJECT_NAME=teste -p PROJECT_ADMIN_USER=ana -p PROJECT_REQUESTING_USER=ana -o yaml
+# ⛔ 03 (cluster quota), 05 publicado em openshift-config e 06 afetam o cluster inteiro: só em cluster próprio
+
 oc delete project catalogo-dev catalogo-prod
 ```
 
@@ -67,7 +74,7 @@ O arquivo de parâmetros do template usa extensão `.txt` porque o `.gitignore` 
 repositório bloqueia arquivos `.env`.
 
 Regras: nenhum Secret real, nenhuma credencial e nenhum host do ambiente oficial.
-Todos os arquivos são validados antes do commit: parser YAML, `kustomize build`, `helm lint`/`helm template` e decodificação estrita contra os tipos das APIs (Kubernetes, Route, AdminNetworkPolicy, UDN/CUDN, NAD e MetalLB).
+Todos os arquivos são validados antes do commit: parser YAML, `kustomize build`, `helm lint`/`helm template` e decodificação estrita contra os tipos das APIs (Kubernetes, Route, AdminNetworkPolicy, UDN/CUDN, NAD, MetalLB, ResourceQuota, LimitRange, ClusterResourceQuota, Template e configuração de projetos, inclusive cada objeto do template e a ordem `max ≥ default ≥ defaultRequest ≥ min`).
 
 ---
 [Início](../README.md)

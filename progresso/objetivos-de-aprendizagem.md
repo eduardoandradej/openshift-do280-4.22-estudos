@@ -67,7 +67,17 @@ Meta do capítulo: expor aplicações ao acesso externo sem usar um ingress cont
 | Expor aplicações ao acesso externo com Services LoadBalancer | [5.1](../capitulos/05-redes-nao-http/5.1-servicos-load-balancer.md) | [ ] |
 | Configurar UDNs para isolamento e NADs para acesso externo | [5.3](../capitulos/05-redes-nao-http/5.3-redes-adicionais-de-pods.md) | [ ] |
 
-## 7. Capítulos 6 a 10
+## 7. Capítulo 6 — Enabling Developer Self-service (✅ PDF p. 245–302)
+
+Meta do capítulo: configurar clusters para que desenvolvedores criem projetos com limites de uso de recursos.
+
+| Objetivo da seção | Lição | Estudado? |
+|-------------------|-------|-----------|
+| Configurar quotas de computação e de contagem de objetos por projeto e para vários projetos | [6.1](../capitulos/06-autosservico/6.1-quotas-de-projeto-e-cluster.md) | [ ] |
+| Configurar requisitos padrão e máximos de recursos dos Pods de cada projeto | [6.3](../capitulos/06-autosservico/6.3-limit-ranges.md) | [ ] |
+| Configurar restrições padrão para projetos novos e gerenciar quem pode criá-los | [6.5](../capitulos/06-autosservico/6.5-template-de-projeto-e-self-provisioner.md) | [ ] |
+
+## 8. Capítulos 7 a 10
 
 ⏳ Os objetivos de cada seção serão registrados aqui quando os PDFs forem recebidos.
 

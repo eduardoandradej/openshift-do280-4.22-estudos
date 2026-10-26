@@ -10,7 +10,7 @@
 | 3 | Capítulo 3 — Autenticação e autorização | 4–5 h + atividades |
 | 4 | Capítulo 4 — Segurança de rede | 6–8 h + atividades |
 | 5 | Capítulo 5 — Aplicações não HTTP/SNI | 4–6 h + atividades |
-| 6 | Capítulo 6 — Autosserviço de desenvolvedores | a definir com o PDF |
+| 6 | Capítulo 6 — Autosserviço de desenvolvedores | 4–5 h + atividades |
 | 7 | Capítulo 7 — Operators | a definir com o PDF |
 | 8 | Capítulo 8 — Segurança de aplicações | a definir com o PDF |
 | 9 | Capítulo 9 — Atualizações do OpenShift | a definir com o PDF |

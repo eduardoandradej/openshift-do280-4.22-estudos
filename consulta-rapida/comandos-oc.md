@@ -1,6 +1,6 @@
 # Comandos `oc` por tarefa
 
-> Cobertura: **Capítulos 1–5**. Os comandos do DO180 estão na
+> Cobertura: **Capítulos 1–6**. Os comandos do DO180 estão na
 > [consulta rápida do DO180](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/consulta-rapida/comandos-oc.md).
 > Coluna **Tipo:** 🔍 somente leitura · ✏️ altera o cluster · 🖥️ só local.
 
@@ -158,6 +158,32 @@
 | `oc get net-attach-def [-A] [-l k8s.ovn.org/user-defined-network]` | NADs (manuais ou geradas por UDN/CUDN) | 🔍 | 5.3 |
 | `oc get pod <p> -o jsonpath='{.metadata.annotations.k8s\.v1\.cni\.cncf\.io/network-status}'` | Redes e interfaces do Pod | 🔍 | 5.3 |
 | `oc debug node/<nó> -- chroot /host ip addr show <if>` | Interface existe no nó? | 🔍 | 5.3 |
+
+## Quotas e limit ranges (Cap. 6)
+
+| Comando | Para quê | Tipo | Lição |
+|---------|----------|------|-------|
+| `oc create quota <q> [-n <ns>] --hard requests.cpu=4,limits.memory=8Gi,count/deployments.apps=10` | Criar quota de computação/objetos | ✏️ | [6.1](../capitulos/06-autosservico/6.1-quotas-de-projeto-e-cluster.md) |
+| `oc get quota` · `oc describe quota <q>` · `oc get quota <q> -o yaml` | Uso × teto (`status.used`) | 🔍 | 6.1 |
+| `oc create clusterresourcequota <c> --project-label-selector k=v --hard ...` | Quota para a soma de vários projetos | ✏️ | 6.1 |
+| `oc describe AppliedClusterResourceQuota -n <ns>` | Cluster quota vista pelo projeto (sem `-A`) | 🔍 | 6.1 |
+| `oc api-resources --api-group="" --namespaced=true` | Nomes para `count/<recurso>[.<grupo>]` | 🔍 | 6.1 |
+| `oc apply -f limitrange.yaml` · `oc describe limitrange` | Criar e consultar limit range | ✏️ / 🔍 | [6.3](../capitulos/06-autosservico/6.3-limit-ranges.md) |
+| `oc set resources deployment <d> --requests cpu=250m --limits memory=512Mi` | Declarar recursos de um workload | ✏️ | 6.3 |
+| `oc events` | `exceeded quota`, `must specify ...`, `minimum/maximum ... per Container` | 🔍 | 6.1 · 6.3 |
+
+## Template de projeto e self-provisioner (Cap. 6)
+
+| Comando | Para quê | Tipo | Lição |
+|---------|----------|------|-------|
+| `oc adm create-bootstrap-project-template -o yaml > t.yaml` | Template inicial (comportamento padrão) | 🖥️ | [6.5](../capitulos/06-autosservico/6.5-template-de-projeto-e-self-provisioner.md) |
+| `oc get limitrange,resourcequota -n <ns> -o yaml` | Itens para copiar para `objects:` | 🔍 | 6.5 |
+| `oc create -f t.yaml -n openshift-config` | Publicar o template | ✏️ | 6.5 |
+| `oc edit projects.config.openshift.io cluster` | `spec.projectRequestTemplate.name` / `projectRequestMessage` (⛔ cluster inteiro) | ✏️ | 6.5 |
+| `oc get pod -n openshift-apiserver` | Aguardar o rollout após a mudança | 🔍 | 6.5 |
+| `oc describe clusterrolebinding.rbac self-provisioners` | Quem pode criar projetos | 🔍 | 6.5 |
+| `oc annotate clusterrolebinding/self-provisioners --overwrite rbac.authorization.kubernetes.io/autoupdate=false` | Tornar alterações permanentes | ✏️ | 6.5 |
+| `oc patch clusterrolebinding.rbac self-provisioners -p '{"subjects": null}'` | Desligar o autosserviço (⛔ cluster inteiro) | ✏️ | 6.5 |
 
 ## Git nas atividades (apoio)
 

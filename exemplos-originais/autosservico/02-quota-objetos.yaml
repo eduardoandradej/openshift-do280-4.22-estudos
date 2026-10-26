@@ -1,0 +1,15 @@
+# Quota de contagem de objetos (lição 6.1).
+# Grupo core: count/<recurso>. Outros grupos: count/<recurso>.<grupo>.
+# Atenção: chaves erradas (ex.: count/deployment) são aceitas e não têm efeito.
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: objetos
+  namespace: loja
+spec:
+  hard:
+    count/pods: "20"
+    count/secrets: "30"
+    count/persistentvolumeclaims: "5"
+    count/deployments.apps: "10"
+    count/routes.route.openshift.io: "5"

@@ -1,0 +1,22 @@
+# Padrões, mínimos e máximos por container (lição 6.3).
+# Regra: max >= default >= defaultRequest >= min (por recurso).
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: padroes
+  namespace: loja
+spec:
+  limits:
+  - type: Container
+    default:            # limit injetado quando o container não declara
+      cpu: 500m
+      memory: 512Mi
+    defaultRequest:     # request injetado quando o container não declara
+      cpu: 250m
+      memory: 256Mi
+    max:
+      cpu: "1"
+      memory: 1Gi
+    min:
+      cpu: 100m
+      memory: 128Mi

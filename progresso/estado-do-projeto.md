@@ -5,7 +5,7 @@
 > [CLAUDE.md](../CLAUDE.md). O progresso de estudo do aluno fica no
 > [checklist geral](checklist-geral.md) e no [diário](diario-de-laboratorios.md).
 
-**Última atualização:** 2026-10-26 (Capítulo 5 concluído)
+**Última atualização:** 2026-10-26 (Capítulo 6 concluído)
 
 ## Situação por módulo
 
@@ -18,13 +18,13 @@
 | Capítulo 3 | ✅ validado | p. 110–145 | 2 lições + prática, revisão, resumo (sem quiz) |
 | Capítulo 4 | ✅ validado | p. 146–198 | 3 lições + prática (com armadilhas do ambiente), revisão, resumo (sem quiz) |
 | Capítulo 5 | ✅ validado | p. 199–244 | 2 lições + prática (com armadilhas), revisão, resumo (sem quiz) |
-| Capítulo 6 | ⏳ aguardando PDF | — | README estrutural com seções do sumário |
-| Capítulo 7 | ⏳ aguardando PDF | — | idem |
+| Capítulo 6 | ✅ validado | p. 245–302 | 3 lições + prática (com armadilhas), revisão, resumo (sem quiz) |
+| Capítulo 7 | ⏳ aguardando PDF | — | README estrutural com seções do sumário |
 | Capítulo 8 | ⏳ aguardando PDF | — | idem |
 | Capítulo 9 | ⏳ aguardando PDF | — | idem |
 | Capítulo 10 | ⏳ aguardando PDF | — | idem |
-| consulta-rapida | 🟡 | — | Cobre os Capítulos 1 a 5 (remete ao DO180 para o restante) |
-| exemplos-originais | 🟡 | — | Exemplos dos Capítulos 1 a 5, validados com `kustomize build`, `helm lint`/`helm template` e decodificação estrita (tipos Kubernetes, Route, ANP, UDN/CUDN, NAD, MetalLB) |
+| consulta-rapida | 🟡 | — | Cobre os Capítulos 1 a 6 (remete ao DO180 para o restante) |
+| exemplos-originais | 🟡 | — | Exemplos dos Capítulos 1 a 6, validados com `kustomize build`, `helm lint`/`helm template` e decodificação estrita (tipos Kubernetes, Route, ANP, UDN/CUDN, NAD, MetalLB, quotas, Template, config de projetos) |
 | certificacao | 🟡 | — | Matriz EX280 relacionando áreas do exame às lições |
 
 ## PDFs recebidos
@@ -37,6 +37,7 @@
 | `DO280_4.22_C03_Autenticacao_e_Autorizacao_p110-145.pdf` | Capítulo 3 completo | 110–145 |
 | `DO280_4.22_C04_Seguranca_de_Rede_p146-198.pdf` | Capítulo 4 completo | 146–198 |
 | `DO280_4.22_C05_Aplicacoes_Nao_HTTP_p199-244.pdf` | Capítulo 5 completo | 199–244 |
+| `DO280_4.22_C06_Autosservico_Desenvolvedores_p245-302.pdf` | Capítulo 6 completo | 245–302 |
 
 Os PDFs **não** são versionados (bloqueados pelo `.gitignore`); o texto foi extraído
 apenas no scratchpad da sessão.
@@ -84,6 +85,15 @@ apenas no scratchpad da sessão.
 - Ambiente (Cap. 5): MetalLB em camada 2 com pool de dois IPs no GE 5.2 e um único IP no
   Lab 5.5 (configurado pelo `lab start`); o nó tem uma segunda interface ligada a uma rede
   física acessível pela máquina `utility`; a console tem mais de um provedor de identidade.
+- Capítulo 6: abertura p. 245; 6.1 Project and Cluster Quotas (p. 246–255); 6.2 GE
+  `selfservice-quotas` (p. 256–262); 6.3 Per-project Resource Constraints: Limit Ranges
+  (p. 263–266); 6.4 GE `selfservice-ranges` (p. 267–277, pela console); 6.5 The Project
+  Template and the Self-provisioner Role (p. 278–285); 6.6 GE `selfservice-projtemplate`
+  (p. 286–293); 6.7 Lab `selfservice-review` (p. 294–301, **com** `lab grade`; solução a
+  partir da p. 296); 6.8 Summary (p. 302). Sem quiz.
+- Ambiente (Cap. 6): nó único com 6 CPUs de capacidade (cerca de 5,5 alocáveis, segundo a
+  saída impressa); o `lab start` do GE 6.6 cria dois usuários e um grupo de provisionadores;
+  o Lab 6.7 exige o namespace de rascunho com o nome do enunciado para `lab grade`/limpeza.
 - Sumário completo dos capítulos 2–10 (títulos e tipos de seção) conferido nas p. 3–5.
 
 ## Divergências e imprecisões encontradas no PDF (Cap. 1)
@@ -197,6 +207,33 @@ conforme a API do OVN-Kubernetes. Comportamentos explicados por dedução técni
 coerentes com o material: `host-device` exige `strategy: Recreate` (o arquivo do GE já usa);
 IP estático + várias réplicas gera conflito.
 
+## Divergências e imprecisões encontradas no PDF (Cap. 6)
+
+Nenhuma imprecisão técnica identificada. Observações sem impacto: hashes de ReplicaSet/Pod
+inconsistentes entre saídas impressas do GE 6.2 (irrelevante para a execução).
+
+## Complementos de fonte externa usados no Cap. 6 (marcados 📘)
+
+- Ordem de preenchimento automático do LimitRange (`default ← max`, `defaultRequest ←
+  default`, depois `← min`), conferida em `SetDefaults_LimitRangeItem`
+  (`kubernetes/kubernetes`, branch `release-1.35`). Detalha a frase da p. 266 e é
+  coerente com a saída do GE 6.6 (só `max` → `default` e `defaultRequest` iguais ao max).
+- Papéis padrão `admin`/`edit`/`view` apenas **leem** ResourceQuota e LimitRange
+  (política RBAC de bootstrap do Kubernetes). As lições recomendam conferir no cluster
+  com `oc auth can-i`, pois não foi verificado se o OpenShift agrega permissões extras.
+- `oc patch projects.config.openshift.io cluster --type merge` como alternativa ao
+  `oc edit`; `spec.scopes`/`scopeSelector` citados como fora do escopo.
+
+## Validação do Capítulo 6
+
+- [x] Seções 6.1–6.8 representadas, na ordem; ausência de quiz registrada.
+- [x] Identificadores `selfservice-quotas`, `selfservice-ranges`, `selfservice-projtemplate`, `selfservice-review` e `lab grade` (só no 6.7) conferidos.
+- [x] Armadilhas do ambiente no formato revisado; avisos ⛔ para template de projeto e `self-provisioners` (cluster inteiro).
+- [x] Senhas, usuários de laboratório, soluções e valores oficiais não reproduzidos; exemplos com nomes fictícios.
+- [x] ResourceQuota, ClusterResourceQuota, LimitRange (com a ordem `max ≥ default ≥ defaultRequest ≥ min`), Template (cada objeto), Project (config e project), RoleBinding e NetworkPolicy validados com decodificação estrita (`openshift/api`, k8s.io/api v0.37.1); blocos YAML das lições e da consulta rápida também.
+- [x] Links relativos, âncoras e links para o DO180 verificados por script.
+- [x] Varredura de senhas do laboratório, e-mail e marca d'água: nada encontrado.
+
 ## Validação do Capítulo 5
 
 - [x] Seções 5.1–5.6 representadas, na ordem; ausência de quiz registrada.
@@ -276,24 +313,24 @@ script e conferidos nas lições; nenhum tópico ficou de fora.
 
 | Item | Quando |
 |------|--------|
-| Desenvolver o Capítulo 6 | Ao receber o PDF do Capítulo 6 |
+| Desenvolver o Capítulo 7 | Ao receber o PDF do Capítulo 7 |
 | Ampliar `consulta-rapida` e `exemplos-originais` | A cada capítulo |
-| Assuntos herdados do DO180: SCC, LimitRange/ResourceQuota, criptografia do etcd (RBAC no Cap. 3, TLS em Routes no Cap. 4) | Caps. 6 e 8 |
+| Assuntos herdados do DO180: SCC, criptografia do etcd (RBAC no Cap. 3, TLS em Routes no Cap. 4, LimitRange/ResourceQuota no Cap. 6) | Cap. 8 |
 
 ## Publicação
 
 - Repositório: `eduardoandradej/openshift-do280-4.22-estudos` (já existia com `LICENSE` Apache-2.0; nada foi sobrescrito).
 - Visibilidade: definida pelo usuário.
 - Fluxo de publicação: por decisão do usuário (2026-10-26), o conteúdo validado vai direto para o branch `main`, sem PR. O primeiro commit foi feito em `claude/gallant-shannon-b4zr78` e integrado à `main` por fast-forward.
-- Último commit relevante: ver `git log` da `main` (commit do Capítulo 5).
+- Último commit relevante: ver `git log` da `main` (commit do Capítulo 6).
 
 ## Próximo passo
 
-Aguardar o PDF do **Capítulo 6 — Enabling Developer Self-service** (sumário: 6.1 Project
-and Cluster Quotas, 6.2 GE, 6.3 Per-project Resource Constraints: Limit Ranges, 6.4 GE,
-6.5 The Project Template and the Self-provisioner Role, 6.6 GE, 6.7 Lab, 6.8 Summary).
-Ao recebê-lo: ler este arquivo e o `CLAUDE.md`, confirmar páginas e identificadores
-`lab`, e seguir o fluxo da seção 6 do `CLAUDE.md`.
+Aguardar o PDF do **Capítulo 7 — Managing Kubernetes Operators** (sumário: 7.1 Kubernetes
+Operators and the Operator Lifecycle Manager, 7.2 Matching, 7.3 Installing Operators by
+Using the Web Console, 7.4 GE, 7.5 Installing Operators with the CLI, 7.6 GE, 7.7 Lab,
+7.8 Summary). Ao recebê-lo: ler este arquivo e o `CLAUDE.md`, confirmar páginas e
+identificadores `lab`, e seguir o fluxo da seção 6 do `CLAUDE.md`.
 
 ---
 [Início](../README.md) | [Checklist geral](checklist-geral.md)

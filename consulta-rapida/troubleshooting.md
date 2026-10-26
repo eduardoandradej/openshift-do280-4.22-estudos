@@ -1,6 +1,6 @@
 # Troubleshooting: sintoma → causa → verificação
 
-> Cobertura: **Capítulos 1–5**. Para Pods, Services, Routes, storage e recursos, veja o
+> Cobertura: **Capítulos 1–6**. Para Pods, Services, Routes, storage e recursos, veja o
 > [troubleshooting do DO180](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/consulta-rapida/troubleshooting.md).
 
 ## Roteiro geral para mudanças declarativas
@@ -139,6 +139,28 @@ flowchart TD
 | CUDN: `foreign NetworkAttachmentDefinition ... already exist` | Nome em conflito | Nome único |
 | Pod sem `net1` | Anotação fora do template, nome errado, NAD em outro namespace, espaços | `oc get pod -o yaml`; eventos |
 | Pod novo preso após update (host-device) | Interface presa ao Pod antigo | `strategy: Recreate` |
+
+## Quotas e limit ranges (Cap. 6)
+
+| Sintoma | Causa provável | Como verificar / resolver |
+|---------|----------------|---------------------------|
+| Pods `Pending` com `Insufficient cpu` | Requests de outros projetos ocupam o nó | `oc describe node` (Allocated resources); quota no projeto que exagera |
+| Deployment `READY 0/N`, sem Pods | Quota de Pods/computação barrando o ReplicaSet | `oc events` (`FailedCreate`, `exceeded quota`) |
+| `failed quota: ... must specify ...` | Quota de computação e container sem request/limit | `oc set resources` ou LimitRange com padrões |
+| Quota sem efeito | Chave errada (`count/deployment`, `count/pod`) | `status.used` zerado; `count/deployments.apps`, `count/pods` |
+| Rollout parado | ReplicaSets novo + antigo excedem a quota | `oc describe quota` |
+| `minimum/maximum ... usage per Container` | Valor fora de `min`/`max` do limit range | Evento do ReplicaSet; ajustar recursos |
+| Pods antigos sem os padrões do limit range | Admission só age na criação | `oc rollout restart deployment/<d>` |
+| Containers reservando o máximo | Limit range só com `min`/`max` (`defaultRequest` herda de `max`) | `oc get limitrange -o yaml`; declarar padrões |
+
+## Template de projeto e self-provisioner (Cap. 6)
+
+| Sintoma | Causa provável | Como verificar / resolver |
+|---------|----------------|---------------------------|
+| Projeto novo sem os objetos do template | Rollout do `openshift-apiserver` em andamento; nome/namespace do template | `oc get pod -n openshift-apiserver`; `oc get template -n openshift-config`; `oc get projects.config.openshift.io cluster -o yaml` |
+| `oc new-project` falha após ativar o template | Objeto inválido no template | Mensagem do comando; corrigir e republicar |
+| `You may not request a new project via this API` | Usuário sem `self-provisioner` | `oc describe clusterrolebinding self-provisioners` |
+| Restrição ao self-provisioner desfeita | `autoupdate` ainda `true` e API server reiniciado | Anotar `autoupdate=false` e refazer |
 
 ---
 [Início](../README.md)
