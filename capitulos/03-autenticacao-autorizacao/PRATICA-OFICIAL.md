@@ -52,6 +52,10 @@ lab finish auth-providers
 - O aviso de usuário inexistente ao conceder `cluster-admin` é normal.
 - Repare no nome do ClusterRoleBinding criado (sufixo numérico).
 - Ao final, a limpeza remove o IdP do OAuth: remova **só** o item que você adicionou.
+- A limpeza também apaga **todos** os Users e Identities, inclusive o do administrador
+  que entra pelo LDAP. Isso é esperado: eles são recriados no próximo login. O acesso
+  administrativo continua porque as permissões estão nos bindings (pelo nome), não no
+  objeto User.
 
 **Verificação conceitual:** `oc get users` e `oc get identities` mostram os usuários do
 novo IdP com o prefixo do nome do IdP; um usuário lista nós e o outro recebe `Forbidden`;

@@ -114,6 +114,7 @@ valores no `helm upgrade` (conferida em `pkg/action/upgrade.go`, Helm 3.17);
 | p. 116 | Arquivo criado com `htpasswd -B`, mas a saída de exemplo mostra hash `$apr1$` (MD5) | Lição e resumo indicam que `-B` gera `$2y$` (bcrypt), como nos guided exercises |
 | p. 113 | kubeconfig do instalador com certificado "que nunca expira" | Lição descreve como certificado de longa duração e credencial de emergência |
 | p. 132 | "Por padrão, service accounts não têm papéis" | Lição registra (📘) que algumas service accounts criadas pelo OpenShift recebem vínculos de sistema |
+| p. 131 | `system:authenticated:oauth` descrito como o grupo de "todos os usuários autenticados" | Lições 3.1 e 3.3 explicam que ele reúne os autenticados por token OAuth; `system:authenticated` é o de todos |
 
 ## Complementos de fonte externa usados no Cap. 3 (marcados 📘)
 
@@ -123,6 +124,12 @@ além de `claim`; validade de tokens já emitidos; JSON Patch `add` em
 `/spec/identityProviders/-` e risco do merge patch; `oc get co authentication`;
 `view` não lê Secrets; grupos `system:authenticated` e `system:authenticated:oauth`;
 bindings que citam usuários pelo nome sobrevivem à remoção do User.
+
+Revisão pós-entrega (Cap. 3): validação de tokens contra o User e o UID conferida no
+código do `openshift/oauth-apiserver` (`pkg/tokenvalidation/uidvalidator.go` e
+`tokenauthenticator.go`); texto sobre `--as`/`--as-group` reescrito para recomendar o
+grupo explícito; acrescentados os acessos iniciais de ARO/ROSA/OSD (p. 113) e o aviso
+sobre a limpeza de Users/Identities no GE 3.2.
 
 ## Validação do Capítulo 3
 
