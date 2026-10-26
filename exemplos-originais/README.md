@@ -51,6 +51,13 @@ helm uninstall prod -n catalogo-prod
 # RBAC (3.3) — exige o projeto loja e os grupos citados
 oc apply -f exemplos-originais/rbac/ --dry-run=server
 
+# Rede (4.x) — exemplos para o projeto loja; a ANP exige administrador do cluster
+oc apply -f exemplos-originais/network-policies/01-default-deny.yaml --dry-run=server
+oc describe -f exemplos-originais/network-policies/03-allow-entre-projetos.yaml   # após aplicar
+oc apply -f exemplos-originais/routes/route-edge.yaml --dry-run=server
+oc apply -f exemplos-originais/service-ca/01-service-com-certificado.yaml
+oc get secret api-cert -n loja                     # criado pelo service-ca
+
 oc delete project catalogo-dev catalogo-prod
 ```
 

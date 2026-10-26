@@ -152,6 +152,12 @@ sobre a limpeza de Users/Identities no GE 3.2.
 | p. 151–152 | `lab start` cria o projeto e o passo 1 manda criá-lo | Prática oficial: usar `oc project` |
 | p. 158 | Prompt em outro diretório ao criar o Secret TLS | Prática oficial: criar a partir do diretório dos certificados |
 | p. 152 | `oc status` mostra tag de imagem diferente da citada | Inconsistência de saída sem impacto |
+| p. 149, 154–156 | Route edge sem `--key/--cert` usaria certificado "da CA interna do Ingress Operator" | É o certificado padrão do ingress controller; no laboratório ele foi substituído e o `issuer` é a CA da sala de aula (revisão pós-entrega) |
+
+Revisão pós-entrega (Cap. 4): certificado padrão do ingress controller (4.1, prática e
+resumo); redação neutra sobre "edge é o padrão" (4.5); armadilhas do GE 4.2 (projeto
+pode ou não existir) e do Lab 4.7 (criar o Secret TLS antes de aplicar o Deployment);
+usos dos exemplos do Cap. 4 no README de `exemplos-originais`.
 
 ## Complementos de fonte externa usados no Cap. 4 (marcados 📘)
 

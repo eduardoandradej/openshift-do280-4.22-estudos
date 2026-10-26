@@ -66,13 +66,13 @@ lab finish network-ingress
 
 | Ponto | O que acontece | Como seguir sem erro |
 |-------|----------------|----------------------|
-| Criação do projeto (passo 1) | O próprio `lab start` **já cria** o projeto da atividade e dá `edit` ao `developer` (dito no PDF, p. 151); o passo seguinte manda criá-lo de novo, e `oc new-project` responde que o projeto já existe | Não é falha. Entre no projeto com `oc project <projeto>` e siga |
+| Criação do projeto (passo 1) | O próprio `lab start` **já cria** o projeto da atividade e dá `edit` ao `developer` (dito no PDF, p. 151); o passo seguinte manda criá-lo de novo. Se o `oc new-project` responder que o projeto já existe | Não é falha. Entre no projeto com `oc project <projeto>` e siga. Se ele for criado normalmente, siga também |
 | Captura com `tcpdump` | Exige `sudo`; o nome da interface pode diferir do mostrado | Confirme a interface do IP do `workstation` com `ip addr` antes; encerre com Ctrl+C |
 | Assunto do CSR (`-subj`) | Quebrar a linha dentro das aspas gera um assunto errado | Digite o `-subj` em **uma** linha (aviso do próprio PDF) ou responda ao prompt interativo |
 | Diretório ao criar o Secret TLS | Os arquivos `.crt` e `.key` foram gerados no subdiretório de certificados; o prompt do PDF no passo de criação do Secret mostra outro diretório | Crie o Secret **antes** de sair do diretório dos certificados, ou informe o caminho relativo correto. `error: open ...: no such file or directory` indica diretório errado |
 | Nome da Route passthrough | Ela usa o mesmo nome da Route edge criada antes | Apague a Route edge no passo indicado antes de criar a passthrough (senão: `AlreadyExists`) |
 | Saída de `oc status` | A tag de imagem exibida no PDF difere da tag citada no texto | Diferença do material; confie no arquivo da atividade |
-| Aviso do Firefox | "Emissor não reconhecido pela Mozilla" | Esperado (CA da sala de aula) |
+| Aviso do Firefox e emissor da Route edge | "Emissor não reconhecido pela Mozilla"; o texto do PDF atribui o certificado à CA do Ingress Operator, mas o `issuer` mostrado é a CA da sala de aula | Esperado: o certificado padrão do ingress do laboratório foi substituído pela CA da sala de aula (ver 4.1) |
 | Curl dentro do Pod de debug | O Pod não tem a CA de treinamento | O `-k` usado ali é intencional; fora do cluster use `--cacert` |
 
 **Verificação conceitual:** em HTTP você lê o conteúdo no `tcpdump`; na Route edge o
@@ -205,6 +205,7 @@ lab finish network-review
 | Porta do Service | O Service interno passa a expor a porta HTTPS padrão, apontando para a porta do container | Confira `port` e `targetPort` e os endpoints |
 | Reaplicar arquivos | `oc create -f` em objeto existente falha | Para reaplicar, `oc apply -f` |
 | Secret TLS do certificado corporativo | Caminhos relativos ao diretório da atividade | Execute a partir do diretório indicado |
+| Ordem Secret → Deployment | Aplicar o Deployment que monta o Secret TLS **antes** de criar o Secret deixa o Pod novo pendente (`secret ... not found`) | Crie o Secret primeiro, como na ordem do enunciado; se já aplicou, crie o Secret e aguarde o Pod sair do estado pendente |
 | Route | Hostname e porta precisam coincidir com o certificado e o Service | Use exatamente os do enunciado; teste com `curl --cacert` |
 | NetworkPolicies | Aplicadas no projeto atual | Confira `oc project` antes; os nomes são conferidos pelo `lab grade` |
 | Política dos routers | No nó único, a Route funciona mesmo sem ela | Crie-a mesmo assim: o `lab grade` verifica |
