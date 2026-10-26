@@ -17,7 +17,7 @@
 | Implantar aplicações empacotadas (templates, Helm) | [4.1](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/04-deploy-e-redes/4.1-implantar-a-partir-de-imagem-e-template.md) | ✅ [2.1](../capitulos/02-aplicacoes-empacotadas/2.1-templates-do-openshift.md) · ✅ [2.3](../capitulos/02-aplicacoes-empacotadas/2.3-charts-do-helm.md) |
 | Gerenciar autenticação (provedor HTPasswd, usuários, grupos) e autorização (RBAC) | — | ✅ [3.1](../capitulos/03-autenticacao-autorizacao/3.1-provedor-de-identidade-htpasswd.md) · ✅ [3.3](../capitulos/03-autenticacao-autorizacao/3.3-permissoes-com-rbac.md) |
 | Proteger o tráfego de rede (TLS em Routes, NetworkPolicies, TLS interno) | [4.7](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/04-deploy-e-redes/4.7-escalar-e-expor-aplicacoes.md) | ✅ [4.1](../capitulos/04-seguranca-de-rede/4.1-tls-no-trafego-externo.md) · ✅ [4.3](../capitulos/04-seguranca-de-rede/4.3-network-policies.md) · ✅ [4.5](../capitulos/04-seguranca-de-rede/4.5-tls-no-trafego-interno.md) |
-| Expor aplicações não HTTP (LoadBalancer) e redes adicionais de Pods | [4.5](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/04-deploy-e-redes/4.5-redes-de-pods-e-services.md) | ⏳ Cap. 5 |
+| Expor aplicações não HTTP (LoadBalancer) e redes adicionais de Pods | [4.5](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/04-deploy-e-redes/4.5-redes-de-pods-e-services.md) | ✅ [5.1](../capitulos/05-redes-nao-http/5.1-servicos-load-balancer.md) · ✅ [5.3](../capitulos/05-redes-nao-http/5.3-redes-adicionais-de-pods.md) |
 | Habilitar autosserviço (quotas, limit ranges, template de projeto, self-provisioner) | [6.5](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/06-confiabilidade/6.5-reservar-capacidade-de-computacao.md) · [6.7](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/06-confiabilidade/6.7-limitar-capacidade-de-computacao.md) | ⏳ Cap. 6 |
 | Gerenciar Operators (OLM, console e CLI) | [1.3](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/01-introducao-kubernetes-openshift/1.3-componentes-e-edicoes-do-openshift.md) | ⏳ Cap. 7 |
 | Segurança de aplicações (SCC, service accounts, acesso à API, CronJobs de manutenção) | [3.1](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/03-containers-e-pods/3.1-criar-containers-e-pods.md) | ⏳ Cap. 8 |
@@ -69,6 +69,16 @@
 | Permitir routers e monitoramento; entender o efeito do nó único | 4.3 | Configurar NetworkPolicies |
 | Ler AdminNetworkPolicies e sua precedência | 4.3 | ➕ Contexto de administrador |
 | Gerar certificados de serviço e injetar a CA em clientes | [4.5](../capitulos/04-seguranca-de-rede/4.5-tls-no-trafego-interno.md) | Proteger o tráfego interno |
+
+## Competências do Capítulo 5
+
+| Competência | Lição | Relação com o EX280 |
+|-------------|-------|---------------------|
+| Expor aplicações não HTTP com Services LoadBalancer e verificar o IP externo | [5.1](../capitulos/05-redes-nao-http/5.1-servicos-load-balancer.md) | Expor aplicações não HTTP/SNI |
+| Entender o MetalLB (pool, anúncio L2/BGP) e o esgotamento do pool | 5.1 | Expor aplicações não HTTP/SNI |
+| Criar namespaces e UDNs primárias para isolar workloads | [5.3](../capitulos/05-redes-nao-http/5.3-redes-adicionais-de-pods.md) | Redes adicionais de Pods |
+| Criar NADs e anexar Pods a redes externas | 5.3 | Redes adicionais de Pods |
+| Verificar redes de um Pod pela anotação `network-status` | 5.3 | Diagnóstico |
 
 ## Estratégia de treino
 

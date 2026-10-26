@@ -1,6 +1,6 @@
 # Troubleshooting: sintoma → causa → verificação
 
-> Cobertura: **Capítulos 1–4**. Para Pods, Services, Routes, storage e recursos, veja o
+> Cobertura: **Capítulos 1–5**. Para Pods, Services, Routes, storage e recursos, veja o
 > [troubleshooting do DO180](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/consulta-rapida/troubleshooting.md).
 
 ## Roteiro geral para mudanças declarativas
@@ -121,6 +121,24 @@ flowchart TD
 | `self signed certificate in certificate chain` | Cliente sem a CA do service-ca | ConfigMap `inject-cabundle` montado no cliente |
 | ConfigMap perdeu dados | Anotação de injeção em ConfigMap compartilhado | Usar ConfigMap dedicado |
 | Cliente perde confiança em CAs públicas | Bundle do sistema substituído pelo do service-ca | Montar a CA em outro caminho |
+
+## LoadBalancer (Cap. 5)
+
+| Sintoma | Causa provável | Como verificar / resolver |
+|---------|----------------|---------------------------|
+| `EXTERNAL-IP <pending>` | Pool esgotado ou sem implementação de LoadBalancer | `oc get svc -A \| grep LoadBalancer`; `oc get ipaddresspool -n metallb-system` |
+| IP atribuído, sem conexão | IP não anunciado ou rede não roteia | `oc get l2advertisement -n metallb-system`; `ping`/`traceroute` |
+| `nc` recusa | Sem endpoints ou `targetPort` errado | `oc get endpoints <s>` |
+
+## Redes adicionais (Cap. 5)
+
+| Sintoma | Causa provável | Como verificar / resolver |
+|---------|----------------|---------------------------|
+| Pods não sobem: `invalid primary network state` | Namespace com label de UDN primária sem UDN | Criar a UDN |
+| UDN com falha nas condições | Namespace sem o label | Recriar o namespace com o label |
+| CUDN: `foreign NetworkAttachmentDefinition ... already exist` | Nome em conflito | Nome único |
+| Pod sem `net1` | Anotação fora do template, nome errado, NAD em outro namespace, espaços | `oc get pod -o yaml`; eventos |
+| Pod novo preso após update (host-device) | Interface presa ao Pod antigo | `strategy: Recreate` |
 
 ---
 [Início](../README.md)

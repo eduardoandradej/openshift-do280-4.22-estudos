@@ -23,6 +23,7 @@
 | **cluster-reader** | Papel de leitura da maioria dos objetos do cluster |
 | **ClusterRole** | Papel definido no escopo do cluster; reutilizável em projetos por RoleBindings |
 | **ClusterRoleBinding** | Vínculo de um papel a sujeitos em todo o cluster |
+| **ClusterUserDefinedNetwork (CUDN)** | Rede definida pelo administrador do cluster que une vários namespaces selecionados por labels |
 | **commonLabels** | Campo obsoleto do Kustomize; adiciona labels também a selectors e templates |
 | **configMapGenerator** | Gera ConfigMaps a partir de `literals`, `envs` ou `files`, com hash no nome |
 | **Declarativo (fluxo)** | Manter o estado desejado em arquivos versionados e aplicá-lo com `oc apply` |
@@ -36,22 +37,31 @@
 | **Helm** | Ferramenta que instala, atualiza e reverte aplicações empacotadas como charts |
 | **HelmChartRepository / ProjectHelmChartRepository** | Recursos que publicam um repositório de charts na console (cluster inteiro / um projeto) |
 | **Hook (Helm)** | Tarefa que o chart executa em momentos do ciclo (antes/depois de instalar ou atualizar) |
+| **host-device** | Plug-in CNI que move uma interface do nó para um único Pod |
 | **HTPasswd (IdP)** | Provedor de identidade que valida usuários contra um arquivo htpasswd guardado em Secret |
 | **Identity provider (IdP)** | Sistema que valida credenciais para o servidor OAuth (HTPasswd, LDAP, OIDC...) |
 | **Identity** | Registro do vínculo de um User com um provedor de identidade (`idp:usuario`) |
 | **Imperativo (fluxo)** | Alterar o cluster com uma sequência de comandos de ação |
 | **Ingress controller** | Componente (router) que recebe o tráfego externo e o encaminha aos Pods conforme Routes/Ingress |
 | **inject-cabundle** | Anotação `service.beta.openshift.io/inject-cabundle=true` que faz o service-ca injetar sua CA em um objeto |
+| **IPAddressPool** | Recurso do MetalLB com a faixa de IPs que pode ser atribuída a Services LoadBalancer |
 | **JSON Patch** | Formato (RFC 6902) de operações `op`/`path`/`value` em caminhos exatos |
 | **kubeadmin** | Usuário virtual de administrador criado na instalação; senha em hash no Secret `kubeadmin` (`kube-system`) |
 | **kustomization.yaml** | Arquivo que define recursos, transformações, patches e generators de um diretório Kustomize |
 | **Kustomize** | Ferramenta que produz variações de manifestos YAML sem templates; integrada ao `oc` (`-k`, `oc kustomize`) |
+| **L2Advertisement** | Recurso do MetalLB que anuncia IPs dos pools por ARP (camada 2) |
 | **last-applied-configuration** | Anotação `kubectl.kubernetes.io/last-applied-configuration` com o último manifesto aplicado |
+| **LoadBalancer (Service)** | Tipo de Service que recebe um IP externo dedicado, fornecido pela nuvem ou pelo MetalLB |
+| **MACVLAN / IPVLAN** | Plug-ins CNI que criam interfaces virtuais sobre uma interface do nó (com MAC próprio / MAC compartilhado) |
 | **Manifesto de recurso** | Arquivo YAML ou JSON que descreve o estado desejado de um ou mais objetos |
 | **mappingMethod** | Campo do IdP que define como identidades são ligadas a Users (padrão `claim`) |
+| **MetalLB** | Operador que implementa Services LoadBalancer fora da nuvem, por ARP (L2) ou BGP (L3) |
 | **ML-KEM** | Mecanismo pós-quântico de troca de chaves, usado de forma híbrida em TLS 1.3 no 4.22 |
+| **Multus** | Plug-in CNI que permite várias interfaces de rede por Pod |
 | **namePrefix / nameSuffix** | Prefixo/sufixo aplicado pelo Kustomize ao nome de todos os recursos |
+| **NetworkAttachmentDefinition (NAD)** | Recurso de namespace com a configuração CNI de uma rede adicional |
 | **NetworkPolicy** | Recurso de namespace que define, por labels, de onde os Pods podem receber (e para onde enviar) tráfego |
+| **NodePort** | Tipo de Service exposto em uma porta alta em todos os nós |
 | **OAuth (recurso)** | Objeto `oauth/cluster` (`config.openshift.io/v1`) que lista os provedores de identidade |
 | **OAuth server** | Servidor de autenticação do OpenShift (Pods `oauth-openshift`) que emite tokens de acesso |
 | **Overlay** | Diretório Kustomize que referencia uma base e declara as diferenças de um ambiente |
@@ -71,11 +81,13 @@
 | **service-ca** | Controller do OpenShift que emite certificados para Services anotados e distribui sua CA |
 | **ServiceAccount** | Identidade de aplicações (`system:serviceaccount:<ns>:<nome>`) |
 | **serving-cert-secret-name** | Anotação de Service que pede ao service-ca um Secret TLS com certificado assinado |
+| **SNI** | Extensão do TLS que informa o nome do host no handshake; permite rotear TLS por nome |
 | **Strategic merge patch** | Patch com a estrutura do recurso; mescla listas por chave de mesclagem; padrão do `oc patch` |
 | **system:anonymous** | Usuário virtual atribuído a requisições sem credencial |
 | **Template (OpenShift)** | Recurso `template.openshift.io/v1` com objetos parametrizados |
 | **Three-way merge** | Comparação feita pelo `oc apply` entre manifesto, objeto vivo e `last-applied-configuration` |
 | **User** | Ator que interage com a API; criado no primeiro login |
+| **UserDefinedNetwork (UDN)** | Rede de um namespace gerenciada pelo OVN-Kubernetes, primária ou secundária |
 | **values.yaml** | Valores padrão de um chart; sobrescritos por `-f` e `--set` |
 | **Zero trust** | Modelo em que nenhuma comunicação é confiável por padrão: tudo é autorizado, cifrado e verificado |
 

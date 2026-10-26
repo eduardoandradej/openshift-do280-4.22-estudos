@@ -16,6 +16,8 @@ laboratório durante uma atividade.
 | [routes/](routes/) | Routes edge (com redirecionamento HTTP→HTTPS) e passthrough | [4.1](../capitulos/04-seguranca-de-rede/4.1-tls-no-trafego-externo.md) |
 | [network-policies/](network-policies/) | default-deny, allow no mesmo namespace, allow entre projetos (E), routers/monitoramento, AdminNetworkPolicy | [4.3](../capitulos/04-seguranca-de-rede/4.3-network-policies.md) |
 | [service-ca/](service-ca/) | Service anotado, ConfigMap de CA, patch de montagem do certificado e Deployment cliente | [4.5](../capitulos/04-seguranca-de-rede/4.5-tls-no-trafego-interno.md) |
+| [load-balancer/](load-balancer/) | Service LoadBalancer (RTSP) e referência de pool/anúncio do MetalLB (administrador) | [5.1](../capitulos/05-redes-nao-http/5.1-servicos-load-balancer.md) |
+| [redes-adicionais/](redes-adicionais/) | Namespace para UDN primária, UDN, CUDN, NAD host-device e Deployment com anotação | [5.3](../capitulos/05-redes-nao-http/5.3-redes-adicionais-de-pods.md) |
 | [helm-catalogo/](helm-catalogo/) | Chart Helm mínimo (Deployment, Service, Route opcional, `resources` por valores) + `values-producao.yaml` | [2.3](../capitulos/02-aplicacoes-empacotadas/2.3-charts-do-helm.md) |
 
 O patch fica **fora** de `manifestos-catalogo/` de propósito: `oc apply -f <dir>`
@@ -65,7 +67,7 @@ O arquivo de parâmetros do template usa extensão `.txt` porque o `.gitignore` 
 repositório bloqueia arquivos `.env`.
 
 Regras: nenhum Secret real, nenhuma credencial e nenhum host do ambiente oficial.
-Todos os arquivos são validados antes do commit: parser YAML, `kustomize build`, `helm lint`/`helm template` e decodificação estrita contra os tipos das APIs (Kubernetes, Route e AdminNetworkPolicy).
+Todos os arquivos são validados antes do commit: parser YAML, `kustomize build`, `helm lint`/`helm template` e decodificação estrita contra os tipos das APIs (Kubernetes, Route, AdminNetworkPolicy, UDN/CUDN, NAD e MetalLB).
 
 ---
 [Início](../README.md)

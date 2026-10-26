@@ -1,8 +1,8 @@
 # Exemplos YAML comentados
 
-Todos autorais e validados (`yaml.safe_load`, `kustomize build` v5.7.1, `helm lint`/`helm template` v3.17 e decodificação estrita contra os tipos das APIs: Kubernetes, `route.openshift.io/v1` e `policy.networking.k8s.io/v1alpha1`). Arquivos
+Todos autorais e validados (`yaml.safe_load`, `kustomize build` v5.7.1, `helm lint`/`helm template` v3.17 e decodificação estrita contra os tipos das APIs: Kubernetes, `route.openshift.io/v1`, `policy.networking.k8s.io/v1alpha1`, `k8s.ovn.org/v1`, `k8s.cni.cncf.io/v1` e `metallb.io/v1beta1`). Arquivos
 aplicáveis em [exemplos-originais/](../exemplos-originais/README.md).
-Cobertura: **Capítulos 1–4**.
+Cobertura: **Capítulos 1–5**.
 
 ## Vários manifestos em um arquivo
 
@@ -302,6 +302,62 @@ data: {}
 ```
 
 Mais em [exemplos-originais/service-ca/](../exemplos-originais/service-ca/).
+
+## Service LoadBalancer
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: camera-lb
+spec:
+  type: LoadBalancer          # IP externo vindo da nuvem ou do MetalLB
+  selector:
+    app: camera
+  ports:
+    - name: rtsp
+      port: 8554
+      targetPort: 8554
+```
+
+## UDN primária (namespace + UDN)
+
+```yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: pagamentos-isolado
+  labels:
+    k8s.ovn.org/primary-user-defined-network: ""   # só na criação
+---
+apiVersion: k8s.ovn.org/v1
+kind: UserDefinedNetwork
+metadata:
+  name: udn-pagamentos
+  namespace: pagamentos-isolado
+spec:
+  topology: Layer2
+  layer2:
+    role: Primary
+    subnets: ["10.100.0.0/24"]
+```
+
+## NAD e anotação no Deployment
+
+```yaml
+apiVersion: k8s.cni.cncf.io/v1
+kind: NetworkAttachmentDefinition
+metadata:
+  name: rede-armazenamento
+spec:
+  config: |-
+    {"cniVersion": "0.3.1", "name": "rede-armazenamento", "type": "host-device",
+     "device": "eth9", "ipam": {"type": "static", "addresses": [{"address": "192.168.77.10/24"}]}}
+```
+
+No Deployment: `spec.template.metadata.annotations: {k8s.v1.cni.cncf.io/networks: rede-armazenamento}`.
+Mais em [exemplos-originais/redes-adicionais/](../exemplos-originais/redes-adicionais/) e
+[exemplos-originais/load-balancer/](../exemplos-originais/load-balancer/).
 
 ---
 [Início](../README.md)

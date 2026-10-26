@@ -51,12 +51,12 @@ que você já executou seus laboratórios.
 - [ ] REVISAO.md
 - [ ] RESUMO.md
 
-## Capítulo 5 — Exposing Non-HTTP/SNI Applications (⏳ documentação aguardando PDF)
+## Capítulo 5 — Exposing Non-HTTP/SNI Applications
 - [ ] 5.1 Load Balancer Services
-- [ ] 5.2 GE Configure Load Balancer Services
+- [ ] 5.2 GE `non-http-lb`
 - [ ] 5.3 Configure Additional Pod Networks
-- [ ] 5.4 GE Configure Additional Pod Networks
-- [ ] 5.5 Lab Expose Non-HTTP/SNI Applications
+- [ ] 5.4 GE `non-http-multiple`
+- [ ] 5.5 Lab `non-http-review` (`lab grade`)
 - [ ] REVISAO.md
 - [ ] RESUMO.md
 

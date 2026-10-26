@@ -5,7 +5,7 @@
 > [CLAUDE.md](../CLAUDE.md). O progresso de estudo do aluno fica no
 > [checklist geral](checklist-geral.md) e no [diário](diario-de-laboratorios.md).
 
-**Última atualização:** 2026-10-26 (Capítulo 4 concluído)
+**Última atualização:** 2026-10-26 (Capítulo 5 concluído)
 
 ## Situação por módulo
 
@@ -17,14 +17,14 @@
 | Capítulo 2 | ✅ validado | p. 69–109 | 2 lições + prática, revisão, resumo (sem quiz) |
 | Capítulo 3 | ✅ validado | p. 110–145 | 2 lições + prática, revisão, resumo (sem quiz) |
 | Capítulo 4 | ✅ validado | p. 146–198 | 3 lições + prática (com armadilhas do ambiente), revisão, resumo (sem quiz) |
-| Capítulo 5 | ⏳ aguardando PDF | — | README estrutural com seções do sumário |
-| Capítulo 6 | ⏳ aguardando PDF | — | idem |
+| Capítulo 5 | ✅ validado | p. 199–244 | 2 lições + prática (com armadilhas), revisão, resumo (sem quiz) |
+| Capítulo 6 | ⏳ aguardando PDF | — | README estrutural com seções do sumário |
 | Capítulo 7 | ⏳ aguardando PDF | — | idem |
 | Capítulo 8 | ⏳ aguardando PDF | — | idem |
 | Capítulo 9 | ⏳ aguardando PDF | — | idem |
 | Capítulo 10 | ⏳ aguardando PDF | — | idem |
-| consulta-rapida | 🟡 | — | Cobre os Capítulos 1 a 4 (remete ao DO180 para o restante) |
-| exemplos-originais | 🟡 | — | Exemplos dos Capítulos 1 a 4, validados com `kustomize build`, `helm lint`/`helm template` e decodificação estrita (tipos Kubernetes, Route, ANP) |
+| consulta-rapida | 🟡 | — | Cobre os Capítulos 1 a 5 (remete ao DO180 para o restante) |
+| exemplos-originais | 🟡 | — | Exemplos dos Capítulos 1 a 5, validados com `kustomize build`, `helm lint`/`helm template` e decodificação estrita (tipos Kubernetes, Route, ANP, UDN/CUDN, NAD, MetalLB) |
 | certificacao | 🟡 | — | Matriz EX280 relacionando áreas do exame às lições |
 
 ## PDFs recebidos
@@ -36,6 +36,7 @@
 | `DO280_4.22_C02_Aplicacoes_Empacotadas_p069-109.pdf` | Capítulo 2 completo | 69–109 |
 | `DO280_4.22_C03_Autenticacao_e_Autorizacao_p110-145.pdf` | Capítulo 3 completo | 110–145 |
 | `DO280_4.22_C04_Seguranca_de_Rede_p146-198.pdf` | Capítulo 4 completo | 146–198 |
+| `DO280_4.22_C05_Aplicacoes_Nao_HTTP_p199-244.pdf` | Capítulo 5 completo | 199–244 |
 
 Os PDFs **não** são versionados (bloqueados pelo `.gitignore`); o texto foi extraído
 apenas no scratchpad da sessão.
@@ -76,6 +77,13 @@ apenas no scratchpad da sessão.
 - Ambiente (Cap. 4): cluster de nó único com routers na rede do host (NetworkPolicy não
   bloqueia a Route); `lab start` de `network-ingress`, `network-svccerts` e
   `network-review` já cria o projeto; arquivos de solução em `~/DO280/solutions/`.
+- Capítulo 5: abertura p. 199; 5.1 Load Balancer Services (p. 200–206); 5.2 GE
+  `non-http-lb` (p. 207–212); 5.3 Configure Additional Pod Networks (p. 213–224); 5.4 GE
+  `non-http-multiple` (p. 225–233); 5.5 Lab `non-http-review` (p. 234–243, **com**
+  `lab grade`; solução a partir da p. 236); 5.6 Summary (p. 244). Sem quiz.
+- Ambiente (Cap. 5): MetalLB em camada 2 com pool de dois IPs no GE 5.2 e um único IP no
+  Lab 5.5 (configurado pelo `lab start`); o nó tem uma segunda interface ligada a uma rede
+  física acessível pela máquina `utility`; a console tem mais de um provedor de identidade.
 - Sumário completo dos capítulos 2–10 (títulos e tipos de seção) conferido nas p. 3–5.
 
 ## Divergências e imprecisões encontradas no PDF (Cap. 1)
@@ -179,6 +187,30 @@ Cada atividade oficial agora tem a seção **Armadilhas do ambiente** no
 Cap. 3, GE 3.4 — `oc auth can-i --as` só funciona como `admin` (usuários comuns recebem
 `cannot impersonate`). Os Capítulos 1 e 2 foram revistos e não têm conflitos desse tipo.
 
+## Divergências e imprecisões encontradas no PDF (Cap. 5)
+
+| Página | Ponto | Tratamento no repositório |
+|--------|-------|---------------------------|
+| p. 215 | "IP da sub-rede do nó, uma sub-rede por nó" apresentado para UDNs em geral | É a topologia Layer3; na Layer2 uma sub-rede serve todos os nós (conferido na API `UserDefinedNetwork` do OVN-Kubernetes) |
+| p. 217–218 | Manifesto cria a UDN `my-udn`; o comando seguinte consulta `primary-udn` | Inconsistência de exemplo, registrada no resumo |
+
+## Complementos de fonte externa usados no Cap. 5 (marcados 📘)
+
+`BGPPeer`/`BGPAdvertisement`; `--protocol UDP` no `oc expose`; topologias Layer2 × Layer3
+conforme a API do OVN-Kubernetes. Comportamentos explicados por dedução técnica e
+coerentes com o material: `host-device` exige `strategy: Recreate` (o arquivo do GE já usa);
+IP estático + várias réplicas gera conflito.
+
+## Validação do Capítulo 5
+
+- [x] Seções 5.1–5.6 representadas, na ordem; ausência de quiz registrada.
+- [x] Identificadores `non-http-lb`, `non-http-multiple`, `non-http-review` e `lab grade` (só no 5.5) conferidos.
+- [x] Armadilhas do ambiente no formato revisado (inconsistência do texto × erro fora da sequência).
+- [x] Senhas, IPs, nomes e soluções oficiais não reproduzidos; exemplos usam nomes e faixas fictícios.
+- [x] Service, Namespace, UDN, CUDN, NAD (incluindo o JSON do `config`), IPAddressPool, L2Advertisement e Deployment validados com decodificação estrita (`ovn-kubernetes/go-controller`, `network-attachment-definition-client` v1.7.7, `metallb` v0.16.1, k8s.io/api).
+- [x] Links relativos, âncoras e links para o DO180 verificados por script.
+- [x] Varredura de senhas do laboratório, e-mail e marca d'água: nada encontrado.
+
 ## Validação do Capítulo 4
 
 - [x] Seções 4.1–4.8 representadas, na ordem; ausência de quiz registrada.
@@ -220,7 +252,7 @@ Cap. 3, GE 3.4 — `oc auth can-i --as` só funciona como `admin` (usuários com
 
 | Item | Quando |
 |------|--------|
-| Desenvolver o Capítulo 5 | Ao receber o PDF do Capítulo 5 |
+| Desenvolver o Capítulo 6 | Ao receber o PDF do Capítulo 6 |
 | Ampliar `consulta-rapida` e `exemplos-originais` | A cada capítulo |
 | Assuntos herdados do DO180: SCC, LimitRange/ResourceQuota, criptografia do etcd (RBAC no Cap. 3, TLS em Routes no Cap. 4) | Caps. 6 e 8 |
 
@@ -229,13 +261,13 @@ Cap. 3, GE 3.4 — `oc auth can-i --as` só funciona como `admin` (usuários com
 - Repositório: `eduardoandradej/openshift-do280-4.22-estudos` (já existia com `LICENSE` Apache-2.0; nada foi sobrescrito).
 - Visibilidade: definida pelo usuário.
 - Fluxo de publicação: por decisão do usuário (2026-10-26), o conteúdo validado vai direto para o branch `main`, sem PR. O primeiro commit foi feito em `claude/gallant-shannon-b4zr78` e integrado à `main` por fast-forward.
-- Último commit relevante: ver `git log` da `main` (commit do Capítulo 4).
+- Último commit relevante: ver `git log` da `main` (commit do Capítulo 5).
 
 ## Próximo passo
 
-Aguardar o PDF do **Capítulo 5 — Exposing Non-HTTP/SNI Applications** (sumário: 5.1
-Load Balancer Services, 5.2 GE, 5.3 Configure Additional Pod Networks, 5.4 GE, 5.5 Lab,
-5.6 Summary).
+Aguardar o PDF do **Capítulo 6 — Enabling Developer Self-service** (sumário: 6.1 Project
+and Cluster Quotas, 6.2 GE, 6.3 Per-project Resource Constraints: Limit Ranges, 6.4 GE,
+6.5 The Project Template and the Self-provisioner Role, 6.6 GE, 6.7 Lab, 6.8 Summary).
 Ao recebê-lo: ler este arquivo e o `CLAUDE.md`, confirmar páginas e identificadores
 `lab`, e seguir o fluxo da seção 6 do `CLAUDE.md`.
 

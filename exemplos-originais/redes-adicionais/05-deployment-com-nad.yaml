@@ -1,0 +1,24 @@
+# Deployment que pede a rede extra pela anotação no TEMPLATE do Pod.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: exportador
+  namespace: relatorios
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate              # host-device: o Pod antigo precisa liberar a interface
+  selector:
+    matchLabels:
+      app: exportador
+  template:
+    metadata:
+      labels:
+        app: exportador
+      annotations:
+        k8s.v1.cni.cncf.io/networks: rede-armazenamento
+    spec:
+      containers:
+        - name: exportador
+          image: registry.access.redhat.com/ubi9/ubi
+          command: ["sleep", "infinity"]

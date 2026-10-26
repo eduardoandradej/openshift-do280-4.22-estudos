@@ -1,0 +1,15 @@
+# Service LoadBalancer para um protocolo não HTTP (RTSP na 8554). Exemplo autoral.
+apiVersion: v1
+kind: Service
+metadata:
+  name: camera-lb
+  namespace: cameras
+spec:
+  type: LoadBalancer
+  selector:
+    app: camera
+  ports:
+    - name: rtsp
+      port: 8554
+      targetPort: 8554
+      protocol: TCP

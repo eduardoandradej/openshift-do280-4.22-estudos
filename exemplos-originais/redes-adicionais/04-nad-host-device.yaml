@@ -1,0 +1,19 @@
+# NAD host-device: entrega a interface eth9 do nó a UM Pod, com IP estático.
+# O "name" do JSON deve ser igual ao metadata.name.
+apiVersion: k8s.cni.cncf.io/v1
+kind: NetworkAttachmentDefinition
+metadata:
+  name: rede-armazenamento
+  namespace: relatorios
+spec:
+  config: |-
+    {
+      "cniVersion": "0.3.1",
+      "name": "rede-armazenamento",
+      "type": "host-device",
+      "device": "eth9",
+      "ipam": {
+        "type": "static",
+        "addresses": [ { "address": "192.168.77.10/24" } ]
+      }
+    }

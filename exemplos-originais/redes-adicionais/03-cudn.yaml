@@ -1,0 +1,16 @@
+# CUDN (administrador do cluster): uma rede para todos os namespaces com inquilino=financeiro.
+# Os namespaces precisam ter sido criados com o label de UDN primária.
+apiVersion: k8s.ovn.org/v1
+kind: ClusterUserDefinedNetwork
+metadata:
+  name: cudn-financeiro
+spec:
+  namespaceSelector:
+    matchLabels:
+      inquilino: financeiro
+  network:
+    topology: Layer2
+    layer2:
+      role: Primary
+      subnets:
+        - "10.200.0.0/16"

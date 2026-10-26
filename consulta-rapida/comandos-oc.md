@@ -1,6 +1,6 @@
 # Comandos `oc` por tarefa
 
-> Cobertura: **Capítulos 1–4**. Os comandos do DO180 estão na
+> Cobertura: **Capítulos 1–5**. Os comandos do DO180 estão na
 > [consulta rápida do DO180](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/consulta-rapida/comandos-oc.md).
 > Coluna **Tipo:** 🔍 somente leitura · ✏️ altera o cluster · 🖥️ só local.
 
@@ -137,6 +137,27 @@
 | `oc create configmap <cm>` + `oc annotate configmap <cm> service.beta.openshift.io/inject-cabundle=true` | Injetar a CA (ConfigMap dedicado) | ✏️ | 4.5 |
 | `oc exec deploy/<d> -- openssl s_client -connect <svc>.<ns>.svc:443` | Verificar a cadeia de dentro do cluster | 🔍 | 4.5 |
 | `oc delete secret <secret>` | Rotacionar o certificado de um Service | ✏️ | 4.5 |
+
+## Services LoadBalancer (Cap. 5)
+
+| Comando | Para quê | Tipo | Lição |
+|---------|----------|------|-------|
+| `oc expose deployment/<d> --type LoadBalancer [--name <s>] [--port <p>] [--target-port <tp>]` | Expor protocolo não HTTP com IP próprio | ✏️ | [5.1](../capitulos/05-redes-nao-http/5.1-servicos-load-balancer.md) |
+| `oc get svc <s> -o jsonpath='{.status.loadBalancer.ingress[0].ip}'` | IP externo atribuído | 🔍 | 5.1 |
+| `oc get svc -A \| grep LoadBalancer` | Quem está ocupando o pool | 🔍 | 5.1 |
+| `oc get metallb,ipaddresspool,l2advertisement -n metallb-system` | Configuração do MetalLB (administrador) | 🔍 | 5.1 |
+| `nc -vz <ip> <porta>` | Testar se a porta aceita conexão | 🔍 | 5.1 |
+
+## Redes adicionais (Cap. 5)
+
+| Comando | Para quê | Tipo | Lição |
+|---------|----------|------|-------|
+| `oc create -f <namespace-com-label>.yaml` | Namespace para UDN primária (label só na criação) | ✏️ | [5.3](../capitulos/05-redes-nao-http/5.3-redes-adicionais-de-pods.md) |
+| `oc apply -f udn.yaml` · `oc get userdefinednetwork -n <ns> -o yaml` | Criar UDN e ver condições | ✏️ / 🔍 | 5.3 |
+| `oc describe clusteruserdefinednetwork <c>` | Estado de uma CUDN | 🔍 | 5.3 |
+| `oc get net-attach-def [-A] [-l k8s.ovn.org/user-defined-network]` | NADs (manuais ou geradas por UDN/CUDN) | 🔍 | 5.3 |
+| `oc get pod <p> -o jsonpath='{.metadata.annotations.k8s\.v1\.cni\.cncf\.io/network-status}'` | Redes e interfaces do Pod | 🔍 | 5.3 |
+| `oc debug node/<nó> -- chroot /host ip addr show <if>` | Interface existe no nó? | 🔍 | 5.3 |
 
 ## Git nas atividades (apoio)
 

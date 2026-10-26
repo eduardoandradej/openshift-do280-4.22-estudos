@@ -36,6 +36,9 @@ cada nova entrada. **Não** cole senhas, tokens nem saídas que contenham creden
 | 4.4 | GE `network-policy` | | | |
 | 4.6 | GE `network-svccerts` | | | |
 | 4.7 | Lab `network-review` (grade) | | | |
+| 5.2 | GE `non-http-lb` | | | |
+| 5.4 | GE `non-http-multiple` | | | |
+| 5.5 | Lab `non-http-review` (grade) | | | |
 
 > Linhas dos próximos capítulos serão acrescentadas quando os identificadores `lab`
 > forem verificados nos respectivos PDFs.

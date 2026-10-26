@@ -1,0 +1,7 @@
+# O label de UDN primária só pode ser definido NA CRIAÇÃO do namespace.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: pagamentos-isolado
+  labels:
+    k8s.ovn.org/primary-user-defined-network: ""

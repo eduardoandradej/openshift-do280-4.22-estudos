@@ -1,0 +1,14 @@
+# UDN primária, topologia Layer2 (uma sub-rede para todos os nós).
+apiVersion: k8s.ovn.org/v1
+kind: UserDefinedNetwork
+metadata:
+  name: udn-pagamentos
+  namespace: pagamentos-isolado
+spec:
+  topology: Layer2
+  layer2:
+    role: Primary
+    subnets:
+      - "10.100.0.0/24"
+    ipam:
+      lifecycle: Persistent

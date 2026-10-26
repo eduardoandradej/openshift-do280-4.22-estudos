@@ -58,7 +58,16 @@ Meta do capítulo: proteger o tráfego de rede entre aplicações dentro e fora 
 | Restringir o tráfego de rede entre projetos e Pods | [4.3](../capitulos/04-seguranca-de-rede/4.3-network-policies.md) | [ ] |
 | Configurar e usar certificados de serviço automáticos | [4.5](../capitulos/04-seguranca-de-rede/4.5-tls-no-trafego-interno.md) | [ ] |
 
-## 6. Capítulos 5 a 10
+## 6. Capítulo 5 — Exposing Non-HTTP/SNI Applications (✅ PDF p. 199–244)
+
+Meta do capítulo: expor aplicações ao acesso externo sem usar um ingress controller.
+
+| Objetivo da seção | Lição | Estudado? |
+|-------------------|-------|-----------|
+| Expor aplicações ao acesso externo com Services LoadBalancer | [5.1](../capitulos/05-redes-nao-http/5.1-servicos-load-balancer.md) | [ ] |
+| Configurar UDNs para isolamento e NADs para acesso externo | [5.3](../capitulos/05-redes-nao-http/5.3-redes-adicionais-de-pods.md) | [ ] |
+
+## 7. Capítulos 6 a 10
 
 ⏳ Os objetivos de cada seção serão registrados aqui quando os PDFs forem recebidos.
 
