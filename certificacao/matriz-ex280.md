@@ -5,7 +5,6 @@
 | Marca | Significado |
 |-------|-------------|
 | ✅ | Lição do DO280 escrita e validada |
-| ⏳ | Lição do DO280 ainda não escrita (aguardando PDF) |
 | ➕ | Complementar: ajuda na prática, mas não é objetivo declarado |
 
 ## Áreas do exame × material de estudo
@@ -120,6 +119,15 @@
 | Identificar APIs obsoletas em uso (`APIRequestCount`, alertas) | [9.3](../capitulos/09-atualizacoes-openshift/9.3-apis-obsoletas.md) | APIs obsoletas |
 | Encontrar e aprovar atualizações de operators; trocar canal | [9.5](../capitulos/09-atualizacoes-openshift/9.5-atualizar-operators-com-olm.md) | Atualizar Operators |
 | Relacionar compatibilidade de operators e bloqueio do CVO | 9.5 | Atualizar o cluster |
+
+## Competências do Capítulo 10 (integração)
+
+| Competência | Material | Relação com o EX280 |
+|-------------|----------|---------------------|
+| Trabalhar por especificação, com tempo, ordenando por dependências | [10.1](../capitulos/10-revisao-integrada/10.1-resumo-dos-objetivos-de-aprendizagem.md) | Formato do exame |
+| Autosserviço completo: grupos, RBAC, `self-provisioner` permanente, template | [Lab 10.2](../capitulos/10-revisao-integrada/PRATICA-OFICIAL.md#102-lab-set-up-cluster-self-service) · Simulado A | Autosserviço, autenticação e autorização |
+| Aplicação segura: quota, limit range, CronJob com SA, TLS passthrough, network policies | [Lab 10.3](../capitulos/10-revisao-integrada/PRATICA-OFICIAL.md#103-lab-secure-applications) · Simulado B | Segurança de rede e de aplicações |
+| Pacotes: Helm em dois ambientes, template de banco, overlay Kustomize | [Lab 10.4](../capitulos/10-revisao-integrada/PRATICA-OFICIAL.md#104-lab-deploy-packaged-applications) | Implantação declarativa e empacotada |
 
 ## Estratégia de treino
 

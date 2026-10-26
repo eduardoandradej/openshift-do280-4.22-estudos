@@ -104,12 +104,13 @@ que você já executou seus laboratórios.
 - [ ] REVISAO.md
 - [ ] RESUMO.md
 
-## Capítulo 10 — Comprehensive Review (⏳ documentação aguardando PDF)
+## Capítulo 10 — Comprehensive Review
 - [ ] 10.1 Summary of Learning Objectives
-- [ ] 10.2 Lab Set up Cluster Self-service
-- [ ] 10.3 Lab Secure Applications
-- [ ] 10.4 Lab Deploy Packaged Applications
-- [ ] REVISAO.md
+- [ ] Simulado A (60 min) e Simulado B (45 min) da REVISAO.md
+- [ ] 10.2 Lab `compreview-review` (`lab grade`, 60 min)
+- [ ] 10.3 Lab `compreview-apps` (`lab grade`, 45 min)
+- [ ] 10.4 Lab `compreview-package` (`lab grade`, 45 min)
+- [ ] REVISAO.md (questões integradas)
 - [ ] RESUMO.md
 
 ---

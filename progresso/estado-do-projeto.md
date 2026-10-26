@@ -5,7 +5,7 @@
 > [CLAUDE.md](../CLAUDE.md). O progresso de estudo do aluno fica no
 > [checklist geral](checklist-geral.md) e no [diário](diario-de-laboratorios.md).
 
-**Última atualização:** 2026-10-26 (Capítulo 9 concluído)
+**Última atualização:** 2026-10-26 (Capítulo 10 concluído — documentação do curso completa)
 
 ## Situação por módulo
 
@@ -22,10 +22,10 @@
 | Capítulo 7 | ✅ validado | p. 303–350 | 3 lições + prática (com armadilhas e o quiz 7.2), revisão, resumo |
 | Capítulo 8 | ✅ validado | p. 351–393 | 3 lições + prática (com armadilhas), revisão, resumo (sem quiz) |
 | Capítulo 9 | ✅ validado | p. 394–433 | 3 lições + roteiro dos 4 quizzes (sem labs), revisão, resumo |
-| Capítulo 10 | ⏳ aguardando PDF | — | README estrutural com seções do sumário |
-| consulta-rapida | 🟡 | — | Cobre os Capítulos 1 a 9 (remete ao DO180 para o restante) |
-| exemplos-originais | 🟡 | — | Exemplos dos Capítulos 1 a 9, validados com `kustomize build`, `helm lint`/`helm template` e decodificação estrita (tipos Kubernetes, Route, ANP, UDN/CUDN, NAD, MetalLB, quotas, Template, config de projetos, OperatorGroup, Subscription, RBAC de SCC, CronJob, ClusterExtension) |
-| certificacao | 🟡 | — | Matriz EX280 relacionando áreas do exame às lições |
+| Capítulo 10 | ✅ validado | p. 434–468 | Lição 10.1 + prática dos 3 labs, revisão com 2 simulados autorais, resumo final do curso |
+| consulta-rapida | ✅ | — | Cobre o curso completo (Capítulos 1 a 10); remete ao DO180 para a base |
+| exemplos-originais | ✅ | — | Exemplos dos Capítulos 1 a 9 (o Cap. 10 tem os simulados na própria REVISAO), validados com `kustomize build`, `helm lint`/`helm template` e decodificação estrita (tipos Kubernetes, Route, ANP, UDN/CUDN, NAD, MetalLB, quotas, Template, config de projetos, OperatorGroup, Subscription, RBAC de SCC, CronJob, ClusterExtension) |
+| certificacao | ✅ | — | Matriz EX280 completa (todas as áreas com lições) e roteiro final de preparação |
 
 ## PDFs recebidos
 
@@ -41,6 +41,7 @@
 | `DO280_4.22_C07_Operadores_Kubernetes_p303-350.pdf` | Capítulo 7 completo | 303–350 |
 | `DO280_4.22_C08_Seguranca_Aplicacoes_p351-393.pdf` | Capítulo 8 completo | 351–393 |
 | `DO280_4.22_C09_Atualizacoes_OpenShift_p394-433.pdf` | Capítulo 9 completo | 394–433 |
+| `DO280_4.22_C10_Revisao_Geral_p434-468.pdf` | Capítulo 10 completo | 434–468 |
 
 Os PDFs **não** são versionados (bloqueados pelo `.gitignore`); o texto foi extraído
 apenas no scratchpad da sessão.
@@ -123,6 +124,13 @@ apenas no scratchpad da sessão.
 - Fatos do Cap. 9: OpenShift 4.22 = Kubernetes 1.35; OLM v1 (`ClusterExtension`) é GA na
   4.22, só pela CLI; boot image skew enforcement novo na 4.22 (não se aplica a nó único
   nem a bare metal — caso do cluster do curso).
+- Capítulo 10: abertura p. 434; 10.1 Summary of Learning Objectives (p. 435–436); 10.2 Lab
+  `compreview-review` (p. 437–445; enunciado p. 437–440, solução a partir da p. 441;
+  60 min); 10.3 Lab `compreview-apps` (p. 446–458; enunciado p. 446–449, solução a partir
+  da p. 450; 45 min); 10.4 Lab `compreview-package` (p. 459–467; enunciado p. 459–462,
+  solução a partir da p. 463; 45 min); 10.5 Summary (p. 468). Todos com `lab grade`.
+  Soluções da apostila resumidas (lista de tarefas). O `lab start` do 10.3 restaura o
+  template de projeto do 10.2.
 - Sumário completo dos capítulos 2–10 (títulos e tipos de seção) conferido nas p. 3–5.
 
 ## Divergências e imprecisões encontradas no PDF (Cap. 1)
@@ -309,6 +317,29 @@ Nenhuma imprecisão técnica identificada. Observações registradas no resumo:
   versões do OLM v1 (ex.: `serviceAccount` obrigatório em versões antigas, ignorado nas
   novas).
 
+## Divergências e imprecisões encontradas no PDF (Cap. 10)
+
+| Página | Ponto | Tratamento no repositório |
+|--------|-------|---------------------------|
+| p. 438, 446, 459 e soluções | Caminhos impressos como `~/DO0019L/labs/...` e `~/DO0019L/solutions/...` | Os demais capítulos usam `~/DO280/...`; a prática orienta conferir com `ls ~` o diretório criado pelo `lab start` (não se afirma erro) |
+| p. 434 × p. 468 | Exame chamado "Red Hat Certified System Administrator in OpenShift" na abertura | Nome correto: Red Hat Certified OpenShift Administrator (usado na p. 468) |
+| p. 460–461 | Tabela do overlay não distingue labels de anotações | Seguir o `kustomization.yaml` fornecido |
+
+## Validação do Capítulo 10
+
+- [x] Seções 10.1–10.5 representadas, na ordem; identificadores `compreview-review`, `compreview-apps`, `compreview-package`, `lab grade` e tempos conferidos.
+- [x] Especificações, valores, senhas e soluções dos labs não reproduzidos; simulados com cenários e nomes próprios.
+- [x] YAML dos simulados validado com decodificação estrita (Template com cada objeto, Deployment, NetworkPolicy, CronJob) e `kustomize build` do overlay de exemplo.
+- [x] Links relativos, âncoras e links para o DO180 verificados por script; varredura de dados sensíveis sem ocorrências.
+
+## Consolidação final (2026-10-26)
+
+- README, consulta rápida (cobertura 1–10), matriz EX280 (sem pendências, com competências
+  de integração), roteiro de preparação em `certificacao/README.md`, checklist, objetivos e
+  diário atualizados.
+- Nenhum capítulo pendente. O status acima é da **documentação**; o estudo é acompanhado no
+  checklist e no diário.
+
 ## Validação do Capítulo 9
 
 - [x] Seções 9.1–9.8 representadas, na ordem; quatro quizzes citados sem reproduzir alternativas ou gabaritos.
@@ -426,25 +457,22 @@ script e conferidos nas lições; nenhum tópico ficou de fora.
 
 | Item | Quando |
 |------|--------|
-| Desenvolver o Capítulo 10 | Ao receber o PDF do Capítulo 10 |
-| Ampliar `consulta-rapida` e `exemplos-originais` | A cada capítulo |
-| Assuntos herdados do DO180 ainda não retomados: criptografia do etcd (RBAC no Cap. 3, TLS em Routes no Cap. 4, LimitRange/ResourceQuota no Cap. 6, SCC no Cap. 8) | Se aparecer nos Caps. 9–10 |
+| Nenhuma pendência de documentação | — |
+| Revisões pontuais (erros apontados pelo usuário durante o estudo ou os labs) | Sob demanda |
 
 ## Publicação
 
 - Repositório: `eduardoandradej/openshift-do280-4.22-estudos` (já existia com `LICENSE` Apache-2.0; nada foi sobrescrito).
 - Visibilidade: definida pelo usuário.
 - Fluxo de publicação: por decisão do usuário (2026-10-26), o conteúdo validado vai direto para o branch `main`, sem PR. O primeiro commit foi feito em `claude/gallant-shannon-b4zr78` e integrado à `main` por fast-forward.
-- Último commit relevante: ver `git log` da `main` (commit do Capítulo 9).
+- Último commit relevante: ver `git log` da `main` (commit do Capítulo 10 e consolidação final).
 
 ## Próximo passo
 
-Aguardar o PDF do **Capítulo 10 — Comprehensive Review** (sumário: 10.1 Summary of
-Learning Objectives, 10.2 Lab Set up Cluster Self-service, 10.3 Lab Secure Applications,
-10.4 Lab Deploy Packaged Applications, 10.5 Summary). Ao recebê-lo: ler este arquivo e o
-`CLAUDE.md`, confirmar páginas e identificadores `lab`, e seguir o fluxo da seção 6 do
-`CLAUDE.md`. Depois do Capítulo 10, fazer a consolidação final (consulta rápida, matriz
-EX280, status do curso), como no DO180.
+Documentação concluída. Próximas ações são do **estudo**: seguir o checklist, executar as
+atividades oficiais, registrar no diário e usar a matriz EX280 e os simulados do
+Capítulo 10. Novas sessões devem tratar apenas correções apontadas pelo usuário, mantendo
+as regras do `CLAUDE.md`.
 
 ---
 [Início](../README.md) | [Checklist geral](checklist-geral.md)

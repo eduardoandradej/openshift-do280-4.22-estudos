@@ -3,7 +3,6 @@
 | Marca | Significado |
 |-------|-------------|
 | ✅ | Confirmado no PDF do curso |
-| ⏳ | Capítulo ainda não recebido |
 
 A relação com o exame EX280 está em [certificacao/matriz-ex280.md](../certificacao/matriz-ex280.md).
 
@@ -107,9 +106,16 @@ Meta do capítulo: atualizar um cluster OpenShift minimizando a interrupção da
 | Identificar aplicações que usam APIs obsoletas do Kubernetes | [9.3](../capitulos/09-atualizacoes-openshift/9.3-apis-obsoletas.md) | [ ] |
 | Atualizar operators gerenciados pelo OLM pela console e pela CLI | [9.5](../capitulos/09-atualizacoes-openshift/9.5-atualizar-operators-com-olm.md) | [ ] |
 
-## 11. Capítulo 10
+## 11. Capítulo 10 — Comprehensive Review (✅ PDF p. 434–468)
 
-⏳ Os objetivos de cada seção serão registrados aqui quando os PDFs forem recebidos.
+Meta do capítulo: validar o conhecimento adquirido no DO280 (apoio à preparação para o EX280).
+
+| Objetivo | Material | Estudado? |
+|----------|----------|-----------|
+| Revisar de forma integrada os objetivos dos capítulos 1 a 9 | [10.1](../capitulos/10-revisao-integrada/10.1-resumo-dos-objetivos-de-aprendizagem.md) | [ ] |
+| Configurar o autosserviço do cluster por especificação | [Lab 10.2](../capitulos/10-revisao-integrada/PRATICA-OFICIAL.md#102-lab-set-up-cluster-self-service) | [ ] |
+| Proteger aplicações (TLS, network policies, manutenção) por especificação | [Lab 10.3](../capitulos/10-revisao-integrada/PRATICA-OFICIAL.md#103-lab-secure-applications) | [ ] |
+| Implantar aplicações empacotadas (Helm, template, Kustomize) por especificação | [Lab 10.4](../capitulos/10-revisao-integrada/PRATICA-OFICIAL.md#104-lab-deploy-packaged-applications) | [ ] |
 
 ---
 [Início](../README.md) | [Estado do projeto](estado-do-projeto.md)

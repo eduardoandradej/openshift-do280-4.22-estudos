@@ -54,9 +54,11 @@ cada nova entrada. **Não** cole senhas, tokens nem saídas que contenham creden
 | 9.4 | Quiz (APIs obsoletas) | | | |
 | 9.6 | Quiz (operators com OLM) | | | |
 | 9.7 | Quiz do capítulo 9 | | | |
+| 10.2 | Lab `compreview-review` (grade, 60 min) | | | |
+| 10.3 | Lab `compreview-apps` (grade, 45 min) | | | |
+| 10.4 | Lab `compreview-package` (grade, 45 min) | | | |
 
-> Linhas dos próximos capítulos serão acrescentadas quando os identificadores `lab`
-> forem verificados nos respectivos PDFs.
+> Todos os identificadores `lab` foram verificados nos PDFs dos capítulos.
 
 ## Entradas
 

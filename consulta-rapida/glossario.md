@@ -1,6 +1,6 @@
 # Glossário
 
-> Cobertura: **Capítulos 1–9**. Termos do DO180 no
+> Cobertura: **Capítulos 1–10 (curso completo)**. Termos do DO180 no
 > [glossário do DO180](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/consulta-rapida/glossario.md).
 
 | Termo | Definição |

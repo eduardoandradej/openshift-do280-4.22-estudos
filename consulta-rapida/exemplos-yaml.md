@@ -2,7 +2,7 @@
 
 Todos autorais e validados (`yaml.safe_load`, `kustomize build` v5.7.1, `helm lint`/`helm template` v3.17 e decodificação estrita contra os tipos das APIs: Kubernetes, `route.openshift.io/v1`, `policy.networking.k8s.io/v1alpha1`, `k8s.ovn.org/v1`, `k8s.cni.cncf.io/v1`, `metallb.io/v1beta1`, `quota.openshift.io/v1`, `template.openshift.io/v1`, `config.openshift.io/v1`, `operators.coreos.com`, `batch/v1` e `olm.operatorframework.io/v1`). Arquivos
 aplicáveis em [exemplos-originais/](../exemplos-originais/README.md).
-Cobertura: **Capítulos 1–9**.
+Cobertura: **Capítulos 1–10 (curso completo)**.
 
 ## Vários manifestos em um arquivo
 

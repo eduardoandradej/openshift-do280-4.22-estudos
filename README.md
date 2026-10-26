@@ -18,6 +18,7 @@ com a mesma metodologia.
 1. Leia [Comece aqui](00-comecar-aqui/README.md): o curso, o ambiente oficial e o comando `lab`.
 2. Faça o autoteste da [Revisão do DO180](00-comecar-aqui/revisao-do180.md).
 3. Para cada capítulo: lições → `PRATICA-OFICIAL.md` → atividade oficial → `REVISAO.md` → `RESUMO.md`.
+   No fim, a [revisão integrada](capitulos/10-revisao-integrada/README.md) traz simulados cronometrados e os labs de revisão.
 4. Registre cada atividade no [diário](progresso/diario-de-laboratorios.md) e marque o [checklist](progresso/checklist-geral.md).
 5. O estado da documentação está em [estado-do-projeto.md](progresso/estado-do-projeto.md).
 
@@ -52,9 +53,9 @@ flowchart LR
 | [Capítulo 7](capitulos/07-operadores-kubernetes/README.md) | Managing Kubernetes Operators | ✅ |
 | [Capítulo 8](capitulos/08-seguranca-aplicacoes/README.md) | Application Security | ✅ |
 | [Capítulo 9](capitulos/09-atualizacoes-openshift/README.md) | OpenShift Updates | ✅ |
-| [Capítulo 10](capitulos/10-revisao-integrada/README.md) | Comprehensive Review | ⏳ Aguardando PDF |
+| [Capítulo 10](capitulos/10-revisao-integrada/README.md) | Comprehensive Review | ✅ |
 
-Legenda: ✅ documentação concluída e validada · ⏳ aguardando o PDF do capítulo.
+Legenda: ✅ documentação concluída e validada. **Documentação completa: Capítulos 0 a 10.**
 O status refere-se à **documentação**, não ao seu estudo.
 
 ## Consulta rápida
@@ -66,7 +67,7 @@ O status refere-se à **documentação**, não ao seu estudo.
 | [troubleshooting.md](consulta-rapida/troubleshooting.md) | Sintoma → causa provável → como verificar |
 | [glossario.md](consulta-rapida/glossario.md) | Termos em ordem alfabética |
 
-Cobertura atual: Capítulos 1 a 9. Cada arquivo remete à consulta rápida do DO180 para os
+Cobertura: curso completo (Capítulos 1 a 10). Cada arquivo remete à consulta rápida do DO180 para os
 assuntos anteriores.
 
 ## Outros diretórios
@@ -74,7 +75,7 @@ assuntos anteriores.
 | Diretório | Conteúdo |
 |-----------|----------|
 | [exemplos-originais/](exemplos-originais/README.md) | Manifestos, kustomizations, template, chart Helm, OAuth, RBAC, Routes, NetworkPolicies, service-ca, LoadBalancer, redes adicionais, quotas, limit ranges, template de projeto, recursos do OLM, SCC/RBAC de aplicações, CronJobs e `ClusterExtension` autorais, validados |
-| [certificacao/](certificacao/README.md) | Matriz de competências EX280 |
+| [certificacao/](certificacao/README.md) | Matriz de competências EX280 e roteiro final de preparação |
 | [progresso/](progresso/estado-do-projeto.md) | Estado da documentação, checklist, diário, objetivos, dificuldades |
 | [modelos/](modelos/modelo-licao.md) | Modelos de lição, capítulo e prática oficial |
 

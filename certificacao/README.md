@@ -3,6 +3,7 @@
 | Arquivo | Conteúdo |
 |---------|----------|
 | [matriz-ex280.md](matriz-ex280.md) | Áreas do EX280 × lições do DO180 e do DO280 |
+| [Revisão integrada](../capitulos/10-revisao-integrada/README.md) | Simulados cronometrados, labs de revisão e 25 comandos essenciais |
 
 ## O exame
 
@@ -14,6 +15,14 @@
 | Configurações devem sobreviver a reinicialização sem intervenção manual | Página oficial do exame |
 
 Página oficial: <https://www.redhat.com/en/services/training/red-hat-certified-openshift-administrator-exam>.
+
+## Roteiro final de preparação
+
+1. Releia os `RESUMO.md` dos capítulos 1 a 10 e a [consulta rápida](../consulta-rapida/comandos-oc.md).
+2. Percorra a [matriz](matriz-ex280.md) linha por linha, executando cada competência sem consulta em cluster próprio.
+3. Faça os simulados da [REVISAO.md](../capitulos/10-revisao-integrada/REVISAO.md) do Capítulo 10 dentro do tempo-alvo.
+4. Faça os três labs de revisão no ambiente oficial, no tempo de referência.
+5. Treine a navegação rápida na documentação do produto e confira se tudo o que configurar persiste após reinicializações.
 
 ## Regras deste repositório
 
