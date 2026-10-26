@@ -1,0 +1,11 @@
+# Configuração não sensível da aplicação catalogo (exemplo autoral)
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: catalogo-config
+  namespace: catalogo-dev
+  labels:
+    app: catalogo
+data:
+  TITULO: "Catalogo de exemplo"
+  NIVEL_LOG: "info"

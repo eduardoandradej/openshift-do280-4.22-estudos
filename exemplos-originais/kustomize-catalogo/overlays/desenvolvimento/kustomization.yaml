@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: catalogo-dev
+resources:
+  - ../../base
+labels:
+  - pairs:
+      ambiente: desenvolvimento
+configMapGenerator:
+  - name: catalogo-config
+    behavior: merge          # altera só a chave abaixo; as demais vêm da base
+    literals:
+      - NIVEL_LOG=debug

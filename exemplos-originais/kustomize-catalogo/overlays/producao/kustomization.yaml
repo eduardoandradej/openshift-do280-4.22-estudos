@@ -1,0 +1,22 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: catalogo-prod
+resources:
+  - ../../base
+labels:
+  - pairs:
+      ambiente: producao
+patches:
+  # Strategic merge patch em arquivo: requests e limits
+  - path: patch-recursos.yaml
+    target:
+      kind: Deployment
+      name: catalogo
+  # JSON Patch inline: número de réplicas
+  - patch: |-
+      - op: replace
+        path: /spec/replicas
+        value: 3
+    target:
+      kind: Deployment
+      name: catalogo

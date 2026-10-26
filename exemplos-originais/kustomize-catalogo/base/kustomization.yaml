@@ -1,0 +1,16 @@
+# Base: recursos comuns a todos os ambientes (sem namespace fixo)
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - deployment.yaml
+  - service.yaml
+  - route.yaml
+labels:
+  - pairs:
+      app.kubernetes.io/part-of: catalogo
+    # includeSelectors: false (padrão) -> não altera selectors
+configMapGenerator:
+  - name: catalogo-config
+    literals:
+      - TITULO=Catalogo de exemplo
+      - NIVEL_LOG=info

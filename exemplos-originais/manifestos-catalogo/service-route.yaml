@@ -1,0 +1,29 @@
+# Dois manifestos no mesmo arquivo, separados por ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalogo
+  namespace: catalogo-dev
+  labels:
+    app: catalogo
+spec:
+  selector:
+    app: catalogo
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: catalogo
+  namespace: catalogo-dev
+  labels:
+    app: catalogo
+spec:
+  to:
+    kind: Service
+    name: catalogo
+  port:
+    targetPort: http
