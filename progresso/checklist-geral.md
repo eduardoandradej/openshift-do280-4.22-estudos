@@ -22,12 +22,12 @@ que você já executou seus laboratórios.
 - [ ] REVISAO.md
 - [ ] RESUMO.md
 
-## Capítulo 2 — Deploying Packaged Applications (⏳ documentação aguardando PDF)
+## Capítulo 2 — Deploying Packaged Applications
 - [ ] 2.1 Using OpenShift Templates
-- [ ] 2.2 GE Use OpenShift Templates
+- [ ] 2.2 GE `packaged-templates`
 - [ ] 2.3 Deploying Helm Charts
-- [ ] 2.4 GE Deploy Helm Charts
-- [ ] 2.5 Lab Deploy Packaged Applications
+- [ ] 2.4 GE `packaged-charts`
+- [ ] 2.5 Lab `packaged-review` (`lab grade`)
 - [ ] REVISAO.md
 - [ ] RESUMO.md
 

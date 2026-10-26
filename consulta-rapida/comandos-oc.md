@@ -1,6 +1,6 @@
 # Comandos `oc` por tarefa
 
-> Cobertura: **Capítulo 1**. Os comandos do DO180 estão na
+> Cobertura: **Capítulos 1–2**. Os comandos do DO180 estão na
 > [consulta rápida do DO180](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/consulta-rapida/comandos-oc.md).
 > Coluna **Tipo:** 🔍 somente leitura · ✏️ altera o cluster · 🖥️ só local.
 
@@ -34,6 +34,37 @@
 | `oc delete -k <dir>` | Remover o que o diretório gera | ✏️ | 1.3 |
 | `oc extract secret/<nome-hash> --to -` | Ler um Secret gerado | 🔍 | 1.3 |
 | `oc get deployment <d> -o jsonpath='{.spec.template.spec.containers[0].envFrom}'` | Conferir qual ConfigMap/Secret o Deployment usa | 🔍 | 1.3 |
+
+## Templates do OpenShift (Cap. 2)
+
+| Comando | Para quê | Tipo | Lição |
+|---------|----------|------|-------|
+| `oc get templates -n openshift` | Catálogo global (Samples Operator) | 🔍 | [2.1](../capitulos/02-aplicacoes-empacotadas/2.1-templates-do-openshift.md) |
+| `oc describe template <t> -n <ns>` | Objetos, parâmetros e labels | 🔍 | 2.1 |
+| `oc process --parameters <t> -n <ns>` · `-f arq.yaml` | Parâmetros, padrões e geradores | 🔍 | 2.1 |
+| `oc get template <t> -n <ns> -o yaml > arq.yaml` | Copiar um template | 🔍 | 2.1 |
+| `oc create -f arq.yaml [-n <ns>]` | Publicar o template no projeto | ✏️ | 2.1 |
+| `oc new-app --template <t> -p K=V` | Instanciar em um passo | ✏️ | 2.1 |
+| `oc process <t> -p K=V -o yaml > m.yaml` | Gerar manifestos (padrão: JSON) | 🔍 | 2.1 |
+| `oc process <t> --param-file p.txt \| oc diff -f -` | Prever atualização | 🔍 | 2.1 |
+| `oc process <t> --param-file p.txt \| oc apply -f -` | Criar ou atualizar | ✏️ | 2.1 |
+
+## Helm (Cap. 2)
+
+| Comando | Para quê | Tipo | Lição |
+|---------|----------|------|-------|
+| `helm repo add <nome> <url>` · `list` · `update` · `remove` | Repositórios (config. local) | 🖥️ | [2.3](../capitulos/02-aplicacoes-empacotadas/2.3-charts-do-helm.md) |
+| `helm search repo [<termo>] --versions` | Charts e versões | 🖥️ | 2.3 |
+| `helm show chart\|values\|readme <chart> [--version X]` | Inspecionar chart | 🖥️ | 2.3 |
+| `helm template <r> <chart> -f v.yaml` | Renderizar localmente (📘) | 🖥️ | 2.3 |
+| `helm install <r> <chart> -f v.yaml --version X --dry-run` | Prévia da instalação | 🔍 | 2.3 |
+| `helm install <r> <chart> -f v.yaml --version X [-n ns]` | Instalar (cria release) | ✏️ | 2.3 |
+| `helm list [-n ns\|--all-namespaces]` | Releases | 🔍 | 2.3 |
+| `helm get values <r> [--all]` · `helm get manifest <r>` | Valores e manifestos da release (📘) | 🔍 | 2.3 |
+| `helm upgrade <r> <chart> -f v.yaml --version Y` | Atualizar (nova revisão) | ✏️ | 2.3 |
+| `helm history <r>` | Revisões | 🔍 | 2.3 |
+| `helm rollback <r> <rev>` | Voltar a uma revisão | ✏️ | 2.3 |
+| `helm uninstall <r>` | Remover release e objetos | ✏️ | 2.3 |
 
 ## Git nas atividades (apoio)
 

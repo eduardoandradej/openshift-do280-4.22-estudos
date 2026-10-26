@@ -1,0 +1,18 @@
+{{- if .Values.route.enabled }}
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: {{ .Release.Name }}-catalogo
+  labels:
+    app.kubernetes.io/name: catalogo
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  {{- with .Values.route.host }}
+  host: {{ . }}
+  {{- end }}
+  to:
+    kind: Service
+    name: {{ .Release.Name }}-catalogo
+  port:
+    targetPort: http
+{{- end }}

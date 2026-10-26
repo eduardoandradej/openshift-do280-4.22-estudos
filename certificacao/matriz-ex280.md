@@ -14,7 +14,7 @@
 |---------------|-------|-------|
 | Gerenciar o OpenShift: console, CLI, consultar/formatar/filtrar atributos, logs, eventos, diagnóstico de containers, Pods e cluster | [2.1](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/02-cli-e-apis/2.1-interfaces-de-linha-de-comando.md) · [2.3](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/02-cli-e-apis/2.3-inspecionar-recursos-kubernetes.md) · [2.5](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/02-cli-e-apis/2.5-avaliar-a-saude-do-cluster.md) · [3.5](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/03-containers-e-pods/3.5-diagnosticar-containers-e-pods.md) | Reforço em todos os capítulos (diagnóstico) |
 | Implantar aplicações a partir de manifestos e gerenciá-las de forma declarativa (incluindo Kustomize) | [4.1](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/04-deploy-e-redes/4.1-implantar-a-partir-de-imagem-e-template.md) | ✅ [1.1](../capitulos/01-gerenciamento-declarativo/1.1-manifestos-de-recursos.md) · ✅ [1.3](../capitulos/01-gerenciamento-declarativo/1.3-overlays-do-kustomize.md) |
-| Implantar aplicações empacotadas (templates, Helm) | [4.1](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/04-deploy-e-redes/4.1-implantar-a-partir-de-imagem-e-template.md) | ⏳ Cap. 2 |
+| Implantar aplicações empacotadas (templates, Helm) | [4.1](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/04-deploy-e-redes/4.1-implantar-a-partir-de-imagem-e-template.md) | ✅ [2.1](../capitulos/02-aplicacoes-empacotadas/2.1-templates-do-openshift.md) · ✅ [2.3](../capitulos/02-aplicacoes-empacotadas/2.3-charts-do-helm.md) |
 | Gerenciar autenticação (provedor HTPasswd, usuários, grupos) e autorização (RBAC) | — | ⏳ Cap. 3 |
 | Proteger o tráfego de rede (TLS em Routes, NetworkPolicies, TLS interno) | [4.7](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/04-deploy-e-redes/4.7-escalar-e-expor-aplicacoes.md) | ⏳ Cap. 4 |
 | Expor aplicações não HTTP (LoadBalancer) e redes adicionais de Pods | [4.5](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/04-deploy-e-redes/4.5-redes-de-pods-e-services.md) | ⏳ Cap. 5 |
@@ -35,6 +35,18 @@
 | Aplicar `oc patch` (strategic merge, JSON) | 1.1 | Alterar recursos rapidamente (➕ `--type json`) |
 | Estruturar base e overlays; aplicar com `-k` | [1.3](../capitulos/01-gerenciamento-declarativo/1.3-overlays-do-kustomize.md) | Implantar por ambiente |
 | Usar `patches`, `labels`, `namespace` e generators | 1.3 | Implantar por ambiente |
+
+## Competências do Capítulo 2
+
+| Competência | Lição | Relação com o EX280 |
+|-------------|-------|---------------------|
+| Avaliar templates (objetos, parâmetros, geradores) no catálogo e em projetos | [2.1](../capitulos/02-aplicacoes-empacotadas/2.1-templates-do-openshift.md) | Implantar aplicações empacotadas |
+| Instanciar com `oc new-app --template` e com `oc process \| oc apply` | 2.1 | Implantar aplicações empacotadas |
+| Atualizar a partir de template com `--param-file` e `oc diff` | 2.1 | Atualizar aplicações |
+| Publicar templates em projetos | 2.1 | Implantar aplicações empacotadas |
+| Configurar repositórios e inspecionar charts | [2.3](../capitulos/02-aplicacoes-empacotadas/2.3-charts-do-helm.md) | Implantar aplicações empacotadas |
+| Instalar, atualizar, reverter e remover releases com valores por ambiente | 2.3 | Implantar e atualizar aplicações |
+| Gerenciar releases pela console (Ecosystem › Helm) | 2.3 | ➕ Uso da console |
 
 ## Estratégia de treino
 

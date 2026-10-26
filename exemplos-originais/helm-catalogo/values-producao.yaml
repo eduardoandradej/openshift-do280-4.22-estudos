@@ -1,0 +1,9 @@
+# Sobrescritas para produção: só as chaves que mudam.
+replicaCount: 3
+route:
+  host: catalogo.apps.exemplo.com
+resources:
+  requests:
+    memory: 128Mi
+  limits:
+    memory: 256Mi

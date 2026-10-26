@@ -1,0 +1,88 @@
+# Template OpenShift autoral (exemplo didático, não é solução de atividade oficial)
+apiVersion: template.openshift.io/v1
+kind: Template
+metadata:
+  name: catalogo
+  annotations:
+    description: "Aplicação de exemplo catalogo: Deployment, Service, Route e Secret"
+    tags: "exemplo,httpd"
+labels:                      # aplicados a TODOS os objetos gerados
+  template: catalogo
+message: "Aplicação ${APP_NAME} criada. Senha gerada guardada no Secret ${APP_NAME}-cred."
+parameters:
+  - name: APP_NAME
+    displayName: Nome da aplicação
+    description: Nome usado em todos os objetos
+    value: catalogo
+    required: true
+  - name: IMAGE
+    description: Imagem do container
+    value: registry.access.redhat.com/ubi9/httpd-24
+    required: true
+  - name: REPLICAS
+    description: Número de réplicas (inteiro)
+    value: "1"
+  - name: ADMIN_PASSWORD
+    description: Senha de administração (gerada se não informada)
+    generate: expression
+    from: "[a-zA-Z0-9]{16}"
+  - name: ROUTE_HOST
+    description: Host da Route (vazio = gerado pelo cluster)
+    value: ""
+objects:
+  - apiVersion: v1
+    kind: Secret
+    metadata:
+      name: ${APP_NAME}-cred
+    stringData:
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: ${APP_NAME}
+      labels:
+        app: ${APP_NAME}
+    spec:
+      replicas: ${{REPLICAS}}          # ${{...}} gera número, não texto
+      selector:
+        matchLabels:
+          app: ${APP_NAME}
+      template:
+        metadata:
+          labels:
+            app: ${APP_NAME}
+        spec:
+          containers:
+            - name: httpd
+              image: ${IMAGE}
+              ports:
+                - containerPort: 8080
+              envFrom:
+                - secretRef:
+                    name: ${APP_NAME}-cred
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: ${APP_NAME}
+      labels:
+        app: ${APP_NAME}
+    spec:
+      selector:
+        app: ${APP_NAME}
+      ports:
+        - name: http
+          port: 8080
+          targetPort: 8080
+  - apiVersion: route.openshift.io/v1
+    kind: Route
+    metadata:
+      name: ${APP_NAME}
+      labels:
+        app: ${APP_NAME}
+    spec:
+      host: ${ROUTE_HOST}
+      to:
+        kind: Service
+        name: ${APP_NAME}
+      port:
+        targetPort: http

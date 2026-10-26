@@ -28,7 +28,17 @@ parametrizados para diferentes ambientes.
 | Implantar e atualizar aplicações a partir de manifestos YAML | [1.1](../capitulos/01-gerenciamento-declarativo/1.1-manifestos-de-recursos.md) | [ ] |
 | Implantar e atualizar aplicações a partir de manifestos complementados pelo Kustomize | [1.3](../capitulos/01-gerenciamento-declarativo/1.3-overlays-do-kustomize.md) | [ ] |
 
-## 3. Capítulos 2 a 10
+## 3. Capítulo 2 — Deploying Packaged Applications (✅ PDF p. 69–109)
+
+Meta do capítulo: implantar e atualizar aplicações a partir de manifestos empacotados
+para compartilhamento e distribuição.
+
+| Objetivo da seção | Lição | Estudado? |
+|-------------------|-------|-----------|
+| Implantar e atualizar aplicações a partir de manifestos empacotados como templates do OpenShift | [2.1](../capitulos/02-aplicacoes-empacotadas/2.1-templates-do-openshift.md) | [ ] |
+| Implantar e atualizar aplicações a partir de manifestos empacotados como charts do Helm | [2.3](../capitulos/02-aplicacoes-empacotadas/2.3-charts-do-helm.md) | [ ] |
+
+## 4. Capítulos 3 a 10
 
 ⏳ Os objetivos de cada seção serão registrados aqui quando os PDFs forem recebidos.
 

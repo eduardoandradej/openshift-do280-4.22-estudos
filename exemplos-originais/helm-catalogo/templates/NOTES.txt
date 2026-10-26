@@ -1,0 +1,3 @@
+Release {{ .Release.Name }} (chart {{ .Chart.Name }}-{{ .Chart.Version }}) no namespace {{ .Release.Namespace }}.
+Réplicas: {{ .Values.replicaCount }}
+Verifique com: oc get deployment,svc,route -l app.kubernetes.io/instance={{ .Release.Name }}

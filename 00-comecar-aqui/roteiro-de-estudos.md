@@ -6,7 +6,7 @@
 |-------|----------|-------------------|
 | 0 | `00-comecar-aqui` + [revisão do DO180](revisao-do180.md) | 1–2 h |
 | 1 | Capítulo 1 — Gerenciamento declarativo | 4–5 h + atividades |
-| 2 | Capítulo 2 — Aplicações empacotadas | a definir com o PDF |
+| 2 | Capítulo 2 — Aplicações empacotadas | 4–5 h + atividades |
 | 3 | Capítulo 3 — Autenticação e autorização | a definir com o PDF |
 | 4 | Capítulo 4 — Segurança de rede | a definir com o PDF |
 | 5 | Capítulo 5 — Aplicações não HTTP/SNI | a definir com o PDF |

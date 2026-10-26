@@ -1,0 +1,19 @@
+# Valores padrão do chart. Sobrescreva só o que precisar com -f ou --set.
+replicaCount: 1
+
+image:
+  repository: registry.access.redhat.com/ubi9/httpd-24
+  tag: ""                 # vazio = usa a tag padrão da imagem (latest)
+  pullPolicy: IfNotPresent
+
+route:
+  enabled: true
+  host: ""                # vazio = host gerado pelo cluster
+
+resources: {}
+# Exemplo:
+# resources:
+#   requests:
+#     memory: 128Mi
+#   limits:
+#     memory: 256Mi

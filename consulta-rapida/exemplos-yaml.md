@@ -1,8 +1,8 @@
 # Exemplos YAML comentados
 
-Todos autorais e validados (`yaml.safe_load` e `kustomize build` v5.7.1). Arquivos
+Todos autorais e validados (`yaml.safe_load`, `kustomize build` v5.7.1 e `helm lint`/`helm template` v3.17). Arquivos
 aplicáveis em [exemplos-originais/](../exemplos-originais/README.md).
-Cobertura: **Capítulo 1**.
+Cobertura: **Capítulos 1–2**.
 
 ## Vários manifestos em um arquivo
 
@@ -118,6 +118,62 @@ generatorOptions:
   labels: {gerado: "sim"}
   annotations: {nota: exemplo}
 ```
+
+## Template do OpenShift (estrutura)
+
+```yaml
+apiVersion: template.openshift.io/v1
+kind: Template
+metadata:
+  name: catalogo
+labels:
+  template: catalogo          # vai para todos os objetos gerados
+parameters:
+  - name: APP_NAME
+    value: catalogo           # padrão
+    required: true
+  - name: REPLICAS
+    value: "1"
+  - name: ADMIN_PASSWORD
+    generate: expression      # gerado se não informado (de novo a cada processamento!)
+    from: "[a-zA-Z0-9]{16}"
+objects:
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: ${APP_NAME}
+    spec:
+      replicas: ${{REPLICAS}} # ${{...}}: valor sem aspas (número)
+      selector:
+        matchLabels: {app: "${APP_NAME}"}
+      template:
+        metadata:
+          labels: {app: "${APP_NAME}"}
+        spec:
+          containers:
+            - name: app
+              image: registry.exemplo.com/catalogo:1.0
+```
+
+Completo em [template-catalogo.yaml](../exemplos-originais/template-catalogo/template-catalogo.yaml).
+
+## Arquivo de valores do Helm (só o que muda)
+
+```yaml
+replicaCount: 3
+image:                        # mapas são mesclados com o values.yaml do chart
+  repository: registry.exemplo.com:8443/equipe/catalogo
+  tag: "2.4"
+route:
+  host: catalogo.apps.exemplo.com
+resources:                    # siga o formato comentado no values.yaml do chart
+  requests:
+    memory: 128Mi
+  limits:
+    memory: 256Mi
+```
+
+Chart completo em [helm-catalogo/](../exemplos-originais/helm-catalogo/).
 
 ---
 [Início](../README.md)

@@ -26,6 +26,9 @@ cada nova entrada. **Não** cole senhas, tokens nem saídas que contenham creden
 | 1.2 | GE `declarative-manifests` | | | |
 | 1.4 | GE `declarative-kustomize` | | | |
 | 1.5 | Lab `declarative-review` (grade) | | | |
+| 2.2 | GE `packaged-templates` | | | |
+| 2.4 | GE `packaged-charts` | | | |
+| 2.5 | Lab `packaged-review` (grade) | | | |
 
 > Linhas dos próximos capítulos serão acrescentadas quando os identificadores `lab`
 > forem verificados nos respectivos PDFs.

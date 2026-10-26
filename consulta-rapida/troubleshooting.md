@@ -1,6 +1,6 @@
 # Troubleshooting: sintoma → causa → verificação
 
-> Cobertura: **Capítulo 1**. Para Pods, Services, Routes, storage e recursos, veja o
+> Cobertura: **Capítulos 1–2**. Para Pods, Services, Routes, storage e recursos, veja o
 > [troubleshooting do DO180](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/consulta-rapida/troubleshooting.md).
 
 ## Roteiro geral para mudanças declarativas
@@ -45,6 +45,27 @@ flowchart TD
 | ConfigMaps/Secrets antigos acumulados | Cada versão do generator cria outro objeto | `oc get cm,secret`; limpeza planejada |
 | Aviso sobre `commonLabels` | Campo obsoleto | Converter para `labels: - pairs:` |
 | `apply -k` sem efeito nos Pods após mudar dados | `disableNameSuffixHash: true` | Reativar hash ou `oc rollout restart` |
+
+## Templates (Cap. 2)
+
+| Sintoma | Causa provável | Como verificar / resolver |
+|---------|----------------|---------------------------|
+| `Forbidden` ao processar template do `openshift` | Processar no servidor exige escrita no namespace | Copiar o template (`oc get template -o yaml`) e processar a cópia |
+| `templates.template.openshift.io "x" not found` | Namespace errado | `oc get templates -A`; usar `-n` |
+| Aplicação perde acesso ao banco após reaplicar | Parâmetro gerado (senha) gerado de novo | `oc process ... \| oc diff -f -`; informar o valor original |
+| `AlreadyExists` com `oc new-app --template` | `new-app` só cria | `oc process ... \| oc apply -f -` |
+
+## Helm (Cap. 2)
+
+| Sintoma | Causa provável | Como verificar / resolver |
+|---------|----------------|---------------------------|
+| Release não aparece no `helm list` | Outro namespace | `helm list -A` |
+| `cannot re-use a name that is still in use` | Release já existe | `helm upgrade` |
+| `ImagePullBackOff` após instalar | Imagem pública padrão sem internet / chaves de imagem erradas | `oc describe pod`; `helm show values`; ajustar valores |
+| Versão do chart mudou sozinha | `helm upgrade` sem `--version` | `helm list`; usar `--version` |
+| Valor anterior "sumiu" após upgrade | Valores novos não reaproveitam os antigos | `helm get values <r>`; arquivo de valores completo |
+| `another operation ... is in progress` | Release em `pending-*` | `helm history`; rollback para a última `deployed` |
+| Repositório não aparece na console | `helm repo add` é local | `HelmChartRepository` / `ProjectHelmChartRepository` |
 
 ---
 [Início](../README.md)
