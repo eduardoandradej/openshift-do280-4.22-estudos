@@ -1,0 +1,24 @@
+# Strategic merge patch: oc patch deployment api --patch-file 03-cert-servico-patch.yaml
+spec:
+  template:
+    spec:
+      containers:
+        - name: api                       # precisa ser o nome real do container
+          volumeMounts:
+            - name: cert-servico
+              mountPath: /etc/pki/nginx/
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8443
+              scheme: HTTPS              # a aplicação passou a servir só HTTPS
+      volumes:
+        - name: cert-servico
+          secret:
+            secretName: api-cert
+            defaultMode: 420
+            items:
+              - key: tls.crt
+                path: server.crt
+              - key: tls.key
+                path: private/server.key

@@ -1,8 +1,8 @@
 # Exemplos YAML comentados
 
-Todos autorais e validados (`yaml.safe_load`, `kustomize build` v5.7.1, `helm lint`/`helm template` v3.17 e decodificação estrita dos tipos RBAC do Kubernetes). Arquivos
+Todos autorais e validados (`yaml.safe_load`, `kustomize build` v5.7.1, `helm lint`/`helm template` v3.17 e decodificação estrita contra os tipos das APIs: Kubernetes, `route.openshift.io/v1` e `policy.networking.k8s.io/v1alpha1`). Arquivos
 aplicáveis em [exemplos-originais/](../exemplos-originais/README.md).
-Cobertura: **Capítulos 1–3**.
+Cobertura: **Capítulos 1–4**.
 
 ## Vários manifestos em um arquivo
 
@@ -222,6 +222,86 @@ roleRef:                             # imutável
 ```
 
 Mais em [exemplos-originais/rbac/](../exemplos-originais/rbac/).
+
+## Routes com TLS
+
+```yaml
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: loja-https
+spec:
+  host: loja-https.apps.exemplo.com
+  to:
+    kind: Service
+    name: loja
+  port:
+    targetPort: http
+  tls:
+    termination: edge              # edge | passthrough | reencrypt
+    insecureEdgeTerminationPolicy: Redirect
+```
+
+Mais em [exemplos-originais/routes/](../exemplos-originais/routes/).
+
+## NetworkPolicies
+
+```yaml
+# default-deny: isola todos os Pods do namespace
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny
+spec:
+  podSelector: {}
+---
+# api aceita só Pods app=relatorio de namespaces zona=interna (mesmo item = E)
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: api-aceita-relatorios
+spec:
+  podSelector:
+    matchLabels: {app: api}
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels: {zona: interna}
+          podSelector:                 # sem "-": E. Com "-": OU
+            matchLabels: {app: relatorio}
+      ports:
+        - port: 8080
+          protocol: TCP
+```
+
+Routers: `policy-group.network.openshift.io/ingress: ""` · Monitoramento:
+`network.openshift.io/policy-group: monitoring`. Mais em
+[exemplos-originais/network-policies/](../exemplos-originais/network-policies/).
+
+## service-ca
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: api
+  annotations:
+    service.beta.openshift.io/serving-cert-secret-name: api-cert   # gera Secret TLS
+spec:
+  selector: {app: api}
+  ports:
+    - {name: https, port: 443, targetPort: 8443}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ca-servicos                    # DEDICADO: o conteúdo é substituído
+  annotations:
+    service.beta.openshift.io/inject-cabundle: "true"   # chave service-ca.crt
+data: {}
+```
+
+Mais em [exemplos-originais/service-ca/](../exemplos-originais/service-ca/).
 
 ---
 [Início](../README.md)

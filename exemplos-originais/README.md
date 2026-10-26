@@ -13,6 +13,9 @@ laboratório durante uma atividade.
 | [template-catalogo/](template-catalogo/) | Template OpenShift com parâmetros (padrão, gerado, `${{...}}`) e arquivo de parâmetros | [2.1](../capitulos/02-aplicacoes-empacotadas/2.1-templates-do-openshift.md) |
 | [oauth/oauth-htpasswd-trecho.yaml](oauth/oauth-htpasswd-trecho.yaml) | Trecho do recurso OAuth com IdP HTPasswd (referência; não aplicar como está) | [3.1](../capitulos/03-autenticacao-autorizacao/3.1-provedor-de-identidade-htpasswd.md) |
 | [rbac/](rbac/) | Role local + RoleBinding; RoleBindings com ClusterRoles padrão para grupo e service account | [3.3](../capitulos/03-autenticacao-autorizacao/3.3-permissoes-com-rbac.md) |
+| [routes/](routes/) | Routes edge (com redirecionamento HTTP→HTTPS) e passthrough | [4.1](../capitulos/04-seguranca-de-rede/4.1-tls-no-trafego-externo.md) |
+| [network-policies/](network-policies/) | default-deny, allow no mesmo namespace, allow entre projetos (E), routers/monitoramento, AdminNetworkPolicy | [4.3](../capitulos/04-seguranca-de-rede/4.3-network-policies.md) |
+| [service-ca/](service-ca/) | Service anotado, ConfigMap de CA, patch de montagem do certificado e Deployment cliente | [4.5](../capitulos/04-seguranca-de-rede/4.5-tls-no-trafego-interno.md) |
 | [helm-catalogo/](helm-catalogo/) | Chart Helm mínimo (Deployment, Service, Route opcional, `resources` por valores) + `values-producao.yaml` | [2.3](../capitulos/02-aplicacoes-empacotadas/2.3-charts-do-helm.md) |
 
 O patch fica **fora** de `manifestos-catalogo/` de propósito: `oc apply -f <dir>`
@@ -55,7 +58,7 @@ O arquivo de parâmetros do template usa extensão `.txt` porque o `.gitignore` 
 repositório bloqueia arquivos `.env`.
 
 Regras: nenhum Secret real, nenhuma credencial e nenhum host do ambiente oficial.
-Todos os arquivos são validados antes do commit: parser YAML, `kustomize build`, `helm lint`/`helm template` e decodificação estrita dos tipos RBAC.
+Todos os arquivos são validados antes do commit: parser YAML, `kustomize build`, `helm lint`/`helm template` e decodificação estrita contra os tipos das APIs (Kubernetes, Route e AdminNetworkPolicy).
 
 ---
 [Início](../README.md)

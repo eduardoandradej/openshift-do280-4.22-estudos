@@ -32,6 +32,10 @@ cada nova entrada. **Não** cole senhas, tokens nem saídas que contenham creden
 | 3.2 | GE `auth-providers` | | | |
 | 3.4 | GE `auth-rbac` | | | |
 | 3.5 | Lab `auth-review` (grade) | | | |
+| 4.2 | GE `network-ingress` | | | |
+| 4.4 | GE `network-policy` | | | |
+| 4.6 | GE `network-svccerts` | | | |
+| 4.7 | Lab `network-review` (grade) | | | |
 
 > Linhas dos próximos capítulos serão acrescentadas quando os identificadores `lab`
 > forem verificados nos respectivos PDFs.

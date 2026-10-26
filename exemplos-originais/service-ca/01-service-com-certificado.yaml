@@ -1,0 +1,15 @@
+# Service anotado: o service-ca cria o Secret TLS "api-cert" no mesmo namespace.
+apiVersion: v1
+kind: Service
+metadata:
+  name: api
+  namespace: loja
+  annotations:
+    service.beta.openshift.io/serving-cert-secret-name: api-cert
+spec:
+  selector:
+    app: api
+  ports:
+    - name: https
+      port: 443
+      targetPort: 8443

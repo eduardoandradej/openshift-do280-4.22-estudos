@@ -40,14 +40,14 @@ que você já executou seus laboratórios.
 - [ ] REVISAO.md
 - [ ] RESUMO.md
 
-## Capítulo 4 — Network Security (⏳ documentação aguardando PDF)
+## Capítulo 4 — Network Security
 - [ ] 4.1 Protecting External Traffic with TLS
-- [ ] 4.2 GE Protect External Traffic with TLS
+- [ ] 4.2 GE `network-ingress`
 - [ ] 4.3 Configuring Network Policies
-- [ ] 4.4 GE Configure Network Policies
+- [ ] 4.4 GE `network-policy`
 - [ ] 4.5 Protecting Internal Traffic with TLS
-- [ ] 4.6 GE Protect Internal Traffic with TLS
-- [ ] 4.7 Lab Configure Network Security
+- [ ] 4.6 GE `network-svccerts`
+- [ ] 4.7 Lab `network-review` (`lab grade`)
 - [ ] REVISAO.md
 - [ ] RESUMO.md
 

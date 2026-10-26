@@ -1,0 +1,30 @@
+# Cliente que confia na CA do service-ca (bundle montado como tls-ca-bundle.pem).
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cliente
+  namespace: loja
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cliente
+  template:
+    metadata:
+      labels:
+        app: cliente
+    spec:
+      containers:
+        - name: cliente
+          image: registry.access.redhat.com/ubi9/ubi
+          command: ["sleep", "infinity"]
+          volumeMounts:
+            - name: ca-confiavel
+              mountPath: /etc/pki/ca-trust/extracted/pem   # substitui o bundle do sistema neste container
+      volumes:
+        - name: ca-confiavel
+          configMap:
+            name: ca-servicos
+            items:
+              - key: service-ca.crt
+                path: tls-ca-bundle.pem

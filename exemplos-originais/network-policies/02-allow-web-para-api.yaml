@@ -1,0 +1,18 @@
+# api aceita conexões na 8080 somente de Pods app=web do mesmo namespace.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: api-aceita-web
+  namespace: loja
+spec:
+  podSelector:
+    matchLabels:
+      app: api
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: web
+      ports:
+        - port: 8080
+          protocol: TCP

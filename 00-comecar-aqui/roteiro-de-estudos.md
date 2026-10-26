@@ -8,7 +8,7 @@
 | 1 | Capítulo 1 — Gerenciamento declarativo | 4–5 h + atividades |
 | 2 | Capítulo 2 — Aplicações empacotadas | 4–5 h + atividades |
 | 3 | Capítulo 3 — Autenticação e autorização | 4–5 h + atividades |
-| 4 | Capítulo 4 — Segurança de rede | a definir com o PDF |
+| 4 | Capítulo 4 — Segurança de rede | 6–8 h + atividades |
 | 5 | Capítulo 5 — Aplicações não HTTP/SNI | a definir com o PDF |
 | 6 | Capítulo 6 — Autosserviço de desenvolvedores | a definir com o PDF |
 | 7 | Capítulo 7 — Operators | a definir com o PDF |

@@ -1,6 +1,6 @@
 # Troubleshooting: sintoma → causa → verificação
 
-> Cobertura: **Capítulos 1–3**. Para Pods, Services, Routes, storage e recursos, veja o
+> Cobertura: **Capítulos 1–4**. Para Pods, Services, Routes, storage e recursos, veja o
 > [troubleshooting do DO180](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/consulta-rapida/troubleshooting.md).
 
 ## Roteiro geral para mudanças declarativas
@@ -88,6 +88,39 @@ flowchart TD
 | Acesso concedido não funciona | Projeto, nome de usuário/grupo errado ou usuário fora do grupo | `oc describe rolebinding`; `oc get groups` |
 | Admin "de projeto" não vê nós | `cluster-admin` concedido como RoleBinding | `add-cluster-role-to-user` |
 | Acesso indevido | Vínculo herdado por grupo (inclusive LDAP/virtual) | `oc adm policy who-can <verbo> <r>` |
+
+## TLS e Routes (Cap. 4)
+
+| Sintoma | Causa provável | Como verificar / resolver |
+|---------|----------------|---------------------------|
+| `curl: (60) SSL certificate problem` | Cliente não confia na CA | `curl -v --cacert <ca>` |
+| Nome do host não confere | Hostname fora do SAN | `openssl x509 -noout -ext subjectAltName` |
+| Pods `0/1` após habilitar TLS | Probes em HTTP | `scheme: HTTPS` |
+| Route passthrough sem resposta | Porta/Service errados ou app sem TLS | `oc describe route`; `oc get endpoints` |
+| Route criada com `--dry-run=server` | `oc create route` ignora dry-run de servidor | `--dry-run=client -o yaml` |
+| `oc create secret tls`: arquivo não encontrado | Diretório errado | `pwd`; caminho correto |
+
+## NetworkPolicies (Cap. 4)
+
+| Sintoma | Causa provável | Como verificar / resolver |
+|---------|----------------|---------------------------|
+| `curl` sem resposta até o tempo limite | Bloqueado por política | `oc get/describe networkpolicy` no namespace de destino |
+| Allow não funciona | Política no namespace de origem, labels ou porta errados | `--show-labels`; `oc describe networkpolicy` |
+| Acesso aberto demais | `from` com itens separados (OU) | Juntar no mesmo item (E) |
+| Route para após default-deny (multinó) | Routers não liberados | Política com `policy-group.network.openshift.io/ingress: ""` |
+| Route funciona com default-deny (nó único) | Routers na rede do host | Esperado |
+| `oc label namespace` → `Forbidden` | Sem permissão sobre Namespace | Administrador |
+| `cannot unmarshal bool` em ANP/selector | Label sem aspas | `"true"` |
+| Allow correto, tráfego negado | ANP `Deny` acima | `oc get adminnetworkpolicies` |
+
+## TLS interno (Cap. 4)
+
+| Sintoma | Causa provável | Como verificar / resolver |
+|---------|----------------|---------------------------|
+| Secret do certificado não criado | Anotação errada no Service | `oc describe svc` |
+| `self signed certificate in certificate chain` | Cliente sem a CA do service-ca | ConfigMap `inject-cabundle` montado no cliente |
+| ConfigMap perdeu dados | Anotação de injeção em ConfigMap compartilhado | Usar ConfigMap dedicado |
+| Cliente perde confiança em CAs públicas | Bundle do sistema substituído pelo do service-ca | Montar a CA em outro caminho |
 
 ---
 [Início](../README.md)

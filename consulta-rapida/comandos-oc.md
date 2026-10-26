@@ -1,6 +1,6 @@
 # Comandos `oc` por tarefa
 
-> Cobertura: **Capítulos 1–3**. Os comandos do DO180 estão na
+> Cobertura: **Capítulos 1–4**. Os comandos do DO180 estão na
 > [consulta rápida do DO180](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/consulta-rapida/comandos-oc.md).
 > Coluna **Tipo:** 🔍 somente leitura · ✏️ altera o cluster · 🖥️ só local.
 
@@ -100,6 +100,43 @@
 | `oc adm policy who-can <verbo> <recurso> [-n <p>]` | Quem pode | 🔍 | 3.3 |
 | `oc auth can-i <verbo> <recurso> [-n <p>] [--as <u>] [--list]` | Testar permissão (📘) | 🔍 | 3.3 |
 | `oc create role\|rolebinding ...` | RBAC imperativo (📘) | ✏️ | 3.3 |
+
+## TLS em Routes (Cap. 4)
+
+| Comando | Para quê | Tipo | Lição |
+|---------|----------|------|-------|
+| `oc expose service <s> --hostname <h>` | Route HTTP (sem TLS) | ✏️ | [4.1](../capitulos/04-seguranca-de-rede/4.1-tls-no-trafego-externo.md) |
+| `oc create route edge <r> --service <s> --hostname <h> [--key k --cert c]` | TLS termina no router | ✏️ | 4.1 |
+| `oc create route passthrough <r> --service <s> --port <p> --hostname <h>` | TLS termina no Pod | ✏️ | 4.1 |
+| `oc create route reencrypt <r> --service <s> --hostname <h> [--key --cert]` | TLS no router + novo TLS até o Pod | ✏️ | 4.1 |
+| `oc create route edge <r> --service <s> --dry-run=client -o yaml` | Gerar manifesto (o `--dry-run=server` cria a Route!) | 🔍 | 4.1 |
+| `oc get secret router-ca -n openshift-ingress-operator -o yaml` | CA interna do ingress | 🔍 | 4.1 |
+| `oc create secret tls <s> --cert <crt> --key <key>` | Secret TLS para a aplicação | ✏️ | 4.1 |
+| `oc set volumes deployment/<d>` | Ver volumes montados | 🔍 | 4.1 |
+| `oc debug -t deployment/<d> --image <img>` | Pod temporário de diagnóstico | ✏️ | 4.1 |
+| `curl -v --cacert <ca> https://<h>` | Ver e validar o certificado | 🔍 | 4.1 |
+
+## NetworkPolicies (Cap. 4)
+
+| Comando | Para quê | Tipo | Lição |
+|---------|----------|------|-------|
+| `oc get networkpolicy [-n <ns>]` | Listar políticas | 🔍 | [4.3](../capitulos/04-seguranca-de-rede/4.3-network-policies.md) |
+| `oc describe networkpolicy <np>` | Regra em linguagem legível (E × OU) | 🔍 | 4.3 |
+| `oc apply -f <np>.yaml -n <ns-destino>` | Aplicar política no namespace do destino | ✏️ | 4.3 |
+| `oc label namespace <ns> chave=valor` | Rotular namespace de origem | ✏️ | 4.3 |
+| `oc get ns --show-labels` · `oc get pods --show-labels` | Conferir labels usados nos selectors | 🔍 | 4.3 |
+| `oc exec <pod> -- curl -s -m 5 <destino>` | Testar conectividade com tempo limite | 🔍 | 4.3 |
+| `oc get adminnetworkpolicies` | Políticas de cluster (ANP) | 🔍 | 4.3 |
+
+## TLS interno / service-ca (Cap. 4)
+
+| Comando | Para quê | Tipo | Lição |
+|---------|----------|------|-------|
+| `oc annotate service <s> service.beta.openshift.io/serving-cert-secret-name=<secret>` | Gerar certificado de serviço | ✏️ | [4.5](../capitulos/04-seguranca-de-rede/4.5-tls-no-trafego-interno.md) |
+| `oc get secret <secret> -o jsonpath='{.data.tls\.crt}' \| base64 -d \| openssl x509 -noout -text` | Ler o certificado (SAN, emissor) | 🔍 | 4.5 |
+| `oc create configmap <cm>` + `oc annotate configmap <cm> service.beta.openshift.io/inject-cabundle=true` | Injetar a CA (ConfigMap dedicado) | ✏️ | 4.5 |
+| `oc exec deploy/<d> -- openssl s_client -connect <svc>.<ns>.svc:443` | Verificar a cadeia de dentro do cluster | 🔍 | 4.5 |
+| `oc delete secret <secret>` | Rotacionar o certificado de um Service | ✏️ | 4.5 |
 
 ## Git nas atividades (apoio)
 

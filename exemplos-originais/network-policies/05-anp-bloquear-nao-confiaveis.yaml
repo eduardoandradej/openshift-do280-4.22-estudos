@@ -1,0 +1,17 @@
+# AdminNetworkPolicy (cluster): nega entrada vinda de namespaces confiavel="false".
+# Valores de label SEMPRE como texto: "false", nunca false.
+apiVersion: policy.networking.k8s.io/v1alpha1
+kind: AdminNetworkPolicy
+metadata:
+  name: bloquear-nao-confiaveis
+spec:
+  priority: 50
+  subject:
+    namespaces: {}
+  ingress:
+    - name: negar-origem-nao-confiavel
+      action: Deny
+      from:
+        - namespaces:
+            matchLabels:
+              confiavel: "false"

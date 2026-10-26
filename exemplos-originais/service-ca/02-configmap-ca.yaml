@@ -1,0 +1,9 @@
+# ConfigMap DEDICADO: o service-ca substitui todo o conteúdo pelo bundle (chave service-ca.crt).
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ca-servicos
+  namespace: loja
+  annotations:
+    service.beta.openshift.io/inject-cabundle: "true"
+data: {}

@@ -5,7 +5,7 @@
 > [CLAUDE.md](../CLAUDE.md). O progresso de estudo do aluno fica no
 > [checklist geral](checklist-geral.md) e no [diário](diario-de-laboratorios.md).
 
-**Última atualização:** 2026-10-26 (Capítulo 3 concluído)
+**Última atualização:** 2026-10-26 (Capítulo 4 concluído)
 
 ## Situação por módulo
 
@@ -16,15 +16,15 @@
 | Capítulo 1 | ✅ validado | p. 15–68 | 2 lições + prática, revisão, resumo (sem quiz) |
 | Capítulo 2 | ✅ validado | p. 69–109 | 2 lições + prática, revisão, resumo (sem quiz) |
 | Capítulo 3 | ✅ validado | p. 110–145 | 2 lições + prática, revisão, resumo (sem quiz) |
-| Capítulo 4 | ⏳ aguardando PDF | — | README estrutural com seções do sumário |
-| Capítulo 5 | ⏳ aguardando PDF | — | idem |
+| Capítulo 4 | ✅ validado | p. 146–198 | 3 lições + prática (com armadilhas do ambiente), revisão, resumo (sem quiz) |
+| Capítulo 5 | ⏳ aguardando PDF | — | README estrutural com seções do sumário |
 | Capítulo 6 | ⏳ aguardando PDF | — | idem |
 | Capítulo 7 | ⏳ aguardando PDF | — | idem |
 | Capítulo 8 | ⏳ aguardando PDF | — | idem |
 | Capítulo 9 | ⏳ aguardando PDF | — | idem |
 | Capítulo 10 | ⏳ aguardando PDF | — | idem |
-| consulta-rapida | 🟡 | — | Cobre os Capítulos 1 a 3 (remete ao DO180 para o restante) |
-| exemplos-originais | 🟡 | — | Exemplos dos Capítulos 1 a 3, validados com `kustomize build`, `helm lint`/`helm template` e tipos RBAC |
+| consulta-rapida | 🟡 | — | Cobre os Capítulos 1 a 4 (remete ao DO180 para o restante) |
+| exemplos-originais | 🟡 | — | Exemplos dos Capítulos 1 a 4, validados com `kustomize build`, `helm lint`/`helm template` e decodificação estrita (tipos Kubernetes, Route, ANP) |
 | certificacao | 🟡 | — | Matriz EX280 relacionando áreas do exame às lições |
 
 ## PDFs recebidos
@@ -35,6 +35,7 @@
 | `DO280_4.22_C01_Gerenciamento_Declarativo_p015-068.pdf` | Capítulo 1 completo | 15–68 |
 | `DO280_4.22_C02_Aplicacoes_Empacotadas_p069-109.pdf` | Capítulo 2 completo | 69–109 |
 | `DO280_4.22_C03_Autenticacao_e_Autorizacao_p110-145.pdf` | Capítulo 3 completo | 110–145 |
+| `DO280_4.22_C04_Seguranca_de_Rede_p146-198.pdf` | Capítulo 4 completo | 146–198 |
 
 Os PDFs **não** são versionados (bloqueados pelo `.gitignore`); o texto foi extraído
 apenas no scratchpad da sessão.
@@ -67,6 +68,14 @@ apenas no scratchpad da sessão.
 - Ambiente (Cap. 3): o cluster já tem um IdP **LDAP** (usuário administrador do curso
   entra por ele) e grupos vindos do LDAP; kubeconfig e senha do `kubeadmin` ficam na
   máquina `utility`; o `kubeadmin` não deve ser apagado no curso.
+- Capítulo 4: abertura p. 146; 4.1 Protecting External Traffic with TLS (p. 147–150);
+  4.2 GE `network-ingress` (p. 151–160); 4.3 Configuring Network Policies (p. 161–168);
+  4.4 GE `network-policy` (p. 169–176); 4.5 Protecting Internal Traffic with TLS
+  (p. 177–180); 4.6 GE `network-svccerts` (p. 181–185); 4.7 Lab `network-review`
+  (p. 186–197, **com** `lab grade`; solução a partir da p. 189); 4.8 Summary (p. 198). Sem quiz.
+- Ambiente (Cap. 4): cluster de nó único com routers na rede do host (NetworkPolicy não
+  bloqueia a Route); `lab start` de `network-ingress`, `network-svccerts` e
+  `network-review` já cria o projeto; arquivos de solução em `~/DO280/solutions/`.
 - Sumário completo dos capítulos 2–10 (títulos e tipos de seção) conferido nas p. 3–5.
 
 ## Divergências e imprecisões encontradas no PDF (Cap. 1)
@@ -131,6 +140,44 @@ código do `openshift/oauth-apiserver` (`pkg/tokenvalidation/uidvalidator.go` e
 grupo explícito; acrescentados os acessos iniciais de ARO/ROSA/OSD (p. 113) e o aviso
 sobre a limpeza de Users/Identities no GE 3.2.
 
+## Divergências e imprecisões encontradas no PDF (Cap. 4)
+
+| Página | Ponto | Tratamento no repositório |
+|--------|-------|---------------------------|
+| p. 164–165 | Item de `from` só com `podSelector` aceitaria Pods "de qualquer namespace" | Seleciona Pods do namespace da política (conferido em `NetworkPolicyPeer`, `k8s.io/api/networking/v1`) |
+| p. 167 | Exemplo de ANP com `matchLabels: {sensitive: true}` | Booleano recusado pelo `oc apply`; lição usa `"true"` (verificado com `sigs.k8s.io/network-policy-api` v0.1.5) |
+| p. 173 | "Namespaces não recebem labels automaticamente" | Todo namespace tem `kubernetes.io/metadata.name` (a própria saída do GE mostra) |
+| p. 149 × p. 178 | Passthrough "mais seguro" × re-encrypt "o mais seguro" | Lição explica que ambos cifram ponta a ponta |
+| p. 178 | "Edge é o tipo padrão" | Nota: em manifestos de Route com `spec.tls`, `termination` é obrigatório |
+| p. 151–152 | `lab start` cria o projeto e o passo 1 manda criá-lo | Prática oficial: usar `oc project` |
+| p. 158 | Prompt em outro diretório ao criar o Secret TLS | Prática oficial: criar a partir do diretório dos certificados |
+| p. 152 | `oc status` mostra tag de imagem diferente da citada | Inconsistência de saída sem impacto |
+
+## Complementos de fonte externa usados no Cap. 4 (marcados 📘)
+
+SAN obrigatório para clientes modernos; `--ca-cert` e `--insecure-policy` em Routes;
+`oc extract` da `router-ca`; `--image` no `oc debug`; `policyTypes`; label
+`kubernetes.io/metadata.name`; montagem do bundle sobre `/etc/pki/ca-trust/extracted/pem`
+substitui as CAs do sistema no container; reinício após rotação de certificado;
+`termination` obrigatório em `spec.tls`.
+
+## Regra nova (decisão do usuário)
+
+Cada atividade oficial agora tem a seção **Armadilhas do ambiente** no
+`PRATICA-OFICIAL.md` (registrada no `CLAUDE.md` e no modelo). Aplicada retroativamente:
+Cap. 3, GE 3.4 — `oc auth can-i --as` só funciona como `admin` (usuários comuns recebem
+`cannot impersonate`). Os Capítulos 1 e 2 foram revistos e não têm conflitos desse tipo.
+
+## Validação do Capítulo 4
+
+- [x] Seções 4.1–4.8 representadas, na ordem; ausência de quiz registrada.
+- [x] Identificadores `network-ingress`, `network-policy`, `network-svccerts`, `network-review` e `lab grade` (só no 4.7) conferidos.
+- [x] Armadilhas do ambiente levantadas para as quatro atividades, sem alterar os passos oficiais.
+- [x] Senhas, hostnames, nomes de recursos e soluções oficiais não reproduzidos; exemplos usam nomes fictícios.
+- [x] NetworkPolicies, Routes, ANP, Service, ConfigMap, Deployment e patch validados com decodificação estrita (k8s.io/api v0.33, `github.com/openshift/api`, `sigs.k8s.io/network-policy-api` v0.1.5).
+- [x] Links relativos, âncoras e links para o DO180 verificados por script.
+- [x] Varredura de senhas do laboratório, e-mail e marca d'água: nada encontrado.
+
 ## Validação do Capítulo 3
 
 - [x] Seções 3.1–3.6 representadas, na ordem; ausência de quiz registrada.
@@ -162,22 +209,22 @@ sobre a limpeza de Users/Identities no GE 3.2.
 
 | Item | Quando |
 |------|--------|
-| Desenvolver o Capítulo 4 | Ao receber o PDF do Capítulo 4 |
+| Desenvolver o Capítulo 5 | Ao receber o PDF do Capítulo 5 |
 | Ampliar `consulta-rapida` e `exemplos-originais` | A cada capítulo |
-| Assuntos herdados do DO180: SCC, LimitRange/ResourceQuota, TLS em Routes, criptografia do etcd (RBAC tratado no Cap. 3) | Caps. 4, 6 e 8 |
+| Assuntos herdados do DO180: SCC, LimitRange/ResourceQuota, criptografia do etcd (RBAC no Cap. 3, TLS em Routes no Cap. 4) | Caps. 6 e 8 |
 
 ## Publicação
 
 - Repositório: `eduardoandradej/openshift-do280-4.22-estudos` (já existia com `LICENSE` Apache-2.0; nada foi sobrescrito).
 - Visibilidade: definida pelo usuário.
 - Fluxo de publicação: por decisão do usuário (2026-10-26), o conteúdo validado vai direto para o branch `main`, sem PR. O primeiro commit foi feito em `claude/gallant-shannon-b4zr78` e integrado à `main` por fast-forward.
-- Último commit relevante: ver `git log` da `main` (commit do Capítulo 3).
+- Último commit relevante: ver `git log` da `main` (commit do Capítulo 4).
 
 ## Próximo passo
 
-Aguardar o PDF do **Capítulo 4 — Network Security** (sumário: 4.1 Protecting External
-Traffic with TLS, 4.2 GE, 4.3 Configuring Network Policies, 4.4 GE, 4.5 Protecting
-Internal Traffic with TLS, 4.6 GE, 4.7 Lab, 4.8 Summary).
+Aguardar o PDF do **Capítulo 5 — Exposing Non-HTTP/SNI Applications** (sumário: 5.1
+Load Balancer Services, 5.2 GE, 5.3 Configure Additional Pod Networks, 5.4 GE, 5.5 Lab,
+5.6 Summary).
 Ao recebê-lo: ler este arquivo e o `CLAUDE.md`, confirmar páginas e identificadores
 `lab`, e seguir o fluxo da seção 6 do `CLAUDE.md`.
 

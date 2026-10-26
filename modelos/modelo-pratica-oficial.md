@@ -34,6 +34,12 @@ lab finish <identificador>
 
 **Pontos de atenção:** <o que observar, sem dar a solução>
 
+**Armadilhas do ambiente:**
+
+| Ponto | O que acontece | Como seguir sem erro |
+|-------|----------------|----------------------|
+| <inconsistência do PDF ou descuido comum> | <erro que aparece no ambiente> | <forma de seguir o enunciado sem erro> |
+
 **Verificação conceitual:** <como saber, por conta própria, que o estado final está correto>
 
 **Diagnóstico se algo falhar:** <onde olhar primeiro>

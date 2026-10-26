@@ -1,0 +1,15 @@
+# Route passthrough: o router não decifra; o Pod apresenta o próprio certificado.
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: loja-tls
+  namespace: loja
+spec:
+  host: loja-tls.apps.exemplo.com
+  to:
+    kind: Service
+    name: loja-tls
+  port:
+    targetPort: https          # porta do Service que fala TLS
+  tls:
+    termination: passthrough

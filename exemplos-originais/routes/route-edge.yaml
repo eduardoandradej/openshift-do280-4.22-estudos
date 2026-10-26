@@ -1,0 +1,16 @@
+# Route edge: TLS termina no router. Sem certificate/key, usa o certificado do Ingress Operator.
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: loja-https
+  namespace: loja
+spec:
+  host: loja-https.apps.exemplo.com
+  to:
+    kind: Service
+    name: loja
+  port:
+    targetPort: http
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect   # HTTP -> HTTPS

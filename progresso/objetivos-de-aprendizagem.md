@@ -48,7 +48,17 @@ a usuários e grupos.
 | Explicar provedores de identidade e configurar o provedor HTPasswd | [3.1](../capitulos/03-autenticacao-autorizacao/3.1-provedor-de-identidade-htpasswd.md) | [ ] |
 | Definir controles de acesso baseados em papéis e aplicar permissões a usuários | [3.3](../capitulos/03-autenticacao-autorizacao/3.3-permissoes-com-rbac.md) | [ ] |
 
-## 5. Capítulos 4 a 10
+## 5. Capítulo 4 — Network Security (✅ PDF p. 146–198)
+
+Meta do capítulo: proteger o tráfego de rede entre aplicações dentro e fora do cluster.
+
+| Objetivo da seção | Lição | Estudado? |
+|-------------------|-------|-----------|
+| Permitir e proteger conexões de rede às aplicações dentro do cluster | [4.1](../capitulos/04-seguranca-de-rede/4.1-tls-no-trafego-externo.md) | [ ] |
+| Restringir o tráfego de rede entre projetos e Pods | [4.3](../capitulos/04-seguranca-de-rede/4.3-network-policies.md) | [ ] |
+| Configurar e usar certificados de serviço automáticos | [4.5](../capitulos/04-seguranca-de-rede/4.5-tls-no-trafego-interno.md) | [ ] |
+
+## 6. Capítulos 5 a 10
 
 ⏳ Os objetivos de cada seção serão registrados aqui quando os PDFs forem recebidos.
 

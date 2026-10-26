@@ -1,0 +1,10 @@
+# Isola todos os Pods do namespace: nada entra até que uma política permita.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny
+  namespace: loja
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress

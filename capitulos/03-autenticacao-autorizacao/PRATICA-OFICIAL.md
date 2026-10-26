@@ -100,7 +100,9 @@ lab finish auth-rbac
 o grupo de leitura lista mas não escala/altera; o administrador do projeto gerencia ambos.
 
 **Diagnóstico se algo falhar:** `oc get groups` → `oc get rolebindings -o wide -n <p>`
-→ 📘 `oc auth can-i <verbo> <recurso> -n <p> --as <u> --as-group <g>`.
+→ 📘 `oc auth can-i <verbo> <recurso> -n <p>` executado **como o próprio usuário** testado.
+A forma com `--as <u> --as-group <g>` só funciona logado como `admin`: usuários comuns
+recebem `cannot impersonate` (não é falha do exercício).
 
 ---
 
