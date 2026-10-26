@@ -25,7 +25,7 @@
 | Capítulo 10 | ⏳ aguardando PDF | — | idem |
 | consulta-rapida | 🟡 | — | Cobre apenas o Capítulo 1 (remete ao DO180 para o restante) |
 | exemplos-originais | 🟡 | — | Exemplos do Capítulo 1, validados com `kustomize build` |
-| certificacao | 🟡 | — | Matriz EX280 com itens 🟡/🔎; página oficial não acessível nesta sessão |
+| certificacao | 🟡 | — | Matriz EX280 relacionando áreas do exame às lições |
 
 ## PDFs recebidos
 
@@ -87,7 +87,6 @@ Comportamentos testados localmente (kustomize v5.7.1): `labels` × `commonLabels
 
 | Item | Quando |
 |------|--------|
-| Conferir a página oficial do EX280 (objetivos e versão) e atualizar `certificacao/` | Quando houver acesso a `redhat.com` |
 | Desenvolver o Capítulo 2 | Ao receber o PDF do Capítulo 2 |
 | Ampliar `consulta-rapida` e `exemplos-originais` | A cada capítulo |
 | Assuntos herdados do DO180: SCC, RBAC, LimitRange/ResourceQuota, TLS em Routes, criptografia do etcd | Caps. 3, 4, 6 e 8 |
