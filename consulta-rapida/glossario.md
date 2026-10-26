@@ -1,6 +1,6 @@
 # Glossário
 
-> Cobertura: **Capítulos 1–7**. Termos do DO180 no
+> Cobertura: **Capítulos 1–8**. Termos do DO180 no
 > [glossário do DO180](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/consulta-rapida/glossario.md).
 
 | Termo | Definição |
@@ -9,6 +9,7 @@
 | **AdminNetworkPolicy (ANP)** | Política de rede de cluster (administrador), avaliada antes das NetworkPolicies, com ações `Allow`/`Deny`/`Pass` |
 | **allowNameChange** | Opção de um patch do Kustomize que permite a um strategic merge patch renomear o recurso |
 | **alm-examples** | Anotação do CSV com exemplos de CRs em JSON (os mesmos que a console carrega no editor) |
+| **anyuid** | SCC que permite rodar com qualquer UID, inclusive root |
 | **AppliedClusterResourceQuota** | Visão, por namespace, de uma ClusterResourceQuota que o afeta; legível pelo administrador do projeto (não aceita `-A`) |
 | **appVersion** | Campo do `Chart.yaml` com a versão da aplicação empacotada (informativo) |
 | **Autenticação** | Etapa que identifica quem faz a requisição (token OAuth ou certificado X.509) |
@@ -34,6 +35,7 @@
 | **commonLabels** | Campo obsoleto do Kustomize; adiciona labels também a selectors e templates |
 | **configMapGenerator** | Gera ConfigMaps a partir de `literals`, `envs` ou `files`, com hash no nome |
 | **`count/<recurso>.<grupo>`** | Sintaxe de quota de contagem de objetos; recursos do grupo core dispensam o `.<grupo>` |
+| **CronJob** | Recurso `batch/v1` que cria Jobs conforme um agendamento no formato cron |
 | **Custom resource (CR)** | Instância de um tipo definido por uma CRD; é como se pede algo a um operator |
 | **CustomResourceDefinition (CRD)** | Extensão da API que cria um tipo novo de objeto |
 | **Declarativo (fluxo)** | Manter o estado desejado em arquivos versionados e aplicá-lo com `oc apply` |
@@ -58,6 +60,7 @@
 | **InstallPlan** | Plano do OLM para instalar ou atualizar um operator; com aprovação manual exige `spec.approved: true` |
 | **installPlanApproval** | Campo da Subscription: `Automatic` ou `Manual` |
 | **IPAddressPool** | Recurso do MetalLB com a faixa de IPs que pode ser atribuída a Services LoadBalancer |
+| **Job** | Recurso `batch/v1` que executa uma tarefa até concluir |
 | **JSON Patch** | Formato (RFC 6902) de operações `op`/`path`/`value` em caminhos exatos |
 | **kubeadmin** | Usuário virtual de administrador criado na instalação; senha em hash no Secret `kubeadmin` (`kube-system`) |
 | **kustomization.yaml** | Arquivo que define recursos, transformações, patches e generators de um diretório Kustomize |
@@ -78,6 +81,8 @@
 | **NodePort** | Tipo de Service exposto em uma porta alta em todos os nós |
 | **OAuth (recurso)** | Objeto `oauth/cluster` (`config.openshift.io/v1`) que lista os provedores de identidade |
 | **OAuth server** | Servidor de autenticação do OpenShift (Pods `oauth-openshift`) que emite tokens de acesso |
+| **openshift.io/required-scc** | Anotação do template de Pod que fixa a SCC exigida |
+| **openshift.io/scc** | Anotação do Pod com a SCC aplicada na admissão |
 | **Operator** | Controller específico de uma aplicação que observa CRs e mantém os objetos correspondentes |
 | **Operator Lifecycle Manager (OLM)** | Componente que instala, atualiza e remove add-on operators a partir de catálogos |
 | **OperatorGroup** | Recurso que define os namespaces observados pelos operators do seu namespace; um por namespace |
@@ -85,6 +90,7 @@
 | **PackageManifest** | Recurso criado pelo OLM para cada operator disponível, com canais, versões e modos de instalação |
 | **Parâmetro (template)** | Lacuna de um template, com valor padrão, obrigatoriedade ou gerador |
 | **Passthrough (terminação)** | O router não decifra; o TLS vai até o Pod, que apresenta o próprio certificado |
+| **privileged (SCC)** | SCC que remove quase todas as restrições; acesso total ao nó |
 | **Processar (template)** | Substituir os parâmetros e obter a lista de manifestos (`oc process`) |
 | **Project (config.openshift.io)** | Configuração global de projetos (`cluster`): `projectRequestTemplate` e `projectRequestMessage` |
 | **ProjectRequest** | Pedido de criação de projeto (`oc new-project`); o API server do OpenShift cria o namespace a partir do template de projeto |
@@ -92,12 +98,15 @@
 | **Re-encrypt (terminação)** | TLS termina no router, que abre nova conexão TLS até o Pod |
 | **Release (Helm)** | Instalação nomeada de um chart em um namespace |
 | **ResourceQuota** | Objeto de namespace que limita a soma de requests/limits e a contagem de objetos |
+| **restricted-v2** | SCC padrão: UID aleatório da faixa do projeto, sem root e sem acesso ao host |
 | **Revisão (Helm)** | Cada estado de uma release (install, upgrade, rollback), listado em `helm history` |
 | **Role** | Papel definido em um projeto |
 | **RoleBinding** | Vínculo de um papel (Role ou ClusterRole) a sujeitos em um projeto |
 | **router-ca** | Secret em `openshift-ingress-operator` com a CA interna que assina os certificados padrão das Routes |
 | **SAN (Subject Alternative Name)** | Extensão do certificado com os nomes válidos; é o que os clientes verificam |
+| **scc-subject-review** | Subcomando de `oc adm policy` que indica quais SCCs permitiriam um workload |
 | **secretGenerator** | Como o `configMapGenerator`, mas gera Secrets e faz a codificação base64 |
+| **Security context constraints (SCC)** | Mecanismo do OpenShift que limita os privilégios dos Pods no host; concedido a service accounts |
 | **self-provisioner** | ClusterRole que permite criar projetos; concedida por padrão, pelo binding `self-provisioners`, ao grupo `system:authenticated:oauth` |
 | **service-ca** | Controller do OpenShift que emite certificados para Services anotados e distribui sua CA |
 | **ServiceAccount** | Identidade de aplicações (`system:serviceaccount:<ns>:<nome>`) |
@@ -109,6 +118,7 @@
 | **Template (OpenShift)** | Recurso `template.openshift.io/v1` com objetos parametrizados |
 | **Template de projeto** | Template (`project-request`, em `openshift-config`) com os objetos que todo projeto novo recebe |
 | **Three-way merge** | Comparação feita pelo `oc apply` entre manifesto, objeto vivo e `last-applied-configuration` |
+| **TokenRequest** | API que emite tokens de service account com validade limitada (usada pelo kubelet e por `oc create token`) |
 | **Update channel** | Sequência de versões de um operator que a Subscription acompanha (ex.: `stable`) |
 | **User** | Ator que interage com a API; criado no primeiro login |
 | **UserDefinedNetwork (UDN)** | Rede de um namespace gerenciada pelo OVN-Kubernetes, primária ou secundária |

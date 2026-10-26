@@ -46,6 +46,10 @@ cada nova entrada. **Não** cole senhas, tokens nem saídas que contenham creden
 | 7.4 | GE `operators-web` | | | |
 | 7.6 | GE `operators-cli` | | | |
 | 7.7 | Lab `operators-review` (grade) | | | |
+| 8.2 | GE `appsec-scc` | | | |
+| 8.4 | GE `appsec-api` | | | |
+| 8.6 | GE `appsec-prune` | | | |
+| 8.7 | Lab `appsec-review` (grade) | | | |
 
 > Linhas dos próximos capítulos serão acrescentadas quando os identificadores `lab`
 > forem verificados nos respectivos PDFs.

@@ -1,6 +1,6 @@
 # Comandos `oc` por tarefa
 
-> Cobertura: **Capítulos 1–7**. Os comandos do DO180 estão na
+> Cobertura: **Capítulos 1–8**. Os comandos do DO180 estão na
 > [consulta rápida do DO180](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/consulta-rapida/comandos-oc.md).
 > Coluna **Tipo:** 🔍 somente leitura · ✏️ altera o cluster · 🖥️ só local.
 
@@ -201,6 +201,26 @@
 | `oc get csv <csv> -o jsonpath='{.spec.customresourcedefinitions.owned[*].name}'` | CRDs do operator | 🔍 | 7.5 |
 | `oc get csv <csv> -o jsonpath='{.metadata.annotations.alm-examples}' \| jq` | Exemplos de CR | 🔍 | 7.5 |
 | `oc delete subscription <s> -n <ns>` · `oc delete csv <csv> -n <ns>` | Remover pela CLI (📘) | ✏️ | 7.5 |
+
+## Segurança de aplicações (Cap. 8)
+
+| Comando | Para quê | Tipo | Lição |
+|---------|----------|------|-------|
+| `oc get scc` · `oc describe scc <scc>` | SCCs do cluster | 🔍 | [8.1](../capitulos/08-seguranca-aplicacoes/8.1-security-context-constraints.md) |
+| `oc describe pod <p> \| grep scc` | SCC aplicada (`openshift.io/scc`) | 🔍 | 8.1 |
+| `oc get deploy <d> -o yaml \| oc adm policy scc-subject-review -f -` | SCC que permitiria o workload | 🔍 | 8.1 |
+| `oc create sa <sa>` · `oc set serviceaccount deployment/<d> <sa>` | Criar SA e associá-la (recria os Pods) | ✏️ | 8.1 |
+| `oc adm policy add-scc-to-user <scc> -z <sa>` | Conceder SCC (ClusterRoleBinding; administrador) | ✏️ | 8.1 |
+| `oc create role <r> --verb use --resource scc --resource-name <scc>` + `oc create rolebinding <rb> --role <r> --serviceaccount <ns>:<sa>` | Conceder SCC só no projeto | ✏️ | 8.1 |
+| `oc adm policy add-role-to-user <papel> -z <sa>` | Papel no projeto atual | ✏️ | [8.3](../capitulos/08-seguranca-aplicacoes/8.3-acesso-de-aplicacoes-a-api.md) |
+| `oc adm policy add-role-to-user <papel> system:serviceaccount:<proj>:<sa> --rolebinding-name <n> -n <outro>` | Papel em outro projeto | ✏️ | 8.3 |
+| `oc adm policy add-cluster-role-to-user <papel> -z <sa>` | Papel em todo o cluster | ✏️ | 8.3 |
+| `oc auth can-i <verbo> <recurso> -n <ns> --as system:serviceaccount:<proj>:<sa>` | Testar permissões da SA | 🔍 | 8.3 |
+| `oc create token <sa> [--duration 30m]` | Token para uso fora do cluster | ✏️ | 8.3 |
+| `oc create cronjob <cj> --image <i> --schedule '<cron>' --dry-run=client -o yaml -- <cmd>` | Esqueleto de CronJob | 🔍 | [8.5](../capitulos/08-seguranca-aplicacoes/8.5-manutencao-com-cron-jobs.md) |
+| `oc create job <j> --from cronjob/<cj>` | Executar o CronJob agora | ✏️ | 8.5 |
+| `oc get cronjobs,jobs,pods` · `oc logs job/<j>` | Acompanhar execuções | 🔍 | 8.5 |
+| `oc debug node/<nó> -- chroot /host crictl images` | Imagens no nó | 🔍 | 8.5 |
 
 ## Git nas atividades (apoio)
 

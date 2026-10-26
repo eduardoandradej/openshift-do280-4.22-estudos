@@ -20,7 +20,7 @@
 | Expor aplicações não HTTP (LoadBalancer) e redes adicionais de Pods | [4.5](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/04-deploy-e-redes/4.5-redes-de-pods-e-services.md) | ✅ [5.1](../capitulos/05-redes-nao-http/5.1-servicos-load-balancer.md) · ✅ [5.3](../capitulos/05-redes-nao-http/5.3-redes-adicionais-de-pods.md) |
 | Habilitar autosserviço (quotas, limit ranges, template de projeto, self-provisioner) | [6.5](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/06-confiabilidade/6.5-reservar-capacidade-de-computacao.md) · [6.7](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/06-confiabilidade/6.7-limitar-capacidade-de-computacao.md) | ✅ [6.1](../capitulos/06-autosservico/6.1-quotas-de-projeto-e-cluster.md) · ✅ [6.3](../capitulos/06-autosservico/6.3-limit-ranges.md) · ✅ [6.5](../capitulos/06-autosservico/6.5-template-de-projeto-e-self-provisioner.md) |
 | Gerenciar Operators (OLM, console e CLI) | [1.3](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/01-introducao-kubernetes-openshift/1.3-componentes-e-edicoes-do-openshift.md) | ✅ [7.1](../capitulos/07-operadores-kubernetes/7.1-operators-e-olm.md) · ✅ [7.3](../capitulos/07-operadores-kubernetes/7.3-instalar-operators-pela-console.md) · ✅ [7.5](../capitulos/07-operadores-kubernetes/7.5-instalar-operators-pela-cli.md) |
-| Segurança de aplicações (SCC, service accounts, acesso à API, CronJobs de manutenção) | [3.1](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/03-containers-e-pods/3.1-criar-containers-e-pods.md) | ⏳ Cap. 8 |
+| Segurança de aplicações (SCC, service accounts, acesso à API, CronJobs de manutenção) | [3.1](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/03-containers-e-pods/3.1-criar-containers-e-pods.md) | ✅ [8.1](../capitulos/08-seguranca-aplicacoes/8.1-security-context-constraints.md) · ✅ [8.3](../capitulos/08-seguranca-aplicacoes/8.3-acesso-de-aplicacoes-a-api.md) · ✅ [8.5](../capitulos/08-seguranca-aplicacoes/8.5-manutencao-com-cron-jobs.md) |
 | Atualizar o cluster e Operators; APIs obsoletas | [1.3](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/01-introducao-kubernetes-openshift/1.3-componentes-e-edicoes-do-openshift.md) | ⏳ Cap. 9 |
 | Storage, confiabilidade (probes, recursos, HPA) e atualização de aplicações | [Cap. 5](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/05-configuracao-e-storage/README.md) · [Cap. 6](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/06-confiabilidade/README.md) · [Cap. 7](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/07-atualizacao-aplicacoes/README.md) | — |
 
@@ -100,6 +100,16 @@
 | Ler PackageManifests e criar OperatorGroup e Subscription pela CLI | [7.5](../capitulos/07-operadores-kubernetes/7.5-instalar-operators-pela-cli.md) | Gerenciar Operators |
 | Aprovar install plans manuais e trocar o canal de atualização | 7.5 | Atualizar Operators |
 | Usar o operator (CRs, `alm-examples`, `oc explain`) e diagnosticar CSV/InstallPlan | 7.3 · 7.5 | Diagnóstico |
+
+## Competências do Capítulo 8
+
+| Competência | Lição | Relação com o EX280 |
+|-------------|-------|---------------------|
+| Diagnosticar falhas de imagens que exigem root e descobrir a SCC com `scc-subject-review` | [8.1](../capitulos/08-seguranca-aplicacoes/8.1-security-context-constraints.md) | Segurança de aplicações |
+| Criar service accounts, conceder SCCs (cluster ou projeto) e associá-las a workloads | 8.1 | Segurança de aplicações |
+| Conceder a aplicações acesso à API no próprio projeto, em outro projeto ou no cluster | [8.3](../capitulos/08-seguranca-aplicacoes/8.3-acesso-de-aplicacoes-a-api.md) | Segurança de aplicações |
+| Gerar tokens de service account e verificar permissões com `oc auth can-i --as` | 8.3 | Segurança de aplicações |
+| Criar Jobs e CronJobs de manutenção com SA, papel e SCC adequados | [8.5](../capitulos/08-seguranca-aplicacoes/8.5-manutencao-com-cron-jobs.md) | Segurança de aplicações / manutenção |
 
 ## Estratégia de treino
 

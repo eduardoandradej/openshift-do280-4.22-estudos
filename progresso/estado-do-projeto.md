@@ -5,7 +5,7 @@
 > [CLAUDE.md](../CLAUDE.md). O progresso de estudo do aluno fica no
 > [checklist geral](checklist-geral.md) e no [diário](diario-de-laboratorios.md).
 
-**Última atualização:** 2026-10-26 (Capítulo 7 concluído)
+**Última atualização:** 2026-10-26 (Capítulo 8 concluído)
 
 ## Situação por módulo
 
@@ -20,11 +20,11 @@
 | Capítulo 5 | ✅ validado | p. 199–244 | 2 lições + prática (com armadilhas), revisão, resumo (sem quiz) |
 | Capítulo 6 | ✅ validado | p. 245–302 | 3 lições + prática (com armadilhas), revisão, resumo (sem quiz) |
 | Capítulo 7 | ✅ validado | p. 303–350 | 3 lições + prática (com armadilhas e o quiz 7.2), revisão, resumo |
-| Capítulo 8 | ⏳ aguardando PDF | — | README estrutural com seções do sumário |
-| Capítulo 9 | ⏳ aguardando PDF | — | idem |
+| Capítulo 8 | ✅ validado | p. 351–393 | 3 lições + prática (com armadilhas), revisão, resumo (sem quiz) |
+| Capítulo 9 | ⏳ aguardando PDF | — | README estrutural com seções do sumário |
 | Capítulo 10 | ⏳ aguardando PDF | — | idem |
-| consulta-rapida | 🟡 | — | Cobre os Capítulos 1 a 7 (remete ao DO180 para o restante) |
-| exemplos-originais | 🟡 | — | Exemplos dos Capítulos 1 a 7, validados com `kustomize build`, `helm lint`/`helm template` e decodificação estrita (tipos Kubernetes, Route, ANP, UDN/CUDN, NAD, MetalLB, quotas, Template, config de projetos, OperatorGroup, Subscription) |
+| consulta-rapida | 🟡 | — | Cobre os Capítulos 1 a 8 (remete ao DO180 para o restante) |
+| exemplos-originais | 🟡 | — | Exemplos dos Capítulos 1 a 8, validados com `kustomize build`, `helm lint`/`helm template` e decodificação estrita (tipos Kubernetes, Route, ANP, UDN/CUDN, NAD, MetalLB, quotas, Template, config de projetos, OperatorGroup, Subscription, RBAC de SCC, CronJob) |
 | certificacao | 🟡 | — | Matriz EX280 relacionando áreas do exame às lições |
 
 ## PDFs recebidos
@@ -39,6 +39,7 @@
 | `DO280_4.22_C05_Aplicacoes_Nao_HTTP_p199-244.pdf` | Capítulo 5 completo | 199–244 |
 | `DO280_4.22_C06_Autosservico_Desenvolvedores_p245-302.pdf` | Capítulo 6 completo | 245–302 |
 | `DO280_4.22_C07_Operadores_Kubernetes_p303-350.pdf` | Capítulo 7 completo | 303–350 |
+| `DO280_4.22_C08_Seguranca_Aplicacoes_p351-393.pdf` | Capítulo 8 completo | 351–393 |
 
 Os PDFs **não** são versionados (bloqueados pelo `.gitignore`); o texto foi extraído
 apenas no scratchpad da sessão.
@@ -104,6 +105,15 @@ apenas no scratchpad da sessão.
 - Ambiente (Cap. 7): cluster desconectado; o OLM usa um único catálogo espelhado com os
   operators das atividades; na console 4.22 as páginas são **Ecosystem › Software
   Catalog** e **Ecosystem › Installed Operators**.
+- Capítulo 8: abertura p. 351; 8.1 Controlling Application Permissions with Security
+  Context Constraints (p. 352–355); 8.2 GE `appsec-scc` (p. 356–361); 8.3 Allowing
+  Application Access to Kubernetes APIs (p. 362–366); 8.4 GE `appsec-api` (p. 367–371);
+  8.5 Cluster and Node Maintenance with Kubernetes Cron Jobs (p. 372–377); 8.6 GE
+  `appsec-prune` (p. 378–384); 8.7 Lab `appsec-review` (p. 385–392, **com** `lab grade`;
+  solução a partir da p. 387); 8.8 Summary (p. 393). Sem quiz.
+- Ambiente (Cap. 8): exercícios alternam `developer` e `admin`; SCCs e papéis de cluster
+  são concedidos como `admin`; o GE 8.6 concede `cluster-admin` e `privileged` a uma SA
+  só para o exercício.
 - Sumário completo dos capítulos 2–10 (títulos e tipos de seção) conferido nas p. 3–5.
 
 ## Divergências e imprecisões encontradas no PDF (Cap. 1)
@@ -254,6 +264,34 @@ Nenhuma imprecisão técnica identificada. Observações registradas no resumo:
 - Remoção de operators pela CLI (`oc delete subscription` + `oc delete csv`), da
   documentação do OpenShift; a apostila mostra só a console.
 
+## Divergências e imprecisões encontradas no PDF (Cap. 8)
+
+| Página | Ponto | Tratamento no repositório |
+|--------|-------|---------------------------|
+| p. 376 | ConfigMap de exemplo com `app: crictl` direto em `metadata` | Campo inexistente (rejeitado na decodificação estrita contra `k8s.io/api`); o correto é `metadata.labels`, como no GE 8.6 |
+| p. 393 | Resumo: "ClusterRoles concedem permissões em todo o cluster" | O escopo depende do binding; ClusterRole por RoleBinding vale só no namespace (a p. 364 diz isso) |
+| p. 362 | "O OpenShift não concede permissões à SA `default`" | Sem permissões especiais; as básicas dos grupos `system:serviceaccounts`/`system:authenticated` existem |
+| p. 368 | Texto do GE cita a SA sem o sufixo `-sa` | Inconsistência de texto; seguir o nome do comando |
+
+## Complementos de fonte externa usados no Cap. 8 (marcados 📘)
+
+- `oc adm policy add-scc-to-user` cria a ClusterRole `system:openshift:scc:<scc>` e um
+  ClusterRoleBinding; com `-n` explícito, cria um RoleBinding no projeto (código do `oc`,
+  `pkg/cli/admin/policy/modify_scc.go`, branch `release-4.22`).
+- Campos de CronJob/Job (`concurrencyPolicy`, `suspend`, limites de histórico 3/1,
+  `backoffLimit` 6) conferidos em `k8s.io/api` v0.37.1; `oc set serviceaccount` e
+  `oc create job --from cronjob/` conferidos no código do kubectl.
+
+## Validação do Capítulo 8
+
+- [x] Seções 8.1–8.8 representadas, na ordem; ausência de quiz registrada.
+- [x] Identificadores `appsec-scc`, `appsec-api`, `appsec-prune`, `appsec-review` e `lab grade` (só no 8.7) conferidos.
+- [x] Armadilhas no formato revisado; avisos ⛔ para SCCs padrão, `cluster-admin`/`privileged` em SA e limpeza de nós.
+- [x] Senhas, hosts, imagens do ambiente e soluções não reproduzidos; exemplos com nomes fictícios.
+- [x] ServiceAccount, Deployment, Role/ClusterRole/RoleBinding, ConfigMap e CronJob validados com decodificação estrita (k8s.io/api v0.37.1); YAML das lições e da consulta rápida também; divergência da p. 376 confirmada pelo mesmo verificador.
+- [x] Links relativos, âncoras e links para o DO180 verificados por script.
+- [x] Varredura de senhas do laboratório, e-mail e marca d'água: nada encontrado.
+
 ## Validação do Capítulo 7
 
 - [x] Seções 7.1–7.8 representadas, na ordem; quiz 7.2 citado sem reproduzir o gabarito.
@@ -353,25 +391,24 @@ script e conferidos nas lições; nenhum tópico ficou de fora.
 
 | Item | Quando |
 |------|--------|
-| Desenvolver o Capítulo 8 | Ao receber o PDF do Capítulo 8 |
+| Desenvolver o Capítulo 9 | Ao receber o PDF do Capítulo 9 |
 | Ampliar `consulta-rapida` e `exemplos-originais` | A cada capítulo |
-| Assuntos herdados do DO180: SCC, criptografia do etcd (RBAC no Cap. 3, TLS em Routes no Cap. 4, LimitRange/ResourceQuota no Cap. 6) | Cap. 8 |
+| Assuntos herdados do DO180 ainda não retomados: criptografia do etcd (RBAC no Cap. 3, TLS em Routes no Cap. 4, LimitRange/ResourceQuota no Cap. 6, SCC no Cap. 8) | Se aparecer nos Caps. 9–10 |
 
 ## Publicação
 
 - Repositório: `eduardoandradej/openshift-do280-4.22-estudos` (já existia com `LICENSE` Apache-2.0; nada foi sobrescrito).
 - Visibilidade: definida pelo usuário.
 - Fluxo de publicação: por decisão do usuário (2026-10-26), o conteúdo validado vai direto para o branch `main`, sem PR. O primeiro commit foi feito em `claude/gallant-shannon-b4zr78` e integrado à `main` por fast-forward.
-- Último commit relevante: ver `git log` da `main` (commit do Capítulo 7).
+- Último commit relevante: ver `git log` da `main` (commit do Capítulo 8).
 
 ## Próximo passo
 
-Aguardar o PDF do **Capítulo 8 — Application Security** (sumário: 8.1 Controlling
-Application Permissions with Security Context Constraints, 8.2 GE, 8.3 Allowing
-Application Access to Kubernetes APIs, 8.4 GE, 8.5 Cluster and Node Maintenance with
-Kubernetes Cron Jobs, 8.6 GE, 8.7 Lab, 8.8 Summary). Ao recebê-lo: ler este arquivo e o
-`CLAUDE.md`, confirmar páginas e identificadores `lab`, e seguir o fluxo da seção 6 do
-`CLAUDE.md`.
+Aguardar o PDF do **Capítulo 9 — OpenShift Updates** (sumário: 9.1 Updating Clusters,
+9.2 Quiz, 9.3 Detecting Deprecated Kubernetes API Usage, 9.4 Quiz, 9.5 Updating Operators
+with the OLM, 9.6 Quiz, 9.7 Quiz, 9.8 Summary). Ao recebê-lo: ler este arquivo e o
+`CLAUDE.md`, confirmar páginas e identificadores `lab` (se houver), e seguir o fluxo da
+seção 6 do `CLAUDE.md`.
 
 ---
 [Início](../README.md) | [Checklist geral](checklist-geral.md)

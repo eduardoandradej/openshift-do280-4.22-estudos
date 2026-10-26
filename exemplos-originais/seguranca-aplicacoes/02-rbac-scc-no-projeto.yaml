@@ -1,0 +1,28 @@
+# Uso da SCC anyuid limitado ao projeto loja (lição 8.1).
+# Equivale a:
+#   oc create role usa-anyuid --verb use --resource scc --resource-name anyuid -n loja
+#   oc create rolebinding usa-anyuid --role usa-anyuid --serviceaccount loja:legado-sa -n loja
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: usa-anyuid
+  namespace: loja
+rules:
+- apiGroups: ["security.openshift.io"]
+  resources: ["securitycontextconstraints"]
+  resourceNames: ["anyuid"]
+  verbs: ["use"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: usa-anyuid
+  namespace: loja
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: usa-anyuid
+subjects:
+- kind: ServiceAccount
+  name: legado-sa
+  namespace: loja

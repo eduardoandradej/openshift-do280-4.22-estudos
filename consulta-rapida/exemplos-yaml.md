@@ -1,8 +1,8 @@
 # Exemplos YAML comentados
 
-Todos autorais e validados (`yaml.safe_load`, `kustomize build` v5.7.1, `helm lint`/`helm template` v3.17 e decodificação estrita contra os tipos das APIs: Kubernetes, `route.openshift.io/v1`, `policy.networking.k8s.io/v1alpha1`, `k8s.ovn.org/v1`, `k8s.cni.cncf.io/v1`, `metallb.io/v1beta1`, `quota.openshift.io/v1`, `template.openshift.io/v1`, `config.openshift.io/v1` e `operators.coreos.com`). Arquivos
+Todos autorais e validados (`yaml.safe_load`, `kustomize build` v5.7.1, `helm lint`/`helm template` v3.17 e decodificação estrita contra os tipos das APIs: Kubernetes, `route.openshift.io/v1`, `policy.networking.k8s.io/v1alpha1`, `k8s.ovn.org/v1`, `k8s.cni.cncf.io/v1`, `metallb.io/v1beta1`, `quota.openshift.io/v1`, `template.openshift.io/v1`, `config.openshift.io/v1`, `operators.coreos.com` e `batch/v1`). Arquivos
 aplicáveis em [exemplos-originais/](../exemplos-originais/README.md).
-Cobertura: **Capítulos 1–7**.
+Cobertura: **Capítulos 1–8**.
 
 ## Vários manifestos em um arquivo
 
@@ -455,6 +455,57 @@ spec:
 ```
 
 Mais em [exemplos-originais/operators/](../exemplos-originais/operators/).
+
+## Uso de SCC só no projeto
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: usa-anyuid
+  namespace: loja
+rules:
+- apiGroups: ["security.openshift.io"]
+  resources: ["securitycontextconstraints"]
+  resourceNames: ["anyuid"]
+  verbs: ["use"]
+```
+
+Ligue com `oc create rolebinding usa-anyuid --role usa-anyuid --serviceaccount loja:<sa> -n loja`
+e associe a SA ao Deployment (`spec.template.spec.serviceAccountName`).
+
+## CronJob com script em ConfigMap
+
+```yaml
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: relatorio
+  namespace: loja
+spec:
+  schedule: "15 6 * * 1"          # aspas: obrigatórias se começar com *
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: relatorio-sa
+          restartPolicy: Never
+          containers:
+          - name: relatorio
+            image: registry.access.redhat.com/ubi9/ubi:latest
+            command: ["/opt/scripts/relatorio.sh"]
+            volumeMounts:
+            - name: scripts
+              mountPath: /opt/scripts
+          volumes:
+          - name: scripts
+            configMap:
+              name: relatorio-script
+              defaultMode: 0555
+```
+
+Mais em [exemplos-originais/seguranca-aplicacoes/](../exemplos-originais/seguranca-aplicacoes/).
 
 ---
 [Início](../README.md)

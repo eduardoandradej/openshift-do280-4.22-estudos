@@ -1,0 +1,34 @@
+# Controller do projeto ferramentas lendo ConfigMaps e reiniciando Deployments
+# no projeto app, com papel mínimo em vez de edit (lição 8.3).
+# O RoleBinding fica no namespace dos RECURSOS (app).
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: reloader-sa
+  namespace: ferramentas
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: reloader-minimo
+rules:
+- apiGroups: [""]
+  resources: ["configmaps"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["apps"]
+  resources: ["deployments"]
+  verbs: ["get", "list", "watch", "patch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: reloader-minimo
+  namespace: app
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: reloader-minimo
+subjects:
+- kind: ServiceAccount
+  name: reloader-sa
+  namespace: ferramentas

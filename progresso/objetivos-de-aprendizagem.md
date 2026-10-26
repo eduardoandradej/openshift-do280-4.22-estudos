@@ -87,7 +87,17 @@ Meta do capítulo: instalar e atualizar operators gerenciados pelo OLM e pelo CV
 | Instalar e atualizar operators pela web console e pelo OLM | [7.3](../capitulos/07-operadores-kubernetes/7.3-instalar-operators-pela-console.md) | [ ] |
 | Instalar e atualizar operators usando as APIs do OLM | [7.5](../capitulos/07-operadores-kubernetes/7.5-instalar-operators-pela-cli.md) | [ ] |
 
-## 9. Capítulos 8 a 10
+## 9. Capítulo 8 — Application Security (✅ PDF p. 351–393)
+
+Meta do capítulo: executar aplicações que precisam de privilégios elevados ou especiais do host ou do Kubernetes.
+
+| Objetivo da seção | Lição | Estudado? |
+|-------------------|-------|-----------|
+| Criar service accounts, aplicar permissões e gerenciar SCCs | [8.1](../capitulos/08-seguranca-aplicacoes/8.1-security-context-constraints.md) | [ ] |
+| Permitir que uma aplicação acesse as APIs do Kubernetes do cluster | [8.3](../capitulos/08-seguranca-aplicacoes/8.3-acesso-de-aplicacoes-a-api.md) | [ ] |
+| Automatizar tarefas regulares de gerenciamento com cron jobs | [8.5](../capitulos/08-seguranca-aplicacoes/8.5-manutencao-com-cron-jobs.md) | [ ] |
+
+## 10. Capítulos 9 e 10
 
 ⏳ Os objetivos de cada seção serão registrados aqui quando os PDFs forem recebidos.
 

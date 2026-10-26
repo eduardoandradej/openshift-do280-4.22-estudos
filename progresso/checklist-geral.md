@@ -82,14 +82,14 @@ que você já executou seus laboratórios.
 - [ ] REVISAO.md
 - [ ] RESUMO.md
 
-## Capítulo 8 — Application Security (⏳ documentação aguardando PDF)
-- [ ] 8.1 Controlling Application Permissions with SCCs
-- [ ] 8.2 GE Control Application Permissions with SCCs
+## Capítulo 8 — Application Security
+- [ ] 8.1 Controlling Application Permissions with Security Context Constraints
+- [ ] 8.2 GE `appsec-scc`
 - [ ] 8.3 Allowing Application Access to Kubernetes APIs
-- [ ] 8.4 GE Allow Application Access to Kubernetes APIs
+- [ ] 8.4 GE `appsec-api`
 - [ ] 8.5 Cluster and Node Maintenance with Kubernetes Cron Jobs
-- [ ] 8.6 GE Cluster and Node Maintenance with Cron Jobs
-- [ ] 8.7 Lab Manage Application Security
+- [ ] 8.6 GE `appsec-prune`
+- [ ] 8.7 Lab `appsec-review` (`lab grade`)
 - [ ] REVISAO.md
 - [ ] RESUMO.md
 

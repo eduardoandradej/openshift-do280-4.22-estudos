@@ -1,6 +1,6 @@
 # Troubleshooting: sintoma → causa → verificação
 
-> Cobertura: **Capítulos 1–7**. Para Pods, Services, Routes, storage e recursos, veja o
+> Cobertura: **Capítulos 1–8**. Para Pods, Services, Routes, storage e recursos, veja o
 > [troubleshooting do DO180](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/consulta-rapida/troubleshooting.md).
 
 ## Roteiro geral para mudanças declarativas
@@ -173,6 +173,19 @@ flowchart TD
 | Tipo do CR inexistente | Operator não instalado ou CSV ainda não `Succeeded` | `oc get csv`; `oc get crd` |
 | CR sem efeito | Operator não observa o namespace ou está com falha | `status.namespaces` do OperatorGroup; Pods/logs do operator |
 | Atualização automática não aplicada | Outra assinatura `Manual` no mesmo namespace (📘) | `oc get installplan -n <ns>` |
+
+## Segurança de aplicações (Cap. 8)
+
+| Sintoma | Causa provável | Como verificar / resolver |
+|---------|----------------|---------------------------|
+| `CrashLoopBackOff` com *permission denied* ou falha na porta 80 | Imagem exige root/UID fixo; Pod com `restricted-v2` | `oc logs`; `scc-subject-review`; SA com a SCC mínima |
+| `unable to validate against any security context constraint` | Nenhuma SCC permitida aceita o Pod | Eventos do ReplicaSet; conceder SCC à SA usada |
+| SCC concedida, Pod ainda `restricted-v2` | SA não associada ao workload | `oc set serviceaccount` |
+| `cannot ... system:serviceaccount:<ns>:default` | Workload sem SA própria | Criar SA com papel e associá-la |
+| `... in the namespace "x"` (Forbidden) | Falta RoleBinding em `x` | Binding no namespace dos recursos |
+| `... at the cluster scope` | Recurso de cluster | ClusterRole + ClusterRoleBinding mínimos |
+| CronJob nunca roda | `schedule`, `suspend` ou fuso | `oc get cronjob` (SCHEDULE, SUSPEND, LAST SCHEDULE) |
+| Script do ConfigMap sem permissão | Volume sem execução | `defaultMode: 0555` |
 
 ---
 [Início](../README.md)

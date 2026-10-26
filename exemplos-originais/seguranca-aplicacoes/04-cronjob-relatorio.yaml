@@ -1,0 +1,52 @@
+# Manutenção de aplicação (lição 8.5): script em ConfigMap executado por um CronJob
+# toda segunda-feira às 06:15 (UTC), sem execuções sobrepostas.
+# Teste imediato: oc create job relatorio-manual --from cronjob/relatorio -n loja
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: relatorio-script
+  namespace: loja
+  labels:                        # labels ficam em metadata.labels
+    app: relatorio
+data:
+  relatorio.sh: |
+    #!/bin/bash
+    set -euo pipefail
+    echo "Relatório gerado em $(date -u)"
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: relatorio
+  namespace: loja
+spec:
+  schedule: "15 6 * * 1"
+  timeZone: Etc/UTC
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      template:
+        spec:
+          serviceAccountName: relatorio-sa   # SA própria; sem permissões extras se não precisar da API
+          restartPolicy: Never
+          containers:
+          - name: relatorio
+            image: registry.access.redhat.com/ubi9/ubi:latest
+            command: ["/opt/scripts/relatorio.sh"]
+            volumeMounts:
+            - name: scripts
+              mountPath: /opt/scripts
+          volumes:
+          - name: scripts
+            configMap:
+              name: relatorio-script
+              defaultMode: 0555
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: relatorio-sa
+  namespace: loja

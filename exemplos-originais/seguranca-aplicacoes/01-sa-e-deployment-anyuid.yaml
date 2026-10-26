@@ -1,0 +1,33 @@
+# Aplicação legada que precisa rodar como root (lição 8.1).
+# A SCC é concedida à SA por um administrador do cluster, de uma destas formas:
+#   oc adm policy add-scc-to-user anyuid -z legado-sa            (ClusterRoleBinding)
+#   02-rbac-scc-no-projeto.yaml                                   (só neste projeto)
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: legado-sa
+  namespace: loja
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: legado
+  namespace: loja
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: legado
+  template:
+    metadata:
+      labels:
+        app: legado
+      annotations:
+        openshift.io/required-scc: anyuid    # fixa a SCC (opcional)
+    spec:
+      serviceAccountName: legado-sa
+      containers:
+      - name: legado
+        image: registry.example.com/legado/web:1.0
+        ports:
+        - containerPort: 80
