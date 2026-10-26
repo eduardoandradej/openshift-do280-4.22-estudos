@@ -43,6 +43,9 @@ cada nova entrada. **Não** cole senhas, tokens nem saídas que contenham creden
 | 6.4 | GE `selfservice-ranges` | | | |
 | 6.6 | GE `selfservice-projtemplate` | | | |
 | 6.7 | Lab `selfservice-review` (grade) | | | |
+| 7.4 | GE `operators-web` | | | |
+| 7.6 | GE `operators-cli` | | | |
+| 7.7 | Lab `operators-review` (grade) | | | |
 
 > Linhas dos próximos capítulos serão acrescentadas quando os identificadores `lab`
 > forem verificados nos respectivos PDFs.

@@ -1,6 +1,6 @@
 # Glossário
 
-> Cobertura: **Capítulos 1–6**. Termos do DO180 no
+> Cobertura: **Capítulos 1–7**. Termos do DO180 no
 > [glossário do DO180](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/consulta-rapida/glossario.md).
 
 | Termo | Definição |
@@ -8,6 +8,7 @@
 | **admin / edit / view** | Papéis padrão de projeto: gerenciar tudo (inclusive acessos) / alterar recursos de aplicação / só ler |
 | **AdminNetworkPolicy (ANP)** | Política de rede de cluster (administrador), avaliada antes das NetworkPolicies, com ações `Allow`/`Deny`/`Pass` |
 | **allowNameChange** | Opção de um patch do Kustomize que permite a um strategic merge patch renomear o recurso |
+| **alm-examples** | Anotação do CSV com exemplos de CRs em JSON (os mesmos que a console carrega no editor) |
 | **AppliedClusterResourceQuota** | Visão, por namespace, de uma ClusterResourceQuota que o afeta; legível pelo administrador do projeto (não aceita `-A`) |
 | **appVersion** | Campo do `Chart.yaml` com a versão da aplicação empacotada (informativo) |
 | **Autenticação** | Etapa que identifica quem faz a requisição (token OAuth ou certificado X.509) |
@@ -17,19 +18,24 @@
 | **BaselineAdminNetworkPolicy (BANP)** | Política de rede de cluster de menor precedência, que as NetworkPolicies podem sobrepor |
 | **basic-user** | Papel padrão que permite obter informações básicas sobre projetos e usuários |
 | **behavior (generator)** | `create`, `merge` ou `replace`: como um generator do overlay trata um objeto gerado pela base |
+| **CatalogSource** | Recurso do OLM (em `openshift-marketplace`) que aponta uma imagem de catálogo de operators |
 | **Chart (Helm)** | Pacote com `Chart.yaml`, `values.yaml` e `templates/` que descreve uma aplicação |
 | **Chart.yaml** | Metadados de um chart: nome, `version`, `appVersion`, descrição |
 | **Chave de mesclagem** | Campo que identifica itens de uma lista no strategic merge patch (ex.: `name` em containers, `mountPath` em volumeMounts) |
 | **Cluster Samples Operator** | Operator que popula templates e image streams de exemplo no namespace `openshift` |
+| **Cluster Version Operator (CVO)** | Operator que instala e atualiza os cluster operators junto com a versão do OpenShift |
 | **cluster-admin** | Papel com acesso irrestrito a todo o cluster |
 | **cluster-reader** | Papel de leitura da maioria dos objetos do cluster |
 | **ClusterResourceQuota** | Quota do OpenShift (`quota.openshift.io/v1`) que limita a soma de vários namespaces escolhidos por selector |
 | **ClusterRole** | Papel definido no escopo do cluster; reutilizável em projetos por RoleBindings |
 | **ClusterRoleBinding** | Vínculo de um papel a sujeitos em todo o cluster |
+| **ClusterServiceVersion (CSV)** | Recurso de namespace que descreve uma versão de um operator (Deployments, permissões, CRDs) e o estado da instalação |
 | **ClusterUserDefinedNetwork (CUDN)** | Rede definida pelo administrador do cluster que une vários namespaces selecionados por labels |
 | **commonLabels** | Campo obsoleto do Kustomize; adiciona labels também a selectors e templates |
 | **configMapGenerator** | Gera ConfigMaps a partir de `literals`, `envs` ou `files`, com hash no nome |
 | **`count/<recurso>.<grupo>`** | Sintaxe de quota de contagem de objetos; recursos do grupo core dispensam o `.<grupo>` |
+| **Custom resource (CR)** | Instância de um tipo definido por uma CRD; é como se pede algo a um operator |
+| **CustomResourceDefinition (CRD)** | Extensão da API que cria um tipo novo de objeto |
 | **Declarativo (fluxo)** | Manter o estado desejado em arquivos versionados e aplicá-lo com `oc apply` |
 | **default / defaultRequest** | Chaves do LimitRange com o limit e o request injetados em containers que não os declaram |
 | **default-deny** | NetworkPolicy com `podSelector: {}` e sem regras, que isola todos os Pods do namespace |
@@ -49,6 +55,8 @@
 | **Imperativo (fluxo)** | Alterar o cluster com uma sequência de comandos de ação |
 | **Ingress controller** | Componente (router) que recebe o tráfego externo e o encaminha aos Pods conforme Routes/Ingress |
 | **inject-cabundle** | Anotação `service.beta.openshift.io/inject-cabundle=true` que faz o service-ca injetar sua CA em um objeto |
+| **InstallPlan** | Plano do OLM para instalar ou atualizar um operator; com aprovação manual exige `spec.approved: true` |
+| **installPlanApproval** | Campo da Subscription: `Automatic` ou `Manual` |
 | **IPAddressPool** | Recurso do MetalLB com a faixa de IPs que pode ser atribuída a Services LoadBalancer |
 | **JSON Patch** | Formato (RFC 6902) de operações `op`/`path`/`value` em caminhos exatos |
 | **kubeadmin** | Usuário virtual de administrador criado na instalação; senha em hash no Secret `kubeadmin` (`kube-system`) |
@@ -70,7 +78,11 @@
 | **NodePort** | Tipo de Service exposto em uma porta alta em todos os nós |
 | **OAuth (recurso)** | Objeto `oauth/cluster` (`config.openshift.io/v1`) que lista os provedores de identidade |
 | **OAuth server** | Servidor de autenticação do OpenShift (Pods `oauth-openshift`) que emite tokens de acesso |
+| **Operator** | Controller específico de uma aplicação que observa CRs e mantém os objetos correspondentes |
+| **Operator Lifecycle Manager (OLM)** | Componente que instala, atualiza e remove add-on operators a partir de catálogos |
+| **OperatorGroup** | Recurso que define os namespaces observados pelos operators do seu namespace; um por namespace |
 | **Overlay** | Diretório Kustomize que referencia uma base e declara as diferenças de um ambiente |
+| **PackageManifest** | Recurso criado pelo OLM para cada operator disponível, com canais, versões e modos de instalação |
 | **Parâmetro (template)** | Lacuna de um template, com valor padrão, obrigatoriedade ou gerador |
 | **Passthrough (terminação)** | O router não decifra; o TLS vai até o Pod, que apresenta o próprio certificado |
 | **Processar (template)** | Substituir os parâmetros e obter a lista de manifestos (`oc process`) |
@@ -92,10 +104,12 @@
 | **serving-cert-secret-name** | Anotação de Service que pede ao service-ca um Secret TLS com certificado assinado |
 | **SNI** | Extensão do TLS que informa o nome do host no handshake; permite rotear TLS por nome |
 | **Strategic merge patch** | Patch com a estrutura do recurso; mescla listas por chave de mesclagem; padrão do `oc patch` |
+| **Subscription** | Pedido de instalação de um operator: pacote, catálogo, canal e política de aprovação |
 | **system:anonymous** | Usuário virtual atribuído a requisições sem credencial |
 | **Template (OpenShift)** | Recurso `template.openshift.io/v1` com objetos parametrizados |
 | **Template de projeto** | Template (`project-request`, em `openshift-config`) com os objetos que todo projeto novo recebe |
 | **Three-way merge** | Comparação feita pelo `oc apply` entre manifesto, objeto vivo e `last-applied-configuration` |
+| **Update channel** | Sequência de versões de um operator que a Subscription acompanha (ex.: `stable`) |
 | **User** | Ator que interage com a API; criado no primeiro login |
 | **UserDefinedNetwork (UDN)** | Rede de um namespace gerenciada pelo OVN-Kubernetes, primária ou secundária |
 | **values.yaml** | Valores padrão de um chart; sobrescritos por `-f` e `--set` |

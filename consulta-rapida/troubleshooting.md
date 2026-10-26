@@ -1,6 +1,6 @@
 # Troubleshooting: sintoma → causa → verificação
 
-> Cobertura: **Capítulos 1–6**. Para Pods, Services, Routes, storage e recursos, veja o
+> Cobertura: **Capítulos 1–7**. Para Pods, Services, Routes, storage e recursos, veja o
 > [troubleshooting do DO180](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/consulta-rapida/troubleshooting.md).
 
 ## Roteiro geral para mudanças declarativas
@@ -161,6 +161,18 @@ flowchart TD
 | `oc new-project` falha após ativar o template | Objeto inválido no template | Mensagem do comando; corrigir e republicar |
 | `You may not request a new project via this API` | Usuário sem `self-provisioner` | `oc describe clusterrolebinding self-provisioners` |
 | Restrição ao self-provisioner desfeita | `autoupdate` ainda `true` e API server reiniciado | Anotar `autoupdate=false` e refazer |
+
+## Operators (Cap. 7)
+
+| Sintoma | Causa provável | Como verificar / resolver |
+|---------|----------------|---------------------------|
+| Cluster operator `DEGRADED True` | Problema no componente da plataforma | `oc describe co <co>` (mensagem, `relatedObjects`) |
+| Subscription sem CSV, `InstallPlanPending` | Aprovação manual | `oc get installplan -n <ns>`; aprovar com `oc patch` |
+| Subscription sem install plan | Pacote, canal ou catálogo errados | `oc describe subscription`; `oc describe packagemanifest` |
+| CSV com `NoOperatorGroup` / `TooManyOperatorGroups` / `UnsupportedOperatorGroup` | OperatorGroup ausente, duplicado ou com modo não suportado | `oc get operatorgroup -n <ns>`; `Install Modes` |
+| Tipo do CR inexistente | Operator não instalado ou CSV ainda não `Succeeded` | `oc get csv`; `oc get crd` |
+| CR sem efeito | Operator não observa o namespace ou está com falha | `status.namespaces` do OperatorGroup; Pods/logs do operator |
+| Atualização automática não aplicada | Outra assinatura `Manual` no mesmo namespace (📘) | `oc get installplan -n <ns>` |
 
 ---
 [Início](../README.md)

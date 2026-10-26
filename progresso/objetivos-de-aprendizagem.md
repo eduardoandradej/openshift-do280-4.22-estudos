@@ -77,7 +77,17 @@ Meta do capítulo: configurar clusters para que desenvolvedores criem projetos c
 | Configurar requisitos padrão e máximos de recursos dos Pods de cada projeto | [6.3](../capitulos/06-autosservico/6.3-limit-ranges.md) | [ ] |
 | Configurar restrições padrão para projetos novos e gerenciar quem pode criá-los | [6.5](../capitulos/06-autosservico/6.5-template-de-projeto-e-self-provisioner.md) | [ ] |
 
-## 8. Capítulos 7 a 10
+## 8. Capítulo 7 — Managing Kubernetes Operators (✅ PDF p. 303–350)
+
+Meta do capítulo: instalar e atualizar operators gerenciados pelo OLM e pelo CVO.
+
+| Objetivo da seção | Lição | Estudado? |
+|-------------------|-------|-----------|
+| Descrever o padrão operator e as formas de instalar e atualizar operators | [7.1](../capitulos/07-operadores-kubernetes/7.1-operators-e-olm.md) | [ ] |
+| Instalar e atualizar operators pela web console e pelo OLM | [7.3](../capitulos/07-operadores-kubernetes/7.3-instalar-operators-pela-console.md) | [ ] |
+| Instalar e atualizar operators usando as APIs do OLM | [7.5](../capitulos/07-operadores-kubernetes/7.5-instalar-operators-pela-cli.md) | [ ] |
+
+## 9. Capítulos 8 a 10
 
 ⏳ Os objetivos de cada seção serão registrados aqui quando os PDFs forem recebidos.
 

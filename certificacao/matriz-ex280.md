@@ -19,7 +19,7 @@
 | Proteger o tráfego de rede (TLS em Routes, NetworkPolicies, TLS interno) | [4.7](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/04-deploy-e-redes/4.7-escalar-e-expor-aplicacoes.md) | ✅ [4.1](../capitulos/04-seguranca-de-rede/4.1-tls-no-trafego-externo.md) · ✅ [4.3](../capitulos/04-seguranca-de-rede/4.3-network-policies.md) · ✅ [4.5](../capitulos/04-seguranca-de-rede/4.5-tls-no-trafego-interno.md) |
 | Expor aplicações não HTTP (LoadBalancer) e redes adicionais de Pods | [4.5](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/04-deploy-e-redes/4.5-redes-de-pods-e-services.md) | ✅ [5.1](../capitulos/05-redes-nao-http/5.1-servicos-load-balancer.md) · ✅ [5.3](../capitulos/05-redes-nao-http/5.3-redes-adicionais-de-pods.md) |
 | Habilitar autosserviço (quotas, limit ranges, template de projeto, self-provisioner) | [6.5](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/06-confiabilidade/6.5-reservar-capacidade-de-computacao.md) · [6.7](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/06-confiabilidade/6.7-limitar-capacidade-de-computacao.md) | ✅ [6.1](../capitulos/06-autosservico/6.1-quotas-de-projeto-e-cluster.md) · ✅ [6.3](../capitulos/06-autosservico/6.3-limit-ranges.md) · ✅ [6.5](../capitulos/06-autosservico/6.5-template-de-projeto-e-self-provisioner.md) |
-| Gerenciar Operators (OLM, console e CLI) | [1.3](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/01-introducao-kubernetes-openshift/1.3-componentes-e-edicoes-do-openshift.md) | ⏳ Cap. 7 |
+| Gerenciar Operators (OLM, console e CLI) | [1.3](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/01-introducao-kubernetes-openshift/1.3-componentes-e-edicoes-do-openshift.md) | ✅ [7.1](../capitulos/07-operadores-kubernetes/7.1-operators-e-olm.md) · ✅ [7.3](../capitulos/07-operadores-kubernetes/7.3-instalar-operators-pela-console.md) · ✅ [7.5](../capitulos/07-operadores-kubernetes/7.5-instalar-operators-pela-cli.md) |
 | Segurança de aplicações (SCC, service accounts, acesso à API, CronJobs de manutenção) | [3.1](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/03-containers-e-pods/3.1-criar-containers-e-pods.md) | ⏳ Cap. 8 |
 | Atualizar o cluster e Operators; APIs obsoletas | [1.3](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/01-introducao-kubernetes-openshift/1.3-componentes-e-edicoes-do-openshift.md) | ⏳ Cap. 9 |
 | Storage, confiabilidade (probes, recursos, HPA) e atualização de aplicações | [Cap. 5](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/05-configuracao-e-storage/README.md) · [Cap. 6](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/06-confiabilidade/README.md) · [Cap. 7](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/capitulos/07-atualizacao-aplicacoes/README.md) | — |
@@ -90,6 +90,16 @@
 | Criar e ativar um template de projeto com quota e limit range | [6.5](../capitulos/06-autosservico/6.5-template-de-projeto-e-self-provisioner.md) | Habilitar o autosserviço |
 | Restringir ou desligar a criação de projetos (`self-provisioner`) | 6.5 | Habilitar o autosserviço |
 | Diagnosticar workloads barrados por quota ou limit range pelos eventos | 6.1 · 6.3 | Diagnóstico |
+
+## Competências do Capítulo 7
+
+| Competência | Lição | Relação com o EX280 |
+|-------------|-------|---------------------|
+| Distinguir cluster operators (CVO) de add-on operators (OLM) e verificar `oc get co` | [7.1](../capitulos/07-operadores-kubernetes/7.1-operators-e-olm.md) | Gerenciar Operators |
+| Instalar, inspecionar e desinstalar operators pela web console | [7.3](../capitulos/07-operadores-kubernetes/7.3-instalar-operators-pela-console.md) | Gerenciar Operators |
+| Ler PackageManifests e criar OperatorGroup e Subscription pela CLI | [7.5](../capitulos/07-operadores-kubernetes/7.5-instalar-operators-pela-cli.md) | Gerenciar Operators |
+| Aprovar install plans manuais e trocar o canal de atualização | 7.5 | Atualizar Operators |
+| Usar o operator (CRs, `alm-examples`, `oc explain`) e diagnosticar CSV/InstallPlan | 7.3 · 7.5 | Diagnóstico |
 
 ## Estratégia de treino
 

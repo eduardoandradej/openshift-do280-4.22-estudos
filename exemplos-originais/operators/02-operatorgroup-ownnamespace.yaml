@@ -1,0 +1,10 @@
+# Modo OwnNamespace: o operator só observa o próprio namespace (lição 7.5).
+# Exatamente UM OperatorGroup por namespace.
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: auditoria-operator
+  namespace: auditoria-operator
+spec:
+  targetNamespaces:
+  - auditoria-operator

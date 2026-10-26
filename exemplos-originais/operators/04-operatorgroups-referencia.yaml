@@ -1,0 +1,32 @@
+# Referência dos outros modos de instalação (lição 7.5). Um arquivo de leitura:
+# cada documento vai em um namespace DIFERENTE (nunca dois no mesmo).
+#
+# AllNamespaces: sem alvo (como o global-operators de openshift-operators)
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: todos
+  namespace: operador-global
+spec: {}
+---
+# MultiNamespace: lista de namespaces observados (só se o operator suportar)
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: equipe-pagamentos
+  namespace: operador-pagamentos
+spec:
+  targetNamespaces:
+  - pagamentos-dev
+  - pagamentos-prd
+---
+# Seleção por label em vez de lista
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: por-label
+  namespace: operador-rotulado
+spec:
+  selector:
+    matchLabels:
+      operador/auditoria: "sim"

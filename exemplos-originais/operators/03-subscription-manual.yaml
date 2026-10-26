@@ -1,0 +1,17 @@
+# Subscription com aprovação manual (lição 7.5).
+# Valores de name/channel/source/sourceNamespace saem de:
+#   oc describe packagemanifest <pacote> -n openshift-marketplace
+# Depois de criar:
+#   oc describe operator auditoria-operator      # Refs → InstallPlan pendente
+#   oc patch installplan <plano> -n auditoria-operator --type merge -p '{"spec":{"approved":true}}'
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: auditoria-operator
+  namespace: auditoria-operator
+spec:
+  name: auditoria-operator          # Package Name
+  channel: stable                   # um dos Channels
+  source: catalogo-interno          # Catalog Source
+  sourceNamespace: openshift-marketplace
+  installPlanApproval: Manual

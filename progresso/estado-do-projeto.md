@@ -5,7 +5,7 @@
 > [CLAUDE.md](../CLAUDE.md). O progresso de estudo do aluno fica no
 > [checklist geral](checklist-geral.md) e no [diário](diario-de-laboratorios.md).
 
-**Última atualização:** 2026-10-26 (Capítulo 6 concluído)
+**Última atualização:** 2026-10-26 (Capítulo 7 concluído)
 
 ## Situação por módulo
 
@@ -19,12 +19,12 @@
 | Capítulo 4 | ✅ validado | p. 146–198 | 3 lições + prática (com armadilhas do ambiente), revisão, resumo (sem quiz) |
 | Capítulo 5 | ✅ validado | p. 199–244 | 2 lições + prática (com armadilhas), revisão, resumo (sem quiz) |
 | Capítulo 6 | ✅ validado | p. 245–302 | 3 lições + prática (com armadilhas), revisão, resumo (sem quiz) |
-| Capítulo 7 | ⏳ aguardando PDF | — | README estrutural com seções do sumário |
-| Capítulo 8 | ⏳ aguardando PDF | — | idem |
+| Capítulo 7 | ✅ validado | p. 303–350 | 3 lições + prática (com armadilhas e o quiz 7.2), revisão, resumo |
+| Capítulo 8 | ⏳ aguardando PDF | — | README estrutural com seções do sumário |
 | Capítulo 9 | ⏳ aguardando PDF | — | idem |
 | Capítulo 10 | ⏳ aguardando PDF | — | idem |
-| consulta-rapida | 🟡 | — | Cobre os Capítulos 1 a 6 (remete ao DO180 para o restante) |
-| exemplos-originais | 🟡 | — | Exemplos dos Capítulos 1 a 6, validados com `kustomize build`, `helm lint`/`helm template` e decodificação estrita (tipos Kubernetes, Route, ANP, UDN/CUDN, NAD, MetalLB, quotas, Template, config de projetos) |
+| consulta-rapida | 🟡 | — | Cobre os Capítulos 1 a 7 (remete ao DO180 para o restante) |
+| exemplos-originais | 🟡 | — | Exemplos dos Capítulos 1 a 7, validados com `kustomize build`, `helm lint`/`helm template` e decodificação estrita (tipos Kubernetes, Route, ANP, UDN/CUDN, NAD, MetalLB, quotas, Template, config de projetos, OperatorGroup, Subscription) |
 | certificacao | 🟡 | — | Matriz EX280 relacionando áreas do exame às lições |
 
 ## PDFs recebidos
@@ -38,6 +38,7 @@
 | `DO280_4.22_C04_Seguranca_de_Rede_p146-198.pdf` | Capítulo 4 completo | 146–198 |
 | `DO280_4.22_C05_Aplicacoes_Nao_HTTP_p199-244.pdf` | Capítulo 5 completo | 199–244 |
 | `DO280_4.22_C06_Autosservico_Desenvolvedores_p245-302.pdf` | Capítulo 6 completo | 245–302 |
+| `DO280_4.22_C07_Operadores_Kubernetes_p303-350.pdf` | Capítulo 7 completo | 303–350 |
 
 Os PDFs **não** são versionados (bloqueados pelo `.gitignore`); o texto foi extraído
 apenas no scratchpad da sessão.
@@ -94,6 +95,15 @@ apenas no scratchpad da sessão.
 - Ambiente (Cap. 6): nó único com 6 CPUs de capacidade (cerca de 5,5 alocáveis, segundo a
   saída impressa); o `lab start` do GE 6.6 cria dois usuários e um grupo de provisionadores;
   o Lab 6.7 exige o namespace de rascunho com o nome do enunciado para `lab grade`/limpeza.
+- Capítulo 7: abertura p. 303; 7.1 Kubernetes Operators and the Operator Lifecycle
+  Manager (p. 304–307); 7.2 Quiz de associação (p. 308; solução p. 309); 7.3 Installing
+  Operators by Using the Web Console (p. 310–313); 7.4 GE `operators-web` (p. 314–325);
+  7.5 Installing Operators with the CLI (p. 326–332); 7.6 GE `operators-cli`
+  (p. 333–340); 7.7 Lab `operators-review` (p. 341–349, **com** `lab grade`; solução a
+  partir da p. 343); 7.8 Summary (p. 350).
+- Ambiente (Cap. 7): cluster desconectado; o OLM usa um único catálogo espelhado com os
+  operators das atividades; na console 4.22 as páginas são **Ecosystem › Software
+  Catalog** e **Ecosystem › Installed Operators**.
 - Sumário completo dos capítulos 2–10 (títulos e tipos de seção) conferido nas p. 3–5.
 
 ## Divergências e imprecisões encontradas no PDF (Cap. 1)
@@ -224,6 +234,36 @@ inconsistentes entre saídas impressas do GE 6.2 (irrelevante para a execução)
 - `oc patch projects.config.openshift.io cluster --type merge` como alternativa ao
   `oc edit`; `spec.scopes`/`scopeSelector` citados como fora do escopo.
 
+## Divergências e imprecisões encontradas no PDF (Cap. 7)
+
+Nenhuma imprecisão técnica identificada. Observações registradas no resumo:
+
+| Página | Ponto | Tratamento |
+|--------|-------|------------|
+| p. 328 / 330 | O `PackageManifest` do exemplo sugere um namespace e o exemplo de Subscription usa outro | Inconsistência de exemplo; orientar pelo namespace da documentação/`suggested-namespace` |
+| p. 350 | Resumo cita "OperatorHub" | Na console 4.22 a página é **Software Catalog** (como o próprio capítulo usa) |
+| p. 350 | "OperatorGroup define se o operator é instalado em todo o cluster ou restrito" | Precisão: define os namespaces observados; o workload fica no namespace dele (nota da p. 311) |
+
+## Complementos de fonte externa usados no Cap. 7 (marcados 📘)
+
+- Razões do CSV `NoOperatorGroup`, `TooManyOperatorGroups` e `UnsupportedOperatorGroup` e
+  campos de `OperatorGroup`/`Subscription` (`status.installedCSV`, `startingCSV`),
+  conferidos em `operator-framework/api` v0.45.0.
+- Resolução conjunta das assinaturas de um namespace: uma assinatura `Manual` pode segurar
+  atualizações das outras (documentação do OpenShift sobre atualizações manuais).
+- Remoção de operators pela CLI (`oc delete subscription` + `oc delete csv`), da
+  documentação do OpenShift; a apostila mostra só a console.
+
+## Validação do Capítulo 7
+
+- [x] Seções 7.1–7.8 representadas, na ordem; quiz 7.2 citado sem reproduzir o gabarito.
+- [x] Identificadores `operators-web`, `operators-cli`, `operators-review` e `lab grade` (só no 7.7) conferidos.
+- [x] Armadilhas no formato revisado; avisos ⛔ para alterações em arquivos de nós.
+- [x] Senhas, nomes de catálogo/versões do ambiente e soluções não reproduzidos; exemplos com nomes fictícios.
+- [x] Namespace, OperatorGroup e Subscription validados com decodificação estrita (`operator-framework/api` v0.45.0); blocos YAML das lições e da consulta rápida também.
+- [x] Links relativos, âncoras e links para o DO180 verificados por script.
+- [x] Varredura de senhas do laboratório, e-mail e marca d'água: nada encontrado.
+
 ## Validação do Capítulo 6
 
 - [x] Seções 6.1–6.8 representadas, na ordem; ausência de quiz registrada.
@@ -313,7 +353,7 @@ script e conferidos nas lições; nenhum tópico ficou de fora.
 
 | Item | Quando |
 |------|--------|
-| Desenvolver o Capítulo 7 | Ao receber o PDF do Capítulo 7 |
+| Desenvolver o Capítulo 8 | Ao receber o PDF do Capítulo 8 |
 | Ampliar `consulta-rapida` e `exemplos-originais` | A cada capítulo |
 | Assuntos herdados do DO180: SCC, criptografia do etcd (RBAC no Cap. 3, TLS em Routes no Cap. 4, LimitRange/ResourceQuota no Cap. 6) | Cap. 8 |
 
@@ -322,15 +362,16 @@ script e conferidos nas lições; nenhum tópico ficou de fora.
 - Repositório: `eduardoandradej/openshift-do280-4.22-estudos` (já existia com `LICENSE` Apache-2.0; nada foi sobrescrito).
 - Visibilidade: definida pelo usuário.
 - Fluxo de publicação: por decisão do usuário (2026-10-26), o conteúdo validado vai direto para o branch `main`, sem PR. O primeiro commit foi feito em `claude/gallant-shannon-b4zr78` e integrado à `main` por fast-forward.
-- Último commit relevante: ver `git log` da `main` (commit do Capítulo 6).
+- Último commit relevante: ver `git log` da `main` (commit do Capítulo 7).
 
 ## Próximo passo
 
-Aguardar o PDF do **Capítulo 7 — Managing Kubernetes Operators** (sumário: 7.1 Kubernetes
-Operators and the Operator Lifecycle Manager, 7.2 Matching, 7.3 Installing Operators by
-Using the Web Console, 7.4 GE, 7.5 Installing Operators with the CLI, 7.6 GE, 7.7 Lab,
-7.8 Summary). Ao recebê-lo: ler este arquivo e o `CLAUDE.md`, confirmar páginas e
-identificadores `lab`, e seguir o fluxo da seção 6 do `CLAUDE.md`.
+Aguardar o PDF do **Capítulo 8 — Application Security** (sumário: 8.1 Controlling
+Application Permissions with Security Context Constraints, 8.2 GE, 8.3 Allowing
+Application Access to Kubernetes APIs, 8.4 GE, 8.5 Cluster and Node Maintenance with
+Kubernetes Cron Jobs, 8.6 GE, 8.7 Lab, 8.8 Summary). Ao recebê-lo: ler este arquivo e o
+`CLAUDE.md`, confirmar páginas e identificadores `lab`, e seguir o fluxo da seção 6 do
+`CLAUDE.md`.
 
 ---
 [Início](../README.md) | [Checklist geral](checklist-geral.md)

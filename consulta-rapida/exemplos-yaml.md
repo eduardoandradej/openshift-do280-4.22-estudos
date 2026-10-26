@@ -1,8 +1,8 @@
 # Exemplos YAML comentados
 
-Todos autorais e validados (`yaml.safe_load`, `kustomize build` v5.7.1, `helm lint`/`helm template` v3.17 e decodificação estrita contra os tipos das APIs: Kubernetes, `route.openshift.io/v1`, `policy.networking.k8s.io/v1alpha1`, `k8s.ovn.org/v1`, `k8s.cni.cncf.io/v1`, `metallb.io/v1beta1`, `quota.openshift.io/v1`, `template.openshift.io/v1` e `config.openshift.io/v1`). Arquivos
+Todos autorais e validados (`yaml.safe_load`, `kustomize build` v5.7.1, `helm lint`/`helm template` v3.17 e decodificação estrita contra os tipos das APIs: Kubernetes, `route.openshift.io/v1`, `policy.networking.k8s.io/v1alpha1`, `k8s.ovn.org/v1`, `k8s.cni.cncf.io/v1`, `metallb.io/v1beta1`, `quota.openshift.io/v1`, `template.openshift.io/v1`, `config.openshift.io/v1` e `operators.coreos.com`). Arquivos
 aplicáveis em [exemplos-originais/](../exemplos-originais/README.md).
-Cobertura: **Capítulos 1–6**.
+Cobertura: **Capítulos 1–7**.
 
 ## Vários manifestos em um arquivo
 
@@ -428,6 +428,33 @@ spec:
 ```
 
 Exemplo completo em [exemplos-originais/autosservico/](../exemplos-originais/autosservico/).
+
+## OperatorGroup e Subscription
+
+```yaml
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: auditoria-operator
+  namespace: auditoria-operator
+spec:
+  targetNamespaces:            # OwnNamespace; spec: {} = todos os namespaces
+  - auditoria-operator
+---
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: auditoria-operator
+  namespace: auditoria-operator
+spec:
+  name: auditoria-operator     # Package Name do PackageManifest
+  channel: stable
+  source: catalogo-interno     # Catalog Source
+  sourceNamespace: openshift-marketplace
+  installPlanApproval: Manual  # aprovar: oc patch installplan ... approved=true
+```
+
+Mais em [exemplos-originais/operators/](../exemplos-originais/operators/).
 
 ---
 [Início](../README.md)

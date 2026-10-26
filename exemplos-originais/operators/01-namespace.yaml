@@ -1,0 +1,9 @@
+# Namespace dedicado ao workload de um operator (lição 7.5).
+# Alguns operators exigem labels específicas aqui (monitoramento, Pod Security):
+# copie-as da documentação do operator, nunca invente.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: auditoria-operator
+  labels:
+    openshift.io/cluster-monitoring: "true"

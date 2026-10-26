@@ -1,6 +1,6 @@
 # Comandos `oc` por tarefa
 
-> Cobertura: **Capítulos 1–6**. Os comandos do DO180 estão na
+> Cobertura: **Capítulos 1–7**. Os comandos do DO180 estão na
 > [consulta rápida do DO180](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/consulta-rapida/comandos-oc.md).
 > Coluna **Tipo:** 🔍 somente leitura · ✏️ altera o cluster · 🖥️ só local.
 
@@ -184,6 +184,23 @@
 | `oc describe clusterrolebinding.rbac self-provisioners` | Quem pode criar projetos | 🔍 | 6.5 |
 | `oc annotate clusterrolebinding/self-provisioners --overwrite rbac.authorization.kubernetes.io/autoupdate=false` | Tornar alterações permanentes | ✏️ | 6.5 |
 | `oc patch clusterrolebinding.rbac self-provisioners -p '{"subjects": null}'` | Desligar o autosserviço (⛔ cluster inteiro) | ✏️ | 6.5 |
+
+## Operators (Cap. 7)
+
+| Comando | Para quê | Tipo | Lição |
+|---------|----------|------|-------|
+| `oc get clusteroperator` · `oc describe co <co>` | Estado dos cluster operators (CVO) | 🔍 | [7.1](../capitulos/07-operadores-kubernetes/7.1-operators-e-olm.md) |
+| `oc get catalogsource -n openshift-marketplace` | Catálogos de operators | 🔍 | 7.1 |
+| `oc get packagemanifests` · `oc describe packagemanifest <p>` | Operators disponíveis; catálogo, canais, modos, namespace sugerido | 🔍 | [7.5](../capitulos/07-operadores-kubernetes/7.5-instalar-operators-pela-cli.md) |
+| `oc create -f operator-group.yaml` · `oc create -f subscription.yaml` | Instalar pela CLI | ✏️ | 7.5 |
+| `oc describe operator <pacote>` | Install plan referenciado e condições (`InstallPlanPending`, `InstallSucceeded`) | 🔍 | 7.5 |
+| `oc get installplan -n <ns>` | Planos e `APPROVED` | 🔍 | 7.5 |
+| `oc patch installplan <ip> -n <ns> --type merge -p '{"spec":{"approved":true}}'` | Aprovar instalação/atualização manual | ✏️ | 7.5 |
+| `oc patch subscription <s> -n <ns> --type merge -p '{"spec":{"channel":"<c>"}}'` | Trocar o canal | ✏️ | 7.5 |
+| `oc get csv [-A] [-n <ns>]` | Versões instaladas e fase (`Succeeded`) | 🔍 | [7.3](../capitulos/07-operadores-kubernetes/7.3-instalar-operators-pela-console.md) · 7.5 |
+| `oc get csv <csv> -o jsonpath='{.spec.customresourcedefinitions.owned[*].name}'` | CRDs do operator | 🔍 | 7.5 |
+| `oc get csv <csv> -o jsonpath='{.metadata.annotations.alm-examples}' \| jq` | Exemplos de CR | 🔍 | 7.5 |
+| `oc delete subscription <s> -n <ns>` · `oc delete csv <csv> -n <ns>` | Remover pela CLI (📘) | ✏️ | 7.5 |
 
 ## Git nas atividades (apoio)
 

@@ -71,14 +71,14 @@ que você já executou seus laboratórios.
 - [ ] REVISAO.md
 - [ ] RESUMO.md
 
-## Capítulo 7 — Managing Kubernetes Operators (⏳ documentação aguardando PDF)
-- [ ] 7.1 Kubernetes Operators and the OLM
-- [ ] 7.2 Matching
+## Capítulo 7 — Managing Kubernetes Operators
+- [ ] 7.1 Kubernetes Operators and the Operator Lifecycle Manager
+- [ ] 7.2 Quiz (associação)
 - [ ] 7.3 Installing Operators by Using the Web Console
-- [ ] 7.4 GE Install Operators by Using the Web Console
+- [ ] 7.4 GE `operators-web`
 - [ ] 7.5 Installing Operators with the CLI
-- [ ] 7.6 GE Install Operators with the CLI
-- [ ] 7.7 Lab Manage Kubernetes Operators
+- [ ] 7.6 GE `operators-cli`
+- [ ] 7.7 Lab `operators-review` (`lab grade`)
 - [ ] REVISAO.md
 - [ ] RESUMO.md
 
