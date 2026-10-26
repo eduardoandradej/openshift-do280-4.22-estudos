@@ -51,7 +51,7 @@ flowchart LR
 | [Capítulo 6](capitulos/06-autosservico/README.md) | Enabling Developer Self-service | ✅ |
 | [Capítulo 7](capitulos/07-operadores-kubernetes/README.md) | Managing Kubernetes Operators | ✅ |
 | [Capítulo 8](capitulos/08-seguranca-aplicacoes/README.md) | Application Security | ✅ |
-| [Capítulo 9](capitulos/09-atualizacoes-openshift/README.md) | OpenShift Updates | ⏳ Aguardando PDF |
+| [Capítulo 9](capitulos/09-atualizacoes-openshift/README.md) | OpenShift Updates | ✅ |
 | [Capítulo 10](capitulos/10-revisao-integrada/README.md) | Comprehensive Review | ⏳ Aguardando PDF |
 
 Legenda: ✅ documentação concluída e validada · ⏳ aguardando o PDF do capítulo.
@@ -66,14 +66,14 @@ O status refere-se à **documentação**, não ao seu estudo.
 | [troubleshooting.md](consulta-rapida/troubleshooting.md) | Sintoma → causa provável → como verificar |
 | [glossario.md](consulta-rapida/glossario.md) | Termos em ordem alfabética |
 
-Cobertura atual: Capítulos 1 a 8. Cada arquivo remete à consulta rápida do DO180 para os
+Cobertura atual: Capítulos 1 a 9. Cada arquivo remete à consulta rápida do DO180 para os
 assuntos anteriores.
 
 ## Outros diretórios
 
 | Diretório | Conteúdo |
 |-----------|----------|
-| [exemplos-originais/](exemplos-originais/README.md) | Manifestos, kustomizations, template, chart Helm, OAuth, RBAC, Routes, NetworkPolicies, service-ca, LoadBalancer, redes adicionais, quotas, limit ranges, template de projeto, recursos do OLM, SCC/RBAC de aplicações e CronJobs autorais, validados |
+| [exemplos-originais/](exemplos-originais/README.md) | Manifestos, kustomizations, template, chart Helm, OAuth, RBAC, Routes, NetworkPolicies, service-ca, LoadBalancer, redes adicionais, quotas, limit ranges, template de projeto, recursos do OLM, SCC/RBAC de aplicações, CronJobs e `ClusterExtension` autorais, validados |
 | [certificacao/](certificacao/README.md) | Matriz de competências EX280 |
 | [progresso/](progresso/estado-do-projeto.md) | Estado da documentação, checklist, diário, objetivos, dificuldades |
 | [modelos/](modelos/modelo-licao.md) | Modelos de lição, capítulo e prática oficial |

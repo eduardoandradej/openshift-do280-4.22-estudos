@@ -5,7 +5,7 @@
 > [CLAUDE.md](../CLAUDE.md). O progresso de estudo do aluno fica no
 > [checklist geral](checklist-geral.md) e no [diário](diario-de-laboratorios.md).
 
-**Última atualização:** 2026-10-26 (Capítulo 8 concluído)
+**Última atualização:** 2026-10-26 (Capítulo 9 concluído)
 
 ## Situação por módulo
 
@@ -21,10 +21,10 @@
 | Capítulo 6 | ✅ validado | p. 245–302 | 3 lições + prática (com armadilhas), revisão, resumo (sem quiz) |
 | Capítulo 7 | ✅ validado | p. 303–350 | 3 lições + prática (com armadilhas e o quiz 7.2), revisão, resumo |
 | Capítulo 8 | ✅ validado | p. 351–393 | 3 lições + prática (com armadilhas), revisão, resumo (sem quiz) |
-| Capítulo 9 | ⏳ aguardando PDF | — | README estrutural com seções do sumário |
-| Capítulo 10 | ⏳ aguardando PDF | — | idem |
-| consulta-rapida | 🟡 | — | Cobre os Capítulos 1 a 8 (remete ao DO180 para o restante) |
-| exemplos-originais | 🟡 | — | Exemplos dos Capítulos 1 a 8, validados com `kustomize build`, `helm lint`/`helm template` e decodificação estrita (tipos Kubernetes, Route, ANP, UDN/CUDN, NAD, MetalLB, quotas, Template, config de projetos, OperatorGroup, Subscription, RBAC de SCC, CronJob) |
+| Capítulo 9 | ✅ validado | p. 394–433 | 3 lições + roteiro dos 4 quizzes (sem labs), revisão, resumo |
+| Capítulo 10 | ⏳ aguardando PDF | — | README estrutural com seções do sumário |
+| consulta-rapida | 🟡 | — | Cobre os Capítulos 1 a 9 (remete ao DO180 para o restante) |
+| exemplos-originais | 🟡 | — | Exemplos dos Capítulos 1 a 9, validados com `kustomize build`, `helm lint`/`helm template` e decodificação estrita (tipos Kubernetes, Route, ANP, UDN/CUDN, NAD, MetalLB, quotas, Template, config de projetos, OperatorGroup, Subscription, RBAC de SCC, CronJob, ClusterExtension) |
 | certificacao | 🟡 | — | Matriz EX280 relacionando áreas do exame às lições |
 
 ## PDFs recebidos
@@ -40,6 +40,7 @@
 | `DO280_4.22_C06_Autosservico_Desenvolvedores_p245-302.pdf` | Capítulo 6 completo | 245–302 |
 | `DO280_4.22_C07_Operadores_Kubernetes_p303-350.pdf` | Capítulo 7 completo | 303–350 |
 | `DO280_4.22_C08_Seguranca_Aplicacoes_p351-393.pdf` | Capítulo 8 completo | 351–393 |
+| `DO280_4.22_C09_Atualizacoes_OpenShift_p394-433.pdf` | Capítulo 9 completo | 394–433 |
 
 Os PDFs **não** são versionados (bloqueados pelo `.gitignore`); o texto foi extraído
 apenas no scratchpad da sessão.
@@ -114,6 +115,14 @@ apenas no scratchpad da sessão.
 - Ambiente (Cap. 8): exercícios alternam `developer` e `admin`; SCCs e papéis de cluster
   são concedidos como `admin`; o GE 8.6 concede `cluster-admin` e `privileged` a uma SA
   só para o exercício.
+- Capítulo 9: abertura p. 394; 9.1 Updating Clusters (p. 395–407); 9.2 Quiz (p. 408–409;
+  solução p. 410–411); 9.3 Detecting Deprecated Kubernetes API Usage (p. 412–416); 9.4
+  Quiz (p. 417; solução p. 418); 9.5 Updating Operators with the OLM (p. 419–424); 9.6
+  Quiz (p. 425–426; solução p. 427–428); 9.7 Quiz do capítulo (p. 429–430; solução
+  p. 431–432); 9.8 Summary (p. 433). **Sem guided exercises nem lab** (nenhum `lab`).
+- Fatos do Cap. 9: OpenShift 4.22 = Kubernetes 1.35; OLM v1 (`ClusterExtension`) é GA na
+  4.22, só pela CLI; boot image skew enforcement novo na 4.22 (não se aplica a nó único
+  nem a bare metal — caso do cluster do curso).
 - Sumário completo dos capítulos 2–10 (títulos e tipos de seção) conferido nas p. 3–5.
 
 ## Divergências e imprecisões encontradas no PDF (Cap. 1)
@@ -282,6 +291,32 @@ Nenhuma imprecisão técnica identificada. Observações registradas no resumo:
   `backoffLimit` 6) conferidos em `k8s.io/api` v0.37.1; `oc set serviceaccount` e
   `oc create job --from cronjob/` conferidos no código do kubectl.
 
+## Divergências e imprecisões encontradas no PDF (Cap. 9)
+
+| Página | Ponto | Tratamento no repositório |
+|--------|-------|---------------------------|
+| p. 401 | "O CVO atualiza os componentes e depois os que o OLM gerencia" | O CVO atualiza os cluster operators (inclusive o OLM); operators adicionais são atualizados pelo OLM, por Subscription, e devem estar compatíveis antes (p. 405 e seção 9.5) |
+| p. 406 | "A *cluster service version* mostra o progresso" | O recurso é o ClusterVersion; CSV é recurso do OLM |
+| p. 398 | Mudar de versão menor escolhendo um canal "como `fast-4.22`" | Deve ser o canal da versão de destino |
+| p. 413 | "Sem APIs obsoletas em uso, `oc get apirequestcounts` retorna vazio" | 📘 Lista todos os recursos com requisições; obsoletas têm `REMOVEDINRELEASE`; filtro JSONPath da documentação |
+
+## Complementos de fonte externa usados no Cap. 9 (marcados 📘)
+
+- `oc adm upgrade channel <canal>` (conferido no código do `oc`, branch `release-4.22`).
+- Política de obsolescência do Kubernetes (beta: 9 meses ou 3 versões, o que for maior).
+- Campos da `ClusterExtension` (`upgradeConstraintPolicy`, `namespace`) conferidos em
+  `operator-controller` v1.12.0; a lição recomenda `oc explain` por haver diferenças entre
+  versões do OLM v1 (ex.: `serviceAccount` obrigatório em versões antigas, ignorado nas
+  novas).
+
+## Validação do Capítulo 9
+
+- [x] Seções 9.1–9.8 representadas, na ordem; quatro quizzes citados sem reproduzir alternativas ou gabaritos.
+- [x] Ausência de `lab` e de `lab grade` registrada; avisos ⛔ para comandos de atualização no ambiente do curso.
+- [x] `ClusterExtension` validada com decodificação estrita (`operator-controller` v1.12.0); YAML das lições e da consulta rápida conferidos.
+- [x] Links relativos, âncoras e links para o DO180 verificados por script.
+- [x] Varredura de senhas do laboratório, e-mail e marca d'água: nada encontrado.
+
 ## Validação do Capítulo 8
 
 - [x] Seções 8.1–8.8 representadas, na ordem; ausência de quiz registrada.
@@ -391,7 +426,7 @@ script e conferidos nas lições; nenhum tópico ficou de fora.
 
 | Item | Quando |
 |------|--------|
-| Desenvolver o Capítulo 9 | Ao receber o PDF do Capítulo 9 |
+| Desenvolver o Capítulo 10 | Ao receber o PDF do Capítulo 10 |
 | Ampliar `consulta-rapida` e `exemplos-originais` | A cada capítulo |
 | Assuntos herdados do DO180 ainda não retomados: criptografia do etcd (RBAC no Cap. 3, TLS em Routes no Cap. 4, LimitRange/ResourceQuota no Cap. 6, SCC no Cap. 8) | Se aparecer nos Caps. 9–10 |
 
@@ -400,15 +435,16 @@ script e conferidos nas lições; nenhum tópico ficou de fora.
 - Repositório: `eduardoandradej/openshift-do280-4.22-estudos` (já existia com `LICENSE` Apache-2.0; nada foi sobrescrito).
 - Visibilidade: definida pelo usuário.
 - Fluxo de publicação: por decisão do usuário (2026-10-26), o conteúdo validado vai direto para o branch `main`, sem PR. O primeiro commit foi feito em `claude/gallant-shannon-b4zr78` e integrado à `main` por fast-forward.
-- Último commit relevante: ver `git log` da `main` (commit do Capítulo 8).
+- Último commit relevante: ver `git log` da `main` (commit do Capítulo 9).
 
 ## Próximo passo
 
-Aguardar o PDF do **Capítulo 9 — OpenShift Updates** (sumário: 9.1 Updating Clusters,
-9.2 Quiz, 9.3 Detecting Deprecated Kubernetes API Usage, 9.4 Quiz, 9.5 Updating Operators
-with the OLM, 9.6 Quiz, 9.7 Quiz, 9.8 Summary). Ao recebê-lo: ler este arquivo e o
-`CLAUDE.md`, confirmar páginas e identificadores `lab` (se houver), e seguir o fluxo da
-seção 6 do `CLAUDE.md`.
+Aguardar o PDF do **Capítulo 10 — Comprehensive Review** (sumário: 10.1 Summary of
+Learning Objectives, 10.2 Lab Set up Cluster Self-service, 10.3 Lab Secure Applications,
+10.4 Lab Deploy Packaged Applications, 10.5 Summary). Ao recebê-lo: ler este arquivo e o
+`CLAUDE.md`, confirmar páginas e identificadores `lab`, e seguir o fluxo da seção 6 do
+`CLAUDE.md`. Depois do Capítulo 10, fazer a consolidação final (consulta rápida, matriz
+EX280, status do curso), como no DO180.
 
 ---
 [Início](../README.md) | [Checklist geral](checklist-geral.md)

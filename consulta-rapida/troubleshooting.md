@@ -1,6 +1,6 @@
 # Troubleshooting: sintoma → causa → verificação
 
-> Cobertura: **Capítulos 1–8**. Para Pods, Services, Routes, storage e recursos, veja o
+> Cobertura: **Capítulos 1–9**. Para Pods, Services, Routes, storage e recursos, veja o
 > [troubleshooting do DO180](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/consulta-rapida/troubleshooting.md).
 
 ## Roteiro geral para mudanças declarativas
@@ -186,6 +186,18 @@ flowchart TD
 | `... at the cluster scope` | Recurso de cluster | ClusterRole + ClusterRoleBinding mínimos |
 | CronJob nunca roda | `schedule`, `suspend` ou fuso | `oc get cronjob` (SCHEDULE, SUSPEND, LAST SCHEDULE) |
 | Script do ConfigMap sem permissão | Volume sem execução | `defaultMode: 0555` |
+
+## Atualizações (Cap. 9)
+
+| Sintoma | Causa provável | Como verificar / resolver |
+|---------|----------------|---------------------------|
+| Nenhuma atualização listada | Canal, cluster desconectado ou caminho bloqueado | `oc adm upgrade`; canal correto; espelho em ambiente desconectado |
+| `Upgradeable=False` (`IncompatibleOperatorsInstalled`) | Operator incompatível com o destino | Atualizar o operator ou desinstalar/reinstalar após o cluster |
+| `Upgradeable=False` no `machine-config` | Boot image abaixo do mínimo | `bootImageSkewEnforcementStatus`; atualizar a boot image |
+| `PROGRESSING True` por muito tempo / History `Partial` | Componente travado | `oc get co`, `oc get mcp`, `oc get nodes`; suporte (sem rollback) |
+| `Warning: ... is deprecated` | Manifesto com API obsoleta | Trocar `apiVersion` |
+| `no matches for kind ... in version ...` | API removida | Migrar o manifesto |
+| Operator "Upgrade available" parado | Aprovação manual | Aprovar o install plan |
 
 ---
 [Início](../README.md)

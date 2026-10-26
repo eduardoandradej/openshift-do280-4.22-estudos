@@ -93,7 +93,7 @@ que você já executou seus laboratórios.
 - [ ] REVISAO.md
 - [ ] RESUMO.md
 
-## Capítulo 9 — OpenShift Updates (⏳ documentação aguardando PDF)
+## Capítulo 9 — OpenShift Updates (sem labs; só quizzes)
 - [ ] 9.1 Updating Clusters
 - [ ] 9.2 Quiz The Cluster Update Process
 - [ ] 9.3 Detecting Deprecated Kubernetes API Usage

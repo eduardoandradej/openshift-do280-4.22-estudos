@@ -1,0 +1,17 @@
+# Operator gerenciado pelo OLM v1 acompanhando uma FAIXA de versões (lição 9.5).
+# Atualizar = editar version (ou channels) e reaplicar com oc apply.
+# Os campos obrigatórios variam entre versões do OLM v1: confira no cluster com
+#   oc explain clusterextension.spec
+# (algumas versões exigem também spec.serviceAccount.name; nas mais novas ele é ignorado).
+apiVersion: olm.operatorframework.io/v1
+kind: ClusterExtension
+metadata:
+  name: auditoria
+spec:
+  namespace: auditoria-operator       # onde o OLM v1 instala o operator
+  source:
+    sourceType: Catalog
+    catalog:
+      packageName: auditoria-operator
+      version: ">=1.14, <1.16"         # ou versão fixa "1.15.0"; ou channels: [stable]
+      upgradeConstraintPolicy: CatalogProvided

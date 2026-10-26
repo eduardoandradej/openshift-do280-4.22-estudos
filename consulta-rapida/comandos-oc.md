@@ -1,6 +1,6 @@
 # Comandos `oc` por tarefa
 
-> Cobertura: **Capítulos 1–8**. Os comandos do DO180 estão na
+> Cobertura: **Capítulos 1–9**. Os comandos do DO180 estão na
 > [consulta rápida do DO180](https://github.com/eduardoandradej/openshift-do180-4.22-estudos/blob/main/consulta-rapida/comandos-oc.md).
 > Coluna **Tipo:** 🔍 somente leitura · ✏️ altera o cluster · 🖥️ só local.
 
@@ -221,6 +221,21 @@
 | `oc create job <j> --from cronjob/<cj>` | Executar o CronJob agora | ✏️ | 8.5 |
 | `oc get cronjobs,jobs,pods` · `oc logs job/<j>` | Acompanhar execuções | 🔍 | 8.5 |
 | `oc debug node/<nó> -- chroot /host crictl images` | Imagens no nó | 🔍 | 8.5 |
+
+## Atualizações (Cap. 9)
+
+| Comando | Para quê | Tipo | Lição |
+|---------|----------|------|-------|
+| `oc get clusterversion` · `oc describe clusterversion` | Versão, progresso, condições e History | 🔍 | [9.1](../capitulos/09-atualizacoes-openshift/9.1-atualizar-clusters.md) |
+| `oc adm upgrade` | Versão, canal, canais disponíveis e atualizações recomendadas | 🔍 | 9.1 |
+| `oc patch clusterversion version --type merge -p '{"spec":{"channel":"<c>"}}'` · `oc adm upgrade channel <c>` | Trocar o canal (⛔ não no curso) | ✏️ | 9.1 |
+| `oc annotate machinehealthcheck <m> -n openshift-machine-api cluster.x-k8s.io/paused=""` / `paused-` | Pausar / retomar MHC (⛔ não no curso) | ✏️ | 9.1 |
+| `oc adm upgrade --to-latest=true` · `--to=<versão>` | Atualizar (⛔ não no curso) | ✏️ | 9.1 |
+| `watch oc get clusterversion,clusteroperators` | Acompanhar a atualização | 🔍 | 9.1 |
+| `oc get apirequestcounts` | APIs em uso (`REMOVEDINRELEASE` = obsoleta) | 🔍 | [9.3](../capitulos/09-atualizacoes-openshift/9.3-apis-obsoletas.md) |
+| `oc get apirequestcount <recurso.versão.grupo> -o jsonpath=...byUser...` | Quem usa a API obsoleta | 🔍 | 9.3 |
+| `oc get sub <s> -n <ns> -o jsonpath='{.status.installedCSV} {.status.currentCSV}'` | Versão instalada × disponível | 🔍 | [9.5](../capitulos/09-atualizacoes-openshift/9.5-atualizar-operators-com-olm.md) |
+| `oc get clusterextension` · `oc explain clusterextension.spec` | Operators do OLM v1 | 🔍 | 9.5 |
 
 ## Git nas atividades (apoio)
 

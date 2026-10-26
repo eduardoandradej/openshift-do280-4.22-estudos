@@ -21,6 +21,7 @@ laboratório durante uma atividade.
 | [autosservico/](autosservico/) | Quotas de computação e de objetos, ClusterResourceQuota, LimitRange com padrões, template de projeto (RoleBinding, LimitRange, ResourceQuota, NetworkPolicy) e configuração global de projetos | [6.1](../capitulos/06-autosservico/6.1-quotas-de-projeto-e-cluster.md) · [6.3](../capitulos/06-autosservico/6.3-limit-ranges.md) · [6.5](../capitulos/06-autosservico/6.5-template-de-projeto-e-self-provisioner.md) |
 | [operators/](operators/) | Namespace para operator, OperatorGroup `OwnNamespace`, Subscription com aprovação manual e referência dos outros modos (todos, vários namespaces, selector) | [7.5](../capitulos/07-operadores-kubernetes/7.5-instalar-operators-pela-cli.md) |
 | [seguranca-aplicacoes/](seguranca-aplicacoes/) | SA + Deployment com `required-scc`, Role/RoleBinding de uso de SCC no projeto, acesso mínimo à API em outro projeto e CronJob com script em ConfigMap | [8.1](../capitulos/08-seguranca-aplicacoes/8.1-security-context-constraints.md) · [8.3](../capitulos/08-seguranca-aplicacoes/8.3-acesso-de-aplicacoes-a-api.md) · [8.5](../capitulos/08-seguranca-aplicacoes/8.5-manutencao-com-cron-jobs.md) |
+| [atualizacoes/](atualizacoes/) | `ClusterExtension` (OLM v1) acompanhando uma faixa de versões | [9.5](../capitulos/09-atualizacoes-openshift/9.5-atualizar-operators-com-olm.md) |
 | [helm-catalogo/](helm-catalogo/) | Chart Helm mínimo (Deployment, Service, Route opcional, `resources` por valores) + `values-producao.yaml` | [2.3](../capitulos/02-aplicacoes-empacotadas/2.3-charts-do-helm.md) |
 
 O patch fica **fora** de `manifestos-catalogo/` de propósito: `oc apply -f <dir>`
@@ -83,7 +84,7 @@ O arquivo de parâmetros do template usa extensão `.txt` porque o `.gitignore` 
 repositório bloqueia arquivos `.env`.
 
 Regras: nenhum Secret real, nenhuma credencial e nenhum host do ambiente oficial.
-Todos os arquivos são validados antes do commit: parser YAML, `kustomize build`, `helm lint`/`helm template` e decodificação estrita contra os tipos das APIs (Kubernetes, Route, AdminNetworkPolicy, UDN/CUDN, NAD, MetalLB, ResourceQuota, LimitRange, ClusterResourceQuota, Template, configuração de projetos, OperatorGroup e Subscription (`operator-framework/api`), Role/ClusterRole e CronJob, inclusive cada objeto do template e a ordem `max ≥ default ≥ defaultRequest ≥ min`).
+Todos os arquivos são validados antes do commit: parser YAML, `kustomize build`, `helm lint`/`helm template` e decodificação estrita contra os tipos das APIs (Kubernetes, Route, AdminNetworkPolicy, UDN/CUDN, NAD, MetalLB, ResourceQuota, LimitRange, ClusterResourceQuota, Template, configuração de projetos, OperatorGroup e Subscription (`operator-framework/api`), Role/ClusterRole, CronJob e `ClusterExtension` (`operator-controller` v1.12.0), inclusive cada objeto do template e a ordem `max ≥ default ≥ defaultRequest ≥ min`).
 
 ---
 [Início](../README.md)

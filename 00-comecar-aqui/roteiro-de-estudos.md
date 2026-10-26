@@ -13,7 +13,7 @@
 | 6 | Capítulo 6 — Autosserviço de desenvolvedores | 4–5 h + atividades |
 | 7 | Capítulo 7 — Operators | 4–5 h + atividades |
 | 8 | Capítulo 8 — Segurança de aplicações | 5–6 h + atividades |
-| 9 | Capítulo 9 — Atualizações do OpenShift | a definir com o PDF |
+| 9 | Capítulo 9 — Atualizações do OpenShift | 3–4 h (quizzes, sem labs) |
 | 10 | Capítulo 10 — Revisão integrada | a definir com o PDF |
 
 \* Estimativa pessoal para orientar o planejamento, não um dado oficial.

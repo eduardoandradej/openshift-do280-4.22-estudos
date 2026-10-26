@@ -1,8 +1,8 @@
 # Exemplos YAML comentados
 
-Todos autorais e validados (`yaml.safe_load`, `kustomize build` v5.7.1, `helm lint`/`helm template` v3.17 e decodificação estrita contra os tipos das APIs: Kubernetes, `route.openshift.io/v1`, `policy.networking.k8s.io/v1alpha1`, `k8s.ovn.org/v1`, `k8s.cni.cncf.io/v1`, `metallb.io/v1beta1`, `quota.openshift.io/v1`, `template.openshift.io/v1`, `config.openshift.io/v1`, `operators.coreos.com` e `batch/v1`). Arquivos
+Todos autorais e validados (`yaml.safe_load`, `kustomize build` v5.7.1, `helm lint`/`helm template` v3.17 e decodificação estrita contra os tipos das APIs: Kubernetes, `route.openshift.io/v1`, `policy.networking.k8s.io/v1alpha1`, `k8s.ovn.org/v1`, `k8s.cni.cncf.io/v1`, `metallb.io/v1beta1`, `quota.openshift.io/v1`, `template.openshift.io/v1`, `config.openshift.io/v1`, `operators.coreos.com`, `batch/v1` e `olm.operatorframework.io/v1`). Arquivos
 aplicáveis em [exemplos-originais/](../exemplos-originais/README.md).
-Cobertura: **Capítulos 1–8**.
+Cobertura: **Capítulos 1–9**.
 
 ## Vários manifestos em um arquivo
 
@@ -506,6 +506,25 @@ spec:
 ```
 
 Mais em [exemplos-originais/seguranca-aplicacoes/](../exemplos-originais/seguranca-aplicacoes/).
+
+## ClusterExtension (OLM v1) com faixa de versões
+
+```yaml
+apiVersion: olm.operatorframework.io/v1
+kind: ClusterExtension
+metadata:
+  name: auditoria
+spec:
+  namespace: auditoria-operator
+  source:
+    sourceType: Catalog
+    catalog:
+      packageName: auditoria-operator
+      version: ">=1.14, <1.16"     # ou "1.15.0"; ou channels: [stable]
+```
+
+Confira os campos obrigatórios da sua versão com `oc explain clusterextension.spec`. Mais em
+[exemplos-originais/atualizacoes/](../exemplos-originais/atualizacoes/).
 
 ---
 [Início](../README.md)

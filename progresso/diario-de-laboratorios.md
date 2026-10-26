@@ -50,6 +50,10 @@ cada nova entrada. **Não** cole senhas, tokens nem saídas que contenham creden
 | 8.4 | GE `appsec-api` | | | |
 | 8.6 | GE `appsec-prune` | | | |
 | 8.7 | Lab `appsec-review` (grade) | | | |
+| 9.2 | Quiz (cluster update) | | | |
+| 9.4 | Quiz (APIs obsoletas) | | | |
+| 9.6 | Quiz (operators com OLM) | | | |
+| 9.7 | Quiz do capítulo 9 | | | |
 
 > Linhas dos próximos capítulos serão acrescentadas quando os identificadores `lab`
 > forem verificados nos respectivos PDFs.

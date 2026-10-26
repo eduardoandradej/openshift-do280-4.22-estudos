@@ -97,7 +97,17 @@ Meta do capítulo: executar aplicações que precisam de privilégios elevados o
 | Permitir que uma aplicação acesse as APIs do Kubernetes do cluster | [8.3](../capitulos/08-seguranca-aplicacoes/8.3-acesso-de-aplicacoes-a-api.md) | [ ] |
 | Automatizar tarefas regulares de gerenciamento com cron jobs | [8.5](../capitulos/08-seguranca-aplicacoes/8.5-manutencao-com-cron-jobs.md) | [ ] |
 
-## 10. Capítulos 9 e 10
+## 10. Capítulo 9 — OpenShift Updates (✅ PDF p. 394–433)
+
+Meta do capítulo: atualizar um cluster OpenShift minimizando a interrupção das aplicações.
+
+| Objetivo da seção | Lição | Estudado? |
+|-------------------|-------|-----------|
+| Descrever o processo de atualização do cluster | [9.1](../capitulos/09-atualizacoes-openshift/9.1-atualizar-clusters.md) | [ ] |
+| Identificar aplicações que usam APIs obsoletas do Kubernetes | [9.3](../capitulos/09-atualizacoes-openshift/9.3-apis-obsoletas.md) | [ ] |
+| Atualizar operators gerenciados pelo OLM pela console e pela CLI | [9.5](../capitulos/09-atualizacoes-openshift/9.5-atualizar-operators-com-olm.md) | [ ] |
+
+## 11. Capítulo 10
 
 ⏳ Os objetivos de cada seção serão registrados aqui quando os PDFs forem recebidos.
 
