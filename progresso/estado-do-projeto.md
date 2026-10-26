@@ -91,7 +91,6 @@ apenas no scratchpad da sessão.
 | Página | Ponto | Tratamento no repositório |
 |--------|-------|---------------------------|
 | p. 37 e 40 | Tabela diz que `labels` vale também para selectors; saída mostra label em `matchLabels` | Lição 1.3 ensina o padrão real (`includeSelectors: false`), verificado com kustomize v5.7.1 |
-| p. 37 | Diz que `commonLabels` gera erro sugerindo `kustomize edit fix` | No kustomize v5.7.1 é **aviso**; a lição diz que o comportamento pode variar com a versão embutida no `oc` |
 | p. 23–25 | `--patch-file` "altera" o `mountPath` existente; patch usa container `hello`, mas o objeto vivo mostra `server` | Lição 1.1 explica chave de mesclagem `mountPath` (resultado: dois mounts) e a exigência de nome de container existente; verificado com `strategicpatch` (apimachinery v0.33) |
 | p. 31 | Saída de `oc apply` mostra `deployment.apps/exoplanets unchanged` logo após um diff que muda a imagem | Inconsistência de saída sem impacto; não reproduzida |
 
@@ -129,7 +128,6 @@ valores no `helm upgrade` (conferida em `pkg/action/upgrade.go`, Helm 3.17);
 | Página | Ponto | Tratamento no repositório |
 |--------|-------|---------------------------|
 | p. 116 | Arquivo criado com `htpasswd -B`, mas a saída de exemplo mostra hash `$apr1$` (MD5) | Lição e resumo indicam que `-B` gera `$2y$` (bcrypt), como nos guided exercises |
-| p. 113 | kubeconfig do instalador com certificado "que nunca expira" | Lição descreve como certificado de longa duração e credencial de emergência |
 | p. 132 | "Por padrão, service accounts não têm papéis" | Lição registra (📘) que algumas service accounts criadas pelo OpenShift recebem vínculos de sistema |
 | p. 131 | `system:authenticated:oauth` descrito como o grupo de "todos os usuários autenticados" | Lições 3.1 e 3.3 explicam que ele reúne os autenticados por token OAuth; `system:authenticated` é o de todos |
 
@@ -155,8 +153,6 @@ sobre a limpeza de Users/Identities no GE 3.2.
 | p. 164–165 | Item de `from` só com `podSelector` aceitaria Pods "de qualquer namespace" | Seleciona Pods do namespace da política (conferido em `NetworkPolicyPeer`, `k8s.io/api/networking/v1`) |
 | p. 167 | Exemplo de ANP com `matchLabels: {sensitive: true}` | Booleano recusado pelo `oc apply`; lição usa `"true"` (verificado com `sigs.k8s.io/network-policy-api` v0.1.5) |
 | p. 173 | "Namespaces não recebem labels automaticamente" | Todo namespace tem `kubernetes.io/metadata.name` (a própria saída do GE mostra) |
-| p. 149 × p. 178 | Passthrough "mais seguro" × re-encrypt "o mais seguro" | Lição explica que ambos cifram ponta a ponta |
-| p. 178 | "Edge é o tipo padrão" | Nota: em manifestos de Route com `spec.tls`, `termination` é obrigatório |
 | p. 151–152 | Texto diz que o `lab start` cria o projeto e o passo 1 manda criá-lo | Inconsistência só do texto: seguindo o PDF, o passo funciona (confirmado pelo usuário); prática oficial explica o que fazer se repetir a atividade |
 | p. 158 | Prompt impresso em outro diretório ao criar o Secret TLS | Inconsistência só do texto: na sequência do PDF o comando funciona |
 | p. 152 | `oc status` mostra tag de imagem diferente da citada | Inconsistência de saída sem impacto |
@@ -247,6 +243,34 @@ IP estático + várias réplicas gera conflito.
 - [x] YAML dos exemplos validado com parser; `kustomize build` da base e dos dois overlays sem erro.
 - [x] Links relativos, âncoras e links para o DO180 verificados por script.
 - [x] Varredura de senhas do laboratório, e-mail e marca d'água: nada encontrado.
+
+## Revisão geral das divergências (Caps. 1–5, 2026-10-26)
+
+Pedido do usuário: rever se algo foi "corrigido" sem necessidade. Critério: só é
+divergência técnica o que foi **verificado** (teste local, código da API ou a própria
+saída do PDF). O resto foi rebaixado para observação e o texto das lições voltou a
+seguir a apostila.
+
+| Item | Veredito | Evidência / ação |
+|------|----------|------------------|
+| `labels` × selectors (Cap. 1, p. 37/40) | Mantida | Testado com kustomize v5.7.1 |
+| `commonLabels` "gera erro" (Cap. 1, p. 37) | **Rebaixada** para observação | Não há como confirmar a mensagem do `oc` 4.22; lição volta a seguir a apostila e cita o teste só como nota 📘 |
+| Patch de `volumeMounts` (Cap. 1, p. 23–25) | Mantida | Biblioteca `strategicpatch` do Kubernetes |
+| Hash `$apr1$` com `-B` (Cap. 3, p. 116) | Mantida (inconsistência de saída) | Os próprios GEs mostram `$2y$` |
+| kubeconfig "nunca expira" (Cap. 3, p. 113) | **Retirada** | Não verificada; lição volta a citar a apostila |
+| Service accounts "sem papéis" (Cap. 3, p. 132) | Mantida | O próprio GE 3.4 menciona os RoleBindings padrão de service accounts |
+| `system:authenticated:oauth` (Cap. 3, p. 131) | Mantida | Código do `oauth-apiserver`: o grupo é adicionado só a tokens OAuth |
+| `podSelector` isolado = mesmo namespace (Cap. 4, p. 164–165) | Mantida | Definição de `NetworkPolicyPeer` na API |
+| Label booleano em ANP (Cap. 4, p. 167) | Mantida | Decodificação com os tipos da API |
+| Labels automáticos de namespace (Cap. 4, p. 173) | Mantida | A saída do GE 4.4 mostra o label |
+| "Mais seguro" passthrough × re-encrypt (Cap. 4) | **Rebaixada** para observação | Critérios diferentes nas duas seções; não é erro |
+| "Edge é o tipo padrão" (Cap. 4, p. 178) | **Retirada** da lista de divergências | Fica só como complemento 📘 na lição |
+| Certificado padrão do ingress (Cap. 4, p. 149/154–156) | Mantida | A saída do GE 4.2 mostra a CA da sala de aula |
+| Layer2 × Layer3 de UDN (Cap. 5, p. 215) | Mantida | Comentários da API `UserDefinedNetwork` |
+| Saídas/exemplos inconsistentes (p. 31, 152, 217–218) e textos dos GEs 4.2 | Mantidas como inconsistência de texto, sem impacto | Seguindo o PDF, os comandos funcionam (confirmado pelo usuário) |
+
+Cobertura: todos os subtítulos das seções conceituais dos PDFs 1–5 foram levantados por
+script e conferidos nas lições; nenhum tópico ficou de fora.
 
 ## Pendências
 

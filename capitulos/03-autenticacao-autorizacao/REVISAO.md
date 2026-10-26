@@ -44,7 +44,7 @@ Responda sem consultar as lições; confira no final.
 2. O servidor OAuth recebe o login, pede ao IdP configurado no recurso OAuth que valide a credencial, reconcilia Identity/User e emite o token de acesso.
 3. User representa o ator no OpenShift; Identity registra o vínculo dele com um IdP (`idp:usuario`). Ambos são criados automaticamente no primeiro login bem-sucedido.
 4. É um arquivo local mantido manualmente pelo administrador, sem integração com o diretório da organização; usuários não trocam a própria senha.
-5. O kubeconfig usa um certificado X.509 e não depende do OAuth; o `kubeadmin` é um usuário virtual que obtém token OAuth. Só se remove o `kubeadmin` depois de outro usuário com `cluster-admin` estar funcionando (e nunca no ambiente do curso).
+5. O kubeconfig usa um certificado X.509 (que, segundo a apostila, nunca expira) e não depende do OAuth; o `kubeadmin` é um usuário virtual que obtém token OAuth. Só se remove o `kubeadmin` depois de outro usuário com `cluster-admin` estar funcionando (e nunca no ambiente do curso).
 6. Regra = verbos sobre recursos de um grupo de API; papel = conjunto de regras; vínculo = associação de um papel a sujeitos. RoleBinding vale em um projeto; ClusterRoleBinding, no cluster todo.
 7. Reaproveita uma definição única (ex.: `edit`) e limita o alcance ao projeto do RoleBinding.
 8. `admin` gerencia todo o projeto, inclusive acessos, quotas e limit ranges; `edit` cria e altera recursos de aplicação, sem gerenciar acessos; `view` só lê.

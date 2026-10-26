@@ -73,7 +73,6 @@ mindmap
 | Ponto | Apostila | Observação |
 |-------|----------|------------|
 | Exemplo de arquivo htpasswd (p. 116) | Criado com `-B`, mas a saída mostra hash `$apr1$` (MD5) | Com `-B` o hash começa com `$2y$` (bcrypt), como nos guided exercises |
-| kubeconfig do instalador (p. 113) | Certificado "que nunca expira" | 📘 É um certificado de longa duração; trate-o como credencial de emergência |
 | Grupo `system:authenticated:oauth` (p. 131) | Grupo de "todos os usuários autenticados" | Reúne os autenticados por token OAuth; `system:authenticated` é o de todos |
 
 ## Ligação com o próximo capítulo
